@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
@@ -29,7 +30,10 @@ public class Clase implements Serializable {
     private int asistencia_total;
     private String hora_inicio;
     private String hora_termino;
-
+    
+    @ManyToOne
+    private Curso curso;
+    
     public String getFecha() {
         return fecha;
     }

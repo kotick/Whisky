@@ -20,15 +20,12 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
     //@NamedQuery(name = "User.getAllUser", query = "SELECT u FROM User u"),
 })
-public class Administrador implements Serializable {
+public class RolUsuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nombre;
-    private String apellido;
-    private String rut;
-    private String email;
 
     public String getNombre() {
         return nombre;
@@ -37,31 +34,6 @@ public class Administrador implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getRut() {
-        return rut;
-    }
-
-    public void setRut(String rut) {
-        this.rut = rut;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     
     public Long getId() {
         return id;
@@ -81,10 +53,10 @@ public class Administrador implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Administrador)) {
+        if (!(object instanceof RolUsuario)) {
             return false;
         }
-        Administrador other = (Administrador) object;
+        RolUsuario other = (RolUsuario) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -93,7 +65,7 @@ public class Administrador implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Administrador[ id=" + id + " ]";
+        return "entity.RolUsuario[ id=" + id + " ]";
     }
     
 }

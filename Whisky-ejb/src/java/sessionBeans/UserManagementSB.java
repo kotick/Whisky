@@ -4,8 +4,8 @@
  */
 package sessionBeans;
 
-import DTOs.UserDTO;
-import entity.User;
+import DTOs.UsuarioDTO;
+import entity.Usuario;
 import java.util.Collection;
 import java.util.LinkedList;
 import javax.ejb.Stateless;
@@ -32,16 +32,16 @@ public class UserManagementSB implements UserManagementSBLocal {
     // "Insert Code > Add Business Method")
 
     @Override
-    public LinkedList<UserDTO> selectAllUser() {
-        Collection<User> resultQuery;
-        LinkedList<UserDTO> result = new LinkedList<UserDTO>();
-        UserDTO userDTOTemp;
-        Query q = em.createNamedQuery("User.getAllUser", User.class);        
-        resultQuery = (Collection<User>) q.getResultList();
-        for(User iter: resultQuery){
-            userDTOTemp = new UserDTO();
-            userDTOTemp.setFirstName(iter.getFirstName());
-            userDTOTemp.setLastName(iter.getLastName());
+    public LinkedList<UsuarioDTO> selectAllUser() {
+        Collection<Usuario> resultQuery;
+        LinkedList<UsuarioDTO> result = new LinkedList<UsuarioDTO>();
+        UsuarioDTO userDTOTemp;
+        Query q = em.createNamedQuery("User.getAllUser", Usuario.class);        
+        resultQuery = (Collection<Usuario>) q.getResultList();
+        for(Usuario iter: resultQuery){
+            userDTOTemp = new UsuarioDTO();
+            userDTOTemp.setNombre(iter.getNombre());
+            userDTOTemp.setApellido(iter.getNombre());
             result.add(userDTOTemp);
         }
         return result;

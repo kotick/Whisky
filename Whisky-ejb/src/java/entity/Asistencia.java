@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
@@ -27,6 +28,10 @@ public class Asistencia implements Serializable {
     private Long id;
     private boolean asistio;
     private String hora;
+    @ManyToOne
+    private Usuario usuario;
+    @ManyToOne
+    private Clase clase;
 
     public boolean isAsistio() {
         return asistio;

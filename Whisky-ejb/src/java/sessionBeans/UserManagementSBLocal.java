@@ -4,7 +4,7 @@
  */
 package sessionBeans;
 
-import DTOs.UserDTO;
+import DTOs.UsuarioDTO;
 import java.util.LinkedList;
 import javax.ejb.Local;
 
@@ -15,6 +15,6 @@ import javax.ejb.Local;
 @Local
 public interface UserManagementSBLocal {
 
-    LinkedList<UserDTO> selectAllUser();
+    LinkedList<UsuarioDTO> selectAllUser();
     
 }

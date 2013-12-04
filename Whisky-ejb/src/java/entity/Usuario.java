@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -18,13 +19,62 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-    //@NamedQuery(name = "User.getAllUser", query = "SELECT u FROM User u"),
+    @NamedQuery(name = "Usuario.getAllUser", query = "SELECT u FROM Usuario u"),
 })
-public class CursoAlumno implements Serializable {
+public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String nombre;
+    private String apellido;
+    private String email;
+    private String rut;
+    private String foto;
+    
+    @OneToOne
+    private RolUsuario rol;
+    
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+    
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRut() {
+        return rut;
+    }
+
+    public void setRut(String rut) {
+        this.rut = rut;
+    }
+
 
     public Long getId() {
         return id;
@@ -44,10 +94,10 @@ public class CursoAlumno implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CursoAlumno)) {
+        if (!(object instanceof Usuario)) {
             return false;
         }
-        CursoAlumno other = (CursoAlumno) object;
+        Usuario other = (Usuario) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -56,7 +106,7 @@ public class CursoAlumno implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.CursoAlumno[ id=" + id + " ]";
+        return "entity.Usuario[ id=" + id + " ]";
     }
     
 }
