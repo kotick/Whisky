@@ -26,22 +26,20 @@ public class UserManagementSB implements UserManagementSBLocal {
         em.persist(object);
     }
 
-    
-    
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    public UserManagementSB() {
+    }
 
     @Override
     public LinkedList<UsuarioDTO> selectAllUser() {
         Collection<Usuario> resultQuery;
         LinkedList<UsuarioDTO> result = new LinkedList<UsuarioDTO>();
         UsuarioDTO userDTOTemp;
-        Query q = em.createNamedQuery("User.getAllUser", Usuario.class);        
+        Query q = em.createNamedQuery("Usuario.getAllUser", Usuario.class);        
         resultQuery = (Collection<Usuario>) q.getResultList();
         for(Usuario iter: resultQuery){
             userDTOTemp = new UsuarioDTO();
             userDTOTemp.setNombre(iter.getNombre());
-            userDTOTemp.setApellido(iter.getNombre());
+            userDTOTemp.setApellido(iter.getApellido());
             result.add(userDTOTemp);
         }
         return result;
