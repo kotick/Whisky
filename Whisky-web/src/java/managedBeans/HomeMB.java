@@ -11,9 +11,15 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+<<<<<<< HEAD
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
+=======
+import sessionBeans.FaceRecognizerSBLocal;
+>>>>>>> Lógica de Reconocer rostros incluida en prueba
 import sessionBeans.ParticipantManagementSBLocal;
+import sessionBeans.oliSD;
+import sessionBeans.oliSDLocal;
 
 /**
  *
@@ -22,10 +28,20 @@ import sessionBeans.ParticipantManagementSBLocal;
 @Named(value = "homeMB")
 @RequestScoped
 public class HomeMB {
+    @EJB
+    private FaceRecognizerSBLocal faceRecognizerSB;
+  
+   
     
     @EJB
     private ParticipantManagementSBLocal participantManagementSB;
     private LinkedList<ParticipantDTO> participantsList;
+    
+
+    
+    
+    private int numero=0;
+   
     
     public HomeMB() {
     }
@@ -33,6 +49,8 @@ public class HomeMB {
     @PostConstruct
     void init(){
         participantsList= participantManagementSB.selectAllUser();
+       numero=faceRecognizerSB.prueba();
+        System.out.println(numero);
         
     }
     
@@ -48,11 +66,19 @@ public class HomeMB {
         }
     }
     public LinkedList<ParticipantDTO> getParticipantsList() {
+        System.out.println("oli");
         return participantsList;
     }
 
     public void setParticipantsList(LinkedList<ParticipantDTO> participantsList) {
         this.participantsList = participantsList;
     }
-
+    
+    /*    public void FaceRecognizer(){
+     * System.out.println("entre al face recog =D");
+     * int i=  faceRecognizerSB.prueba();
+     * System.out.println("Respuesta "+ i);
+     * //return i;
+     * 
+     * }*/
 }

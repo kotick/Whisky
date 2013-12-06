@@ -817,11 +817,26 @@ exists or setup the property manually. For example like this:
         <!-- You can override this target in the ../build.xml file. -->
     </target>
     <target depends="compile,-library-inclusion-in-archive-weblogic,-library-inclusion-in-archive-by-user" name="library-inclusion-in-archive"/>
-    <target if="is.jars.in.ejbjar" name="-library-inclusion-in-archive-by-user"/>
+    <target if="is.jars.in.ejbjar" name="-library-inclusion-in-archive-by-user">
+        <copyfiles files="${file.reference.javacpp.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.javacv-windows-x86_64.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.javacv.jar}" todir="${build.classes.dir}"/>
+    </target>
     <target if="is.server.weblogic" name="-library-inclusion-in-archive-weblogic">
-        <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>
+        <basename file="${file.reference.javacpp.jar}" property="manifest.file.reference.javacpp.jar"/>
+        <basename file="${file.reference.javacv-windows-x86_64.jar}" property="manifest.file.reference.javacv-windows-x86_64.jar"/>
+        <basename file="${file.reference.javacv.jar}" property="manifest.file.reference.javacv.jar"/>
+        <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
+            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 "/>
+            <attribute name="jar-1-Extension-Name" value="${manifest.file.reference.javacpp.jar}"/>
+            <attribute name="jar-2-Extension-Name" value="${manifest.file.reference.javacv-windows-x86_64.jar}"/>
+            <attribute name="jar-3-Extension-Name" value="${manifest.file.reference.javacv.jar}"/>
+        </manifest>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
+        <copyfiles files="${file.reference.javacpp.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.javacv-windows-x86_64.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.javacv.jar}" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
     <target name="-copy-meta-inf">
