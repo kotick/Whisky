@@ -10,16 +10,16 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:dataTable id="tabla" value="#{homeMB.listausuarios}" var="usuario">
+        <p:dataTable id="tabla" value="#{homeMB.participantsList}" var="participant">
             <p:column>
-                <h:outputText value="#{usuario.nombre}"/>
+                <h:outputText value="#{participant.firstName}"/>
             </p:column>
             <p:column>
-                <h:outputText value="#{usuario.apellido}"/>
+                <h:outputText value="#{participant.lastName}"/>
             </p:column>
             <p:column>
                 <p:commandLink>
-                    <h:outputText value="#{usuario.nombre}"/>
+                    
                 </p:commandLink>
             </p:column>            
         </p:dataTable>

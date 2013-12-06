@@ -4,13 +4,13 @@
  */
 package managedBeans;
 
-import DTOs.UsuarioDTO;
+import DTOs.ParticipantDTO;
 import java.util.LinkedList;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import sessionBeans.UserManagementSBLocal;
+import sessionBeans.ParticipantManagementSBLocal;
 
 /**
  *
@@ -21,24 +21,24 @@ import sessionBeans.UserManagementSBLocal;
 public class HomeMB {
     
     @EJB
-    private UserManagementSBLocal userManagementSB;
-    private LinkedList<UsuarioDTO> listausuarios;
+    private ParticipantManagementSBLocal participantManagementSB;
+    private LinkedList<ParticipantDTO> participantsList;
     
     public HomeMB() {
     }
     
     @PostConstruct
     void init(){
-        listausuarios= userManagementSB.selectAllUser();
+        participantsList= participantManagementSB.selectAllUser();
         
     }
 
-    public LinkedList<UsuarioDTO> getListausuarios() {
-        return listausuarios;
+    public LinkedList<ParticipantDTO> getParticipantsList() {
+        return participantsList;
     }
 
-    public void setListausuarios(LinkedList<UsuarioDTO> listausuarios) {
-        this.listausuarios = listausuarios;
+    public void setParticipantsList(LinkedList<ParticipantDTO> participantsList) {
+        this.participantsList = participantsList;
     }
-    
+
 }
