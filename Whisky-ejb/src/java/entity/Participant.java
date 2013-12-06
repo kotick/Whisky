@@ -32,10 +32,20 @@ public class Participant implements Serializable {
     private String email;
     private String rut;
     private String photo;
+    private String password;
     
     @ManyToOne
     private Role rol;
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    
     public Role getRol() {
         return rol;
     }

@@ -19,14 +19,14 @@ public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String nombre;
+    
+    private String name;
 
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (name != null ? name.hashCode() : 0);
         return hash;
     }
 
@@ -37,7 +37,7 @@ public class Role implements Serializable {
             return false;
         }
         Role other = (Role) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.name == null && other.name != null) || (this.name != null && !this.name.equals(other.name))) {
             return false;
         }
         return true;
@@ -45,7 +45,7 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Role[ id=" + id + " ]";
+        return "entity.Role[ id=" + name + " ]";
     }
     
 }
