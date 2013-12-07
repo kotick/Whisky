@@ -11,8 +11,9 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.FacesException;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletResponse;
 import sessionBeans.ParticipantManagementSBLocal;
 
 /**
@@ -36,17 +37,21 @@ public class HomeMB {
         
     }
     
-    public void redirect(){
-        System.out.println("casa");
-        try {  
-            HttpServletResponse response = (HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse();  
-            FacesContext.getCurrentInstance().responseComplete();  
-            response.sendRedirect("home.xhtml");
-        } catch (IOException e) {  
-            // TODO Auto-generated catch block  
-            e.printStackTrace();  
+    public void redirectToPage(String toUrl) {
+        try {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            System.out.println(ctx);
+            ExternalContext extContext = ctx.getExternalContext();
+            System.out.println(extContext);
+            String url = extContext.encodeActionURL(ctx.getApplication().getViewHandler().getActionURL(ctx, toUrl));
+            System.out.println(url);
+            extContext.redirect(url);
+            
+        } catch (IOException e) {
+            throw new FacesException(e);
         }
     }
+    
     public LinkedList<ParticipantDTO> getParticipantsList() {
         return participantsList;
     }

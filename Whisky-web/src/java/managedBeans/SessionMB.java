@@ -4,11 +4,15 @@
  */
 package managedBeans;
 
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -27,9 +31,7 @@ public class SessionMB implements Serializable {
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
         try {
             if (request.getRemoteUser() == null) {
-                System.out.println("email: "+email+"   password: "+password);
                 request.login(email, password);
-                
             }
             else {
                 System.out.println("Error, Usuario ya conectado");
@@ -38,5 +40,22 @@ public class SessionMB implements Serializable {
         catch (Exception e) {
             System.out.println("error(loginMB-login): "+e.getMessage());
         }
+    }
+    public String logout() throws IOException {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        if (request.getUserPrincipal() != null) {
+            try {
+                request.logout();
+                ExternalContext ext = context.getExternalContext();
+                context.getExternalContext().redirect(ext.getRequestContextPath());
+            } catch (ServletException e) {
+                System.out.println("Ha ocurrido un erro, no se ha podido desloguear" + e.getMessage());
+                return "";
+            } catch (IOException ex) {
+                Logger.getLogger(SessionMB.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return "";
     }
 }
