@@ -10,6 +10,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
@@ -31,7 +32,12 @@ public class SessionMB implements Serializable {
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
         try {
             if (request.getRemoteUser() == null) {
-                request.login(email, password);
+                try {
+                    request.login(email, password);
+
+                } catch (ServletException e) {
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrecta", "Login inválido"));
+                }
             }
             else {
                 System.out.println("Error, Usuario ya conectado");

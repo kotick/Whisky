@@ -11,18 +11,15 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-<<<<<<< HEAD
+
 import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-=======
-<<<<<<< HEAD
+
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
-=======
+
 import sessionBeans.FaceRecognizerSBLocal;
->>>>>>> Lógica de Reconocer rostros incluida en prueba
->>>>>>> 1e491c57f45f6c15797f591e841583c0ec2585c5
+
 import sessionBeans.ParticipantManagementSBLocal;
 import sessionBeans.oliSD;
 import sessionBeans.oliSDLocal;
@@ -55,7 +52,7 @@ public class HomeMB {
     @PostConstruct
     void init(){
         participantsList= participantManagementSB.selectAllUser();
-       numero=faceRecognizerSB.prueba();
+        //numero=faceRecognizerSB.prueba();
         System.out.println(numero);
         
     }
