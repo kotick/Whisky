@@ -12,20 +12,27 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 =======
 <<<<<<< HEAD
+=======
+
+>>>>>>> Cámara sacando fotos dentro del login
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
-=======
+
 import sessionBeans.FaceRecognizerSBLocal;
+<<<<<<< HEAD
 >>>>>>> Lógica de Reconocer rostros incluida en prueba
 >>>>>>> 1e491c57f45f6c15797f591e841583c0ec2585c5
+=======
+
+>>>>>>> Cámara sacando fotos dentro del login
 import sessionBeans.ParticipantManagementSBLocal;
-import sessionBeans.oliSD;
-import sessionBeans.oliSDLocal;
+
 
 /**
  *
@@ -55,8 +62,8 @@ public class HomeMB {
     @PostConstruct
     void init(){
         participantsList= participantManagementSB.selectAllUser();
-       numero=faceRecognizerSB.prueba();
-        System.out.println(numero);
+      // numero=faceRecognizerSB.prueba();
+        //System.out.println(numero);
         
     }
     
