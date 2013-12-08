@@ -5,6 +5,14 @@
 .Spotlight-V100
 Thumbs.db
 
+# Class Files #
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
 ## Macs
 nbproject/
 build/
@@ -15,6 +23,7 @@ nbactions.xml
 nb-configuration.xml
 !nbproject/project.properties
 !nbproject/project.xml
+!lib/
 
 Whisky-web/nbproject/
 Whisky-web/build/
@@ -47,6 +56,8 @@ nbactions.xml
 nb-configuration.xml
 !nbproject\project.properties
 !nbproject\project.xml
+!lib\
+
 
 Whisky-web\nbproject\
 Whisky-web\build\
@@ -68,12 +79,3 @@ Whisky-ejb\nbactions.xml
 Whisky-ejb\nb-configuration.xml
 !Whisky-ejb\nbproject\project.properties
 !Whisky-ejb\nbproject\project.xml
-
-
-# Class Files #
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
