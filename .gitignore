@@ -19,3 +19,5 @@
 /Whisky-ejb/nbproject/private/
 /Whisky-web/nbproject/private/
 .gitignore
+*.class
+*.xml

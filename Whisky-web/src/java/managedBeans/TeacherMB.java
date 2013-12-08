@@ -6,7 +6,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import sessionBeans.CourseManagementSBLocal;
 
 @Named(value = "teacherMB")
@@ -16,10 +15,7 @@ public class TeacherMB {
     @EJB
     private CourseManagementSBLocal cursoManagementSB;
     private LinkedList<CourseDTO> courseList;
-    
-    @Inject
-    private LoginConversationMB loginconversation;
-    
+
     public TeacherMB() {
     }
     @PostConstruct
@@ -27,14 +23,7 @@ public class TeacherMB {
         courseList= cursoManagementSB.selectCoursesByTeacher();
         
     }
-    
-    public void redireccion(){
-        loginconversation.beginConversation();
-        //llamar a metodos del session Bean para llenar datos
-        loginconversation.setId(2L);
-        //metodo de redireccionar
-        //redirectToPage("/faces/...?cid=".concat(this.loginconversation.getConversation().getId().toString()));
-    }
+
     public CourseManagementSBLocal getCursoManagementSB() {
         return cursoManagementSB;
     }
