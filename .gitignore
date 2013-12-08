@@ -78,3 +78,5 @@ Whisky-ejb\nbactions.xml
 Whisky-ejb\nb-configuration.xml
 !Whisky-ejb\nbproject\project.properties
 !Whisky-ejb\nbproject\project.xml
+
+Whisky-ejb/setup/glassfish-resources.xml
