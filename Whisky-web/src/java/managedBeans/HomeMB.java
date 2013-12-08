@@ -26,6 +26,15 @@ public class HomeMB {
     @PostConstruct
     void init(){
         participantsList= participantManagementSB.selectAllUser();
+<<<<<<< HEAD
+=======
+        //numero=faceRecognizerSB.prueba();
+        System.out.println(numero);
+
+      // numero=faceRecognizerSB.prueba();
+        //System.out.println(numero);
+        
+>>>>>>> c1dc782c7b22d6bc3b236f7b852170e8d55ea080
     }
     
     public void redirectToPage(String toUrl) {

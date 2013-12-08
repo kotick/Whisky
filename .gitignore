@@ -16,7 +16,6 @@
 /Whisky-war/dist/
 /Whisky/Whisky-ejb/dist/
 /Whisky/dist/
-*.xml
-*.class
 /Whisky-ejb/nbproject/private/
 /Whisky-web/nbproject/private/
+.gitignore
