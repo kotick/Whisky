@@ -18,6 +18,13 @@
 /Whisky/dist/
 /Whisky-ejb/nbproject/private/
 /Whisky-web/nbproject/private/
-.gitignore
-*.class
-*.xml
+\nbproject\private\
+\build\
+\dist\
+\Whisky-ejb\build\
+\Whisky-ejb\dist\
+\Whisky-ejb\nbproject\private\
+\Whisky-web\build\
+\Whisky-web\dist\
+\Whisky-web\\nbproject\private\
+
