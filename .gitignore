@@ -7,22 +7,8 @@ Thumbs.db
 
 # Class Files #
 *.class
-<<<<<<< HEAD
-*.xml
-
-# OS generated files #
-######################
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-=======
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
@@ -92,4 +78,3 @@ Whisky-ejb\nbactions.xml
 Whisky-ejb\nb-configuration.xml
 !Whisky-ejb\nbproject\project.properties
 !Whisky-ejb\nbproject\project.xml
->>>>>>> 818252056a1087509b74c6e523cdae4576c0dff9
