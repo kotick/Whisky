@@ -7,6 +7,16 @@ Whisky-ejb/build/
 Whisky-ejb/dist/
 Whisky-ejb/nbproject/private/
 
-Whisky-Web/build/
-Whisky-Web/dist/
-Whisky-Web/nbproject/private/
+Whisky-web/build/
+Whisky-web/dist/
+Whisky-web/nbproject/private/
+
+Whisky-ejb/nbproject/private/private.properties
+
+nbproject/private/private.properties
+
+Whisky-web/nbproject/private/private.properties
+
+Whisky-web/build/web/WEB-INF/classes/managedBeans/HomeMB.class
+
+Whisky-web/build/web/home.xhtml
