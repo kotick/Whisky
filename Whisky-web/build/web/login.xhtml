@@ -25,22 +25,9 @@
             </table>
             <p>
                 <h:commandButton type="submit" value="Submit" action="#{loginMB.login()}"/>
-                <h:commandButton type="reset" value="Reset"/>
             </p>
-            
-           
-  
-            <h:panelGrid columns="2">  
-                <p:photoCam widgetVar="pc" listener="#{loginMB.oncapture}" />  
-  
+            <p:photoCam widgetVar="pc" listener="#{loginMB.oncapture(captureEvent)}" />  
                 <p:commandButton type="button" value="Capture" onclick="pc.capture()" ajax ="false"/>  
-  
-               
-            </h:panelGrid>  
-
-              
-            
-            
         </h:form>
     </h:body>
 </html>

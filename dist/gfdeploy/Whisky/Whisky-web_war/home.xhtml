@@ -15,7 +15,12 @@
     <h:body>
 
         <div id="top">
-            <ui:insert name="top">Bienvenido</ui:insert>
+            <h:form class="prueba">
+                <h:commandButton type="submit" value="Logout" action="#{loginMB.logout()}"/>
+            </h:form>
+            <ui:insert name="top">
+                
+            </ui:insert>
         </div>
         
         <div id="content" class="center_content">

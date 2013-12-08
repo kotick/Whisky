@@ -1,6 +1,7 @@
 package managedBeans;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
@@ -26,7 +27,16 @@ public class LoginMB {
     public void login(){
         session.login(email, password);
     }
-
+    
+    public boolean loginWithCam(){
+        session.login(email, password);
+        return session.isLogin();
+    }
+    
+    public void logout() throws IOException{
+        session.logout();
+    }
+    
     public String getEmail() {
         return email;
     }
@@ -55,25 +65,24 @@ public class LoginMB {
   
       
     public void oncapture(CaptureEvent captureEvent) {  
-        System.out.println("yey saqué una foto");
-        String photo = getRandomImageName();  
-        byte[] data = captureEvent.getData();  
-          
-        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();  
-         String newFileName = "C:\\fotos\\" + photo + ".png";  
-          
-        FileImageOutputStream imageOutput;  
-        try {  
-            imageOutput = new FileImageOutputStream(new File(newFileName));  
-            System.out.println("pse estoy yey");
-            imageOutput.write(data, 0, data.length);  
-            System.out.println("pase esto otro yey");
-            imageOutput.close();  
-            System.out.println("termine de todo yey");
-        }  
-        catch(Exception e) {  
-            throw new FacesException("Error in writing captured image.");  
-        }  
+        System.out.println("entro a oncapture");
+        if(loginWithCam()){
+            String photo = getRandomImageName();  
+            byte[] data = captureEvent.getData();  
+
+            ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();  
+            String newFileName = "/Users/kotick/NetBeansProjects/Whisky/fotos/" + photo + ".png";  
+
+            FileImageOutputStream imageOutput;  
+            try {  
+                imageOutput = new FileImageOutputStream(new File(newFileName));  
+                imageOutput.write(data, 0, data.length);
+                imageOutput.close();
+            }  
+            catch(Exception e) {  
+                throw new FacesException("Error in writing captured image.");  
+            }
+        }
     
     }
 }

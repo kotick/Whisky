@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedBeans;
 
 import java.io.IOException;
@@ -16,16 +12,13 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-/**
- *
- * @author kotick
- */
 @Named(value = "sessionMB")
 @SessionScoped
 public class SessionMB implements Serializable {
-
+    
     public SessionMB() {
     }
+    
     public void login(String email, String password){
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
@@ -33,8 +26,8 @@ public class SessionMB implements Serializable {
         try {
             if (request.getRemoteUser() == null) {
                 try {
-                    request.login(email, password);
-
+                    System.out.println(email+"   "+password);
+                    request.login(email, password);             
                 } catch (ServletException e) {
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrecta", "Login inválido"));
                 }
@@ -47,21 +40,37 @@ public class SessionMB implements Serializable {
             System.out.println("error(loginMB-login): "+e.getMessage());
         }
     }
+    
     public String logout() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        if (request.getUserPrincipal() != null) {
+        System.out.println("casa0");
+        if (request.getUserPrincipal()!= null) {
             try {
+                System.out.println("casa1");
                 request.logout();
+                System.out.println("casa2");
                 ExternalContext ext = context.getExternalContext();
                 context.getExternalContext().redirect(ext.getRequestContextPath());
             } catch (ServletException e) {
-                System.out.println("Ha ocurrido un erro, no se ha podido desloguear" + e.getMessage());
+                System.out.println("Ha ocurrido un error, no se ha podido desloguear" + e.getMessage());
                 return "";
             } catch (IOException ex) {
                 Logger.getLogger(SessionMB.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        System.out.println("fallo");
         return "";
+    }
+    public boolean isLogin(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();      
+        if (request.getRemoteUser() == null) {
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 }
