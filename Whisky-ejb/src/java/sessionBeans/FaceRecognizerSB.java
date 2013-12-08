@@ -28,8 +28,8 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
     public int prueba(){
         System.out.println("empece la prueba de face");
         
-        String trainingDir = "C:\\fotos\\test\\";
-        IplImage testImage = cvLoadImage("C:\\fotos\\prueba.jpg");
+        String trainingDir = "\\Users\\kotick\\NetBeansProjects\\Whisky\\test";
+        IplImage testImage = cvLoadImage("/Users/kotick/NetBeansProjects/Whisky/prueba.jpg");
 
         File root = new File(trainingDir);
 
@@ -44,7 +44,6 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
         MatVector images = new MatVector(imageFiles.length);
 
         int[] labels = new int[imageFiles.length];
-
         int counter = 0;
         int label;
 
@@ -53,22 +52,15 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
 
         for (File image : imageFiles) {
             img = cvLoadImage(image.getAbsolutePath());
-
             label = Integer.parseInt(image.getName().split("\\-")[0]);
-
             grayImg = IplImage.create(img.width(), img.height(), IPL_DEPTH_8U, 1);
-
             cvCvtColor(img, grayImg, CV_BGR2GRAY);
-
             images.put(counter, grayImg);
-
             labels[counter] = label;
-
             counter++;
         }
 
         IplImage greyTestImage = IplImage.create(testImage.width(), testImage.height(), IPL_DEPTH_8U, 1);
-
         //FaceRecognizer faceRecognizer = createFisherFaceRecognizer();
          FaceRecognizer faceRecognizer = createEigenFaceRecognizer();
         // FaceRecognizer faceRecognizer = createLBPHFaceRecognizer()

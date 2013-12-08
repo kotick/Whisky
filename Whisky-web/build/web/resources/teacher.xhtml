@@ -13,7 +13,12 @@
         <p:dataTable id="tabla" value="#{teacherMB.courseList}" var="course">
             <p:column>
                 <h:outputText value="#{course.name}"/>
-            </p:column>          
+            </p:column>
+            <p:column>
+                <h:form>
+                    <h:commandButton type="submit" value="Submit" action="#{loginMB.login()}"/>
+                </h:form>
+            </p:column> 
         </p:dataTable>
     </ui:define>
 
