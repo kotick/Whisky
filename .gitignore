@@ -11,6 +11,18 @@ Whisky-web/build/*
 Whisky-web/dist/*
 Whisky-web/nbproject/private/*
 
+build/
+dist/
+nbproject/private/
+
+Whisky-ejb/build/
+Whisky-ejb/dist/
+Whisky-ejb/nbproject/private/
+
+Whisky-web/build/
+Whisky-web/dist/
+Whisky-web/nbproject/private/
+
 Whisky-ejb/nbproject/private/private.properties
 
 nbproject/private/private.properties
@@ -32,5 +44,7 @@ Whisky-ejb/nbproject/private/private.properties
 *.dpf
 
 *.class
+
+Whisky-ejb/setup/glassfish-resources.xml
 
 Whisky-ejb/setup/glassfish-resources.xml
