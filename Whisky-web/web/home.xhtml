@@ -15,23 +15,27 @@
     <h:body>
 
         <div id="top">
-            <h:form class="prueba">
-                <h:commandButton type="submit" value="Logout" action="#{loginMB.logout()}"/>
-            </h:form>
-            <ui:insert name="top">
-            </ui:insert>
+            
             <h:graphicImage id="logoUniversidad" url="resources/img/logou.png"></h:graphicImage>
-            <h:graphicImage id="logoProyecto" url="resources/img/logow.png"></h:graphicImage>
-            <span id="titulo">SISTEMA DE TOMAS DE ASISTENCIA</span>
+            <span id="titulo">
+                <h:graphicImage id="logoProyecto" url="resources/img/logow.png"></h:graphicImage>
+                SISTEMA DE TOMA DE ASISTENCIA
+            </span>
 
         </div>
         
-        <div id="content" class="center_content">
+        
+            <!-- <div id="corner">
+                <h:form class="prueba">
+                    <h:commandButton type="submit" value="Logout" action="#{loginMB.logout()}"/>
+                </h:form>
+            </div> -->
+        <div id="content">
             <ui:insert name="content">Content</ui:insert>
         </div>
 
-        <div id="bottom">
-            <ui:insert name="bottom">Bottom</ui:insert>
+        <div id="footer">
+            © PZ Labs ~ Todos los derechos reservados.
         </div>
 
         
