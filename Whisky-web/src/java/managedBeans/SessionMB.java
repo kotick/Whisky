@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @Named(value = "sessionMB")
 @SessionScoped
 public class SessionMB implements Serializable {
-    
+    private UtilitiesMB utilities;
     public SessionMB() {
     }
     
@@ -27,7 +27,8 @@ public class SessionMB implements Serializable {
             if (request.getRemoteUser() == null) {
                 try {
                     System.out.println(email+"   "+password);
-                    request.login(email, password);             
+                    request.login(email, password);
+                    redirect(request);
                 } catch (ServletException e) {
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrecta", "Login inválido"));
                 }
@@ -44,20 +45,15 @@ public class SessionMB implements Serializable {
     public String logout() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        System.out.println("casa0");
         if (request.getUserPrincipal()!= null) {
             try {
-                System.out.println("casa1");
                 request.logout();
-                System.out.println("casa2");
-                ExternalContext ext = context.getExternalContext();
-                context.getExternalContext().redirect(ext.getRequestContextPath());
+                redirectLogin(request);
             } catch (ServletException e) {
                 System.out.println("Ha ocurrido un error, no se ha podido desloguear" + e.getMessage());
                 return "";
-            } catch (IOException ex) {
-                Logger.getLogger(SessionMB.class.getName()).log(Level.SEVERE, null, ex);
             }
+        
         }
         System.out.println("fallo");
         return "";
@@ -71,6 +67,28 @@ public class SessionMB implements Serializable {
         }
         else{
             return true;
+        }
+    }
+    private void redirect(HttpServletRequest request){
+        ExternalContext extcon = FacesContext.getCurrentInstance().getExternalContext();
+        String page = "";
+        try{
+            page = page.concat("/faces/teacher/course.xhtml");
+            extcon.redirect(extcon.getRequestContextPath() + page);
+        }
+        catch(IOException ex){
+            System.out.println("No se ha podido redirigir a la página ".concat(page));            
+        }
+    }
+    private void redirectLogin(HttpServletRequest request){
+        ExternalContext extcon = FacesContext.getCurrentInstance().getExternalContext();
+        String page = "";
+        try{
+            page = page.concat("/faces/login.xhtml");
+            extcon.redirect(extcon.getRequestContextPath() + page);
+        }
+        catch(IOException ex){
+            System.out.println("No se ha podido redirigir a la página ".concat(page));            
         }
     }
 }
