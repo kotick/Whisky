@@ -16,3 +16,14 @@
 /Whisky-war/dist/
 /Whisky/Whisky-ejb/dist/
 /Whisky/dist/
+/Whisky-ejb/nbproject/private/
+/Whisky-web/nbproject/private/
+\nbproject\private\
+\build\
+\dist\
+\Whisky-ejb\build\
+\Whisky-ejb\dist\
+\Whisky-ejb\nbproject\private\
+\Whisky-web\build\
+\Whisky-web\dist\
+\Whisky-web\\nbproject\private\
