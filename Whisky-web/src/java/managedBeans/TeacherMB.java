@@ -39,6 +39,5 @@ public class TeacherMB {
     public void setCourseList(LinkedList<CourseDTO> courseList) {
         this.courseList = courseList;
     }
-
     
 }
