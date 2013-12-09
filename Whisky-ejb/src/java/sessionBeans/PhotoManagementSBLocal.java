@@ -11,10 +11,8 @@ import javax.ejb.Local;
  * @author Kay
  */
 @Local
-public interface FaceRecognizerSBLocal {
+public interface PhotoManagementSBLocal {
 
-
-    public int predict(String ruta_foto);
-
-
+    public int save_predict(byte[] foto, int id);
+    
 }

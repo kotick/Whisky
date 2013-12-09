@@ -20,29 +20,26 @@ import java.io.FilenameFilter;
 @Stateless
 public class FaceRecognizerSB implements FaceRecognizerSBLocal {
 
+     FaceRecognizer faceRecognizer = createEigenFaceRecognizer();
+    //FaceRecognizer faceRecognizer = createFisherFaceRecognizer();
+    // FaceRecognizer faceRecognizer = createLBPHFaceRecognizer()
     public FaceRecognizerSB(){
-    
+        
     }
     
     @Override
-    public int prueba(){
-        System.out.println("empece la prueba de face");
-        
-        String trainingDir = "\\Users\\kotick\\NetBeansProjects\\Whisky\\test";
-        IplImage testImage = cvLoadImage("/Users/kotick/NetBeansProjects/Whisky/prueba.jpg");
-
+    public int predict(String ruta_foto){
+        System.out.println("Comienza el entrenamiento del predictor");        
+        String trainingDir = "C:\\fotos\\test\\";
+       // IplImage testImage = cvLoadImage("/Users/kotick/NetBeansProjects/Whisky/prueba.jpg");
         File root = new File(trainingDir);
-
         FilenameFilter jpgFilter = new FilenameFilter() {
             public boolean accept(File dir, String name) {
                 return name.toLowerCase().endsWith(".jpg");
             }
         };
-
         File[] imageFiles = root.listFiles(jpgFilter);
-
         MatVector images = new MatVector(imageFiles.length);
-
         int[] labels = new int[imageFiles.length];
         int counter = 0;
         int label;
@@ -60,24 +57,41 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
             counter++;
         }
 
-        IplImage greyTestImage = IplImage.create(testImage.width(), testImage.height(), IPL_DEPTH_8U, 1);
-        //FaceRecognizer faceRecognizer = createFisherFaceRecognizer();
-         FaceRecognizer faceRecognizer = createEigenFaceRecognizer();
-        // FaceRecognizer faceRecognizer = createLBPHFaceRecognizer()
+       // IplImage greyTestImage = IplImage.create(testImage.width(), testImage.height(), IPL_DEPTH_8U, 1);
+        
 
         faceRecognizer.train(images, labels);
 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        
+       System.out.println("Comienza el reconocimiento de imagen");
+       
+       IplImage testImage = cvLoadImage(ruta_foto);
+
+       
+       IplImage greyTestImage = IplImage.create(testImage.width(), testImage.height(), IPL_DEPTH_8U, 1);
+    
+  
         cvCvtColor(testImage, greyTestImage, CV_BGR2GRAY);
 
         int prediccion = faceRecognizer.predict(greyTestImage);
-        double[] acercamiento = {};
+        
+        int [] predictlabel = {-1};
+        double []confidence = {0.0};
+        faceRecognizer.predict(greyTestImage, predictlabel, confidence);
+        System.out.println("Label");
+        System.out.println(predictlabel[0]);
+        System.out.println("Confidence");
+        System.out.println(confidence[0]);
+        //double[] acercamiento = {};
        
         return prediccion;
     
     }
     
-    @Override
-    public int oli(){
-    return 1234;
-    }
+  
+    
+    
+ 
 }
