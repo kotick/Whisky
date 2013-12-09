@@ -1,16 +1,18 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-    //@NamedQuery(name = "Course.getCursos", query = "SELECT u FROM Course u WHERE participant.rol"),
+    @NamedQuery(name = "Course.getCursos", query = "SELECT c FROM Course c, Participant p WHERE p.email = :usernameMail and c member of p.courses"),
 })
 public class Course implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -18,7 +20,19 @@ public class Course implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    
+    @ManyToMany(mappedBy = "courses")
+    private Collection<Participant> participant;
 
+    public Collection<Participant> getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(Collection<Participant> participant) {
+        this.participant = participant;
+    }
+    
+    
     public Long getId() {
         return id;
     }

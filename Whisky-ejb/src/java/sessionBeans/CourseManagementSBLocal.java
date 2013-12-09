@@ -5,6 +5,7 @@
 package sessionBeans;
 
 import DTOs.CourseDTO;
+import java.util.Collection;
 import java.util.LinkedList;
 import javax.ejb.Local;
 
@@ -15,6 +16,5 @@ import javax.ejb.Local;
 @Local
 public interface CourseManagementSBLocal {
 
-    public LinkedList<CourseDTO> selectCoursesByTeacher();
-    
+    public Collection<CourseDTO> selectCoursesByTeacher(String username);
 }
