@@ -9,7 +9,7 @@
 
     <ui:define name="content">
         <div class="cajaCentro">
-            <h:form class="prueba" role="form">
+            <h:form class="prueba">
 
                 <div class="form-group">
                     <h:outputLabel for="username" 
@@ -20,15 +20,15 @@
 
                 <div class="form-group">
 
-               <h:outputLabel for="password" 
+                <h:outputLabel for="password" 
                                        value="Escriba su contraseña:"/>
-        <h:inputSecret class="form-control" id="password" autocomplete="off" 
+                <h:inputText class="form-control" id="password" autocomplete="off" 
                                        size="20" value="#{loginMB.password}"/>
                 </div>
 
-                <p>
-                    <h:commandButton class="btn btn-default" type="submit" value="Ingresar" action="#{loginMB.loginWithCam()}"/>
-                </p>
+                <center>
+                    <h:commandButton class="btn btn-primary" type="submit" value="Ingresar" action="#{loginMB.loginWithCam()}"/>
+                </center>
             </h:form>
         </div>
     </ui:define>
