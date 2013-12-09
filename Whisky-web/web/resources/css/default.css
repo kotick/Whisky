@@ -85,3 +85,15 @@ img{
     top:0;
     right:0;
 }
+
+.cajaCentro{
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    display:block;
+}
+
+.cajaCentro input{
+    text-align: center;
+}
