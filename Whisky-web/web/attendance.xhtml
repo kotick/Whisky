@@ -9,20 +9,25 @@
 
     <ui:define name="content">
         <div class="cajaCentro">
+        <h:form>
+            <p:photoCam widgetVar="pc" listener="#{loginMB.oncapture}" />  
+            <p:commandButton type="button" value="Capture" onclick="pc.capture()" ajax ="false"/>  
+        </h:form>
+            
             <h:form class="prueba">
 
                 <div class="form-group">
-                    <h:outputLabel for="username" 
+                    <p:outputLabel for="username" 
                                    value="Escriba su nombre de usuario:"/>
-                    <h:inputText class="form-control" id="username" autocomplete="off" 
+                    <p:inputText class="form-control" id="username" autocomplete="off" 
                                  size="20" value="#{loginMB.email}" />
                 </div>
 
                 <div class="form-group">
 
-                <h:outputLabel for="password" 
+                <p:outputLabel for="password" 
                                        value="Escriba su contraseña:"/>
-                <h:inputText class="form-control" id="password" autocomplete="off" 
+                <p:inputText class="form-control" id="password" autocomplete="off" 
                                        size="20" value="#{loginMB.password}"/>
                 </div>
 

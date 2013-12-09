@@ -7,10 +7,10 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href="resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="http://localhost:8080/Whisky-web/faces/resources/css/default.css" rel="stylesheet" type="text/css" />
         <!-- <link href="resources/css/cssLayout.css" rel="stylesheet" type="text/css" /> -->
         <title>Toma de Asistencias - Universidad de Santiago</title>
-        <link href="resources/css/bootstrap.min.css" rel="stylesheet"> </link>
+        <link href="http://localhost:8080/Whisky-web/faces/resources/css/bootstrap.min.css" rel="stylesheet"> </link>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,21 +24,17 @@
 
         <div id="top">
             <a href="http://www.udesantiago.cl/" target="_blank">
-                <h:graphicImage id="logoUniversidad" url="resources/img/logou.png"></h:graphicImage>
+                <p:graphicImage id="logoUniversidad" url="http://localhost:8080/Whisky-web/faces/resources/img/logou.png"></p:graphicImage>
             </a>
             <span id="titulo">
-                <h:graphicImage id="logoProyecto" url="resources/img/logow.png"></h:graphicImage>
-                SISTEMA DE TOMA DE ASISTENCIA
+                <p:graphicImage id="logoProyecto" url="http://localhost:8080/Whisky-web/faces/resources/img/logow.png"></p:graphicImage>
+                SISTEMA DE REGISTRO DE ASISTENCIA
             </span>
 
         </div>
         
         
-            <!-- <div id="corner">
-                <h:form class="prueba">
-                    <h:commandButton type="submit" value="Logout" action="#{loginMB.logout()}"/>
-                </h:form>
-            </div> -->
+
         <div id="content">
             <ui:insert name="content">Content</ui:insert>
         </div>
@@ -50,7 +46,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="resources/js/bootstrap.min.js"></script>
+    <script src="http://localhost:8080/Whisky-web/faces/resources/js/bootstrap.min.js"></script>
     </h:body>
 
 </html>
