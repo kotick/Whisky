@@ -1,26 +1,31 @@
 package managedBeans;
 
 import DTOs.CourseDTO;
+import java.util.Collection;
 import java.util.LinkedList;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import sessionBeans.CourseManagementSBLocal;
 
 @Named(value = "teacherMB")
 @RequestScoped
 public class TeacherMB {
-    
+    @Inject LoginConversationMB loginConversation;
+  
     @EJB
     private CourseManagementSBLocal cursoManagementSB;
-    private LinkedList<CourseDTO> courseList;
+    private Collection<CourseDTO> courseList;
+    private String username;
 
     public TeacherMB() {
     }
     @PostConstruct
     void init(){
-        courseList= cursoManagementSB.selectCoursesByTeacher();
+        username = loginConversation.getUsername();
+        courseList= cursoManagementSB.selectCoursesByTeacher(username);
         
     }
 
@@ -32,7 +37,7 @@ public class TeacherMB {
         this.cursoManagementSB = cursoManagementSB;
     }
 
-    public LinkedList<CourseDTO> getCourseList() {
+    public Collection<CourseDTO> getCourseList() {
         return courseList;
     }
 
