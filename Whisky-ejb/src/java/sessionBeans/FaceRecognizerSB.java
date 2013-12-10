@@ -5,13 +5,13 @@
 package sessionBeans;
 
 import javax.ejb.Stateless;
-import com.googlecode.javacv.cpp.opencv_core;
 import static com.googlecode.javacv.cpp.opencv_highgui.*;
 import static com.googlecode.javacv.cpp.opencv_core.*;
 import static com.googlecode.javacv.cpp.opencv_imgproc.*;
 import static com.googlecode.javacv.cpp.opencv_contrib.*;
 import java.io.File;
 import java.io.FilenameFilter;
+
 
 /**
  *
@@ -20,18 +20,20 @@ import java.io.FilenameFilter;
 @Stateless
 public class FaceRecognizerSB implements FaceRecognizerSBLocal {
 
-     FaceRecognizer faceRecognizer = createEigenFaceRecognizer();
+    private FaceRecognizer faceRecognizer = createEigenFaceRecognizer();
     //FaceRecognizer faceRecognizer = createFisherFaceRecognizer();
     // FaceRecognizer faceRecognizer = createLBPHFaceRecognizer()
     public FaceRecognizerSB(){
+        
         
     }
     
      @Override
     public void train(){
+         //this.faceRecognizer = createEigenFaceRecognizer();
     
          System.out.println("Comienza el entrenamiento del predictor");        
-        String trainingDir = "C:\\fotos\\test\\";
+        String trainingDir = "/users/kotick/fotos/test/";
        // IplImage testImage = cvLoadImage("/Users/kotick/NetBeansProjects/Whisky/prueba.jpg");
         File root = new File(trainingDir);
         FilenameFilter jpgFilter = new FilenameFilter() {
@@ -82,7 +84,7 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
 
      @Override
     public boolean predict(String ruta_foto, long id){
-               
+            
       
         int [] id_test = {-1};
         double []distancia = {0.0};

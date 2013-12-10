@@ -22,7 +22,8 @@ import javax.servlet.ServletContext;
 public class PhotoManagementSB implements PhotoManagementSBLocal {
     @EJB
     private FaceRecognizerSBLocal faceRecognizerSB;
-
+    
+    
     
     @Override
     public boolean save_predict(byte [] foto, long id) {
@@ -36,7 +37,7 @@ public class PhotoManagementSB implements PhotoManagementSBLocal {
           
      
       
-            String newFileName = "C:\\fotos\\" + i + ".jpg";  
+            String newFileName = "/users/kotick/fotos/" + i + ".jpg";  
 
             FileImageOutputStream imageOutput;  
             try {  

@@ -13,9 +13,6 @@ import javax.ejb.Local;
 @Local
 public interface FaceRecognizerSBLocal {
 
-
-
-
     public void test(String ruta_foto, int[] id, double[] distancia);
 
     public void train();

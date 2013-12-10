@@ -4,38 +4,31 @@
  */
 package managedBeans;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import org.primefaces.event.CaptureEvent;
 import sessionBeans.PhotoManagementSBLocal;
 
 /**
  *
- * @author Kay
+ * @author kotick
  */
-@Named(value = "photoMB")
+@Named(value = "photo2MB")
 @RequestScoped
-public class PhotoMB {
-    @Inject PhotoConversationMB photoConversationMB;
-    @Inject SessionMB session;
+public class Photo2MB {
     @EJB
     private PhotoManagementSBLocal photoManagementSB;
-
     private long id;
-    public PhotoMB() {
+    /**
+     * Creates a new instance of Photo2MB
+     */
+    public Photo2MB() {
     }
-    @PostConstruct
-    void init(){
-       // id = photoConversationMB.getId();
-        this.id = 1;
-        System.out.println(id+" id recibido de la lista");
+    
+    public void oncapture(CaptureEvent captureEvent) {  
         
-    }
-     public void oncapture(CaptureEvent captureEvent) {  
-        
+        id =1;
         System.out.println("entro a oncapture");
          byte[] foto = captureEvent.getData();
          
@@ -48,12 +41,6 @@ public class PhotoMB {
         else{
             System.out.println("No te reconozco");
         }
-       
-        
-        
-       
-        
-        
-        
-        }
+    }
+
 }
