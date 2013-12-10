@@ -64,7 +64,7 @@ public class AttendanceMB {
         FacesContext context = FacesContext.getCurrentInstance();
         try{
          if(participantManagementSB.checkEmailPassword(email, password)){
-            id = utilitiesSB.selectFirstIdByEmail(email);
+            idParticipant = utilitiesSB.selectFirstIdByEmail(email);
             letsGoToTakePhoto();
         }
 

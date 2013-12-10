@@ -12,6 +12,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.inject.Inject;
 import org.primefaces.event.CaptureEvent;
 import sessionBeans.AttendanceManagementSBLocal;
@@ -60,13 +61,28 @@ public class PhotoMB {
             actualParticipant=participantManagementSB.getParticipant(idParticipant);
             actualLecture=lectureManagementSB.getLecturebyId(idLecture);
             attendanceManagementSB.addAttendance(actualParticipant, actualLecture);
-            System.out.println("yey te reconozco");
+            
+            System.out.println("te reconoc;i");
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            Flash flash = facesContext.getExternalContext().getFlash();
+            flash.setKeepMessages(true);
+            flash.setRedirect(true);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Estás presente","Registro con exito"));
+            session.redirect("/faces/teacher/attendance.xhtml");
+            
             //Crear la clase con la foto, y notificar que el wn está logeado
+            
         
         }
         else{
-            System.out.println("No te reconozco");
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrecta", "Login inválido"));
+            System.out.println("No te reconocí");
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            Flash flash = facesContext.getExternalContext().getFlash();
+            flash.setKeepMessages(true);
+            flash.setRedirect(true);
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario no reconocido facialmente","Inténtalo de nuevo"));
+            session.redirect("/faces/teacher/attendance.xhtml");
+           
         }
        
         

@@ -12,6 +12,7 @@
     </h:head>
     <ui:define name="content">
         <div class="cajaCentro">
+            <h1>Bienvenido Alumno</h1>
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
             <h:form >
                 <div class="form-group">
@@ -31,11 +32,19 @@
 
                 </div>
 
-                <center>
+                <center> <div class="form-group">
+                   
                     <p:commandButton type="submit" value="Ingresar" action="#{attendanceMB.checkEmailPassword()}" />
+                     </div>
                 </center>
-            </h:form>
+                <center>
+                    <div class="form-group">
+                                <p:commandButton type="submit" value="Cerrar Sesión" action="#{loginMB.logout()}"/>
+                                </div>
+                                </center>
 
+
+            </h:form>
 
         </div>
 
