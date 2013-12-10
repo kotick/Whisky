@@ -14,6 +14,15 @@ public class LoginConversationMB implements Serializable {
     Conversation conversation;
     
     private Long id;
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
     
     
     public LoginConversationMB() {

@@ -48,10 +48,12 @@ a:link:hover, a:visited:hover  {
     float:right;
 }
  #logoProyecto{
-    max-height: 70px;
+    max-height: 100px;
     /*float:right;*/
     margin-right: 5px;
-    margin-bottom: -25px;
+    margin-left: 10px;
+    margin-bottom: -40px;
+    vertical-align: baseline;
 }
 body{
     padding:0;
