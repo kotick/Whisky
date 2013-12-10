@@ -24,13 +24,14 @@ public class PhotoManagementSB implements PhotoManagementSBLocal {
     private FaceRecognizerSBLocal faceRecognizerSB;
 
     
-    public int save_predict(byte [] foto, int id) {
+    @Override
+    public boolean save_predict(byte [] foto, long id) {
         
         Date date = new Date();
         String fecha = date.toString();
         
-        String photo = id +"-"+fecha;
-        System.out.println(photo);
+       // String photo = id +"-"+fecha;
+       // System.out.println(photo);
         int i = (int) (Math.random() * 10000000);  
           
      
@@ -47,6 +48,6 @@ public class PhotoManagementSB implements PhotoManagementSBLocal {
                 throw new FacesException("Error en escribir la fotografia");  
             }
         
-    return faceRecognizerSB.predict(newFileName);
+    return faceRecognizerSB.predict(newFileName, id);
     }
 }

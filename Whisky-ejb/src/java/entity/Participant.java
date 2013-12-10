@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package entity;
 
 import java.io.Serializable;
@@ -16,13 +12,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
-/**
- *
- * @author kotick
- */
+
 @Entity
 @NamedQueries({
-    //@NamedQuery(name = "Participant.getAllUser", query = "SELECT u FROM Attendace u WHERE  "),
+    @NamedQuery(name = "Participant.getAllUser", query = "SELECT u FROM Participant u"),
+    @NamedQuery(name = "Participant.getPassword", query = "SELECT u FROM Participant u WHERE u.email = :username"),
+    @NamedQuery(name = "Participant.getId", query = "SELECT u FROM Participant u WHERE u.email = :username")
+
 })
 public class Participant implements Serializable {
     private static final long serialVersionUID = 1L;
