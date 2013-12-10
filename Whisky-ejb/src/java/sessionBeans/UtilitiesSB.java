@@ -51,7 +51,7 @@ public class UtilitiesSB implements UtilitiesSBLocal {
    public Long selectFirstIdByEmail(String email) {
         
         Collection<Participant> resultQuery ;
-        LinkedList<AttendanceDTO> result = new LinkedList<AttendanceDTO>();
+        LinkedList<AttendanceDTO> result = new LinkedList<>();
         AttendanceDTO userDTOTemp;
         Query q = em.createNamedQuery("Participant.getId", Participant.class);
         q.setParameter("username", email);

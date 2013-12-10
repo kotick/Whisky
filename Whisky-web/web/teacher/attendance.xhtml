@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <p:outputLabel for="username" 
                                        value="Escriba su nombre de usuario:"/>
-                        <p:inputText styleClass="form-control" id="username" autocomplete="off" 
+                        <h:inputText styleClass="form-control" id="username" autocomplete="off" 
                                      size="20" value="#{attendanceMB.email}" />
                     </div>
 
@@ -26,21 +26,17 @@
 
                         <p:outputLabel for="password" 
                                        value="Escriba su contraseña:"/>
-                        <p:inputText styleClass="form-control" id="password" autocomplete="off" 
+                        <p:inputText type="password" styleClass="form-control" id="password" autocomplete="off" 
                                      size="20" value="#{attendanceMB.password}"/>
+                         
                     </div>
-
+                   
+                    <p:commandButton type="submit" value="Ingresar" action="#{attendanceMB.checkEmailPassword()}" />
+                </h:form>
+            </div>
            
-                </h:form>
-            </div>
-            <div class="columna">
-                <h:form>
-                    <p:photoCam widgetVar="pc" listener="#{attendanceMB.oncapture}" />  
-                    <p:commandButton type="button" value="Indicar Asistencia" onclick="pc.capture()" ajax ="false"/>  
-                </h:form>
-            </div>
-
-        </div>
+    </div>
+       
     </ui:define>
 
 </ui:composition>    

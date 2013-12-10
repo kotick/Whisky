@@ -46,7 +46,7 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
         } catch (Exception ex) {
             Logger.getLogger(ParticipantManagementSB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        password_list= "adsfasdfasd";
         if (password.equals(password_list)){
             return true;
         }

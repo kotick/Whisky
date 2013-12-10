@@ -42,40 +42,32 @@ public class AttendanceMB {
     public AttendanceMB() {
     }
     
+    public void checkEmailPassword(){
     
-    public void oncapture(CaptureEvent captureEvent) {  
+        System.out.println(email);
+        System.out.println(password);
         
-        System.out.println("entro a oncapture");
-        
-       if (participantManagementSB.checkEmailPassword(this.getEmail(), this.getPassword())){
-    
-           byte[] foto = captureEvent.getData();
-           
+        if(participantManagementSB.checkEmailPassword(email, password)){
             long id = utilitiesSB.selectFirstIdByEmail(email);
-            if (photoManagementSB.save_predict(foto, id)){
             
-                System.out.println("Te reconozco");
-               
-                //if (este alumno pertenece al curso)
-                    //agregar al tipo en la base de datos de la clase con la foto
                 
-                // else decir, tu no perteneces a esa clase
+                //Comprobar si el wn que se logea pertenece al curso
+                // Si pertenece al curso, que se vaya a la otra vista de la foto
+                //sino que te diga que no pertenece al curso
+               
+               
             }
             
-            else{
-                System.out.println("No te reconozco");}
-    
-    }
+            
        else{
-           System.out.println("Error en el usuario y contraseñá");
+           System.out.println("Usuario o contraseña incorrectos");
        }
-       
-        
-       
         
         
-        
-        }
+    }
+    
+    
+   
 
     public String getEmail() {
         return email;

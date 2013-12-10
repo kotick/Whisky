@@ -11,8 +11,8 @@
 
     <ui:define name="content">
         <h:form>
-            <p:photoCam widgetVar="pc" listener="#{loginMB.oncapture(captureEvent)}" />  
-            <p:commandButton type="button" value="Capture" onclick="pc.capture()" ajax ="false"/>  
+            <p:photoCam widgetVar="pc" listener="#{attendanceMB.oncapture()}" />  
+            <p:commandButton type="button" value="Capturar Imágen" onclick="pc.capture()" ajax ="false"/>  
         </h:form>
     </ui:define>
 
