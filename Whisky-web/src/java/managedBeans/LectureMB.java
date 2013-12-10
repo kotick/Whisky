@@ -2,7 +2,10 @@ package managedBeans;
 
 import DTOs.ParticipantDTO;
 import entity.Course;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -43,7 +46,9 @@ public class LectureMB {
     
     public void createLecture(Long idCourse){
         Course actualCourse = courseManagementSB.getCourse(idCourse);
-        idLecture2 = lectureManagementSB.createLecture("","","",actualCourse);
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = new Date();
+        idLecture2 = lectureManagementSB.createLecture(dateFormat.format(date),"","",actualCourse);
         this.attendanceConversationMB.beginConversation();
         this.attendanceConversationMB.setId(idLecture2);
         session.redirect("/faces/teacher/attendance.xhtml?cid=".concat(this.attendanceConversationMB.getConversation().getId().toString()));
