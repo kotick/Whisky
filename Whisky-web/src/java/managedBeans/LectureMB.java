@@ -1,12 +1,15 @@
 package managedBeans;
 
 import DTOs.ParticipantDTO;
+import entity.Course;
 import java.util.Collection;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import sessionBeans.CourseManagementSBLocal;
+import sessionBeans.LectureManagementSBLocal;
 
 import sessionBeans.ParticipantManagementSBLocal;
 
@@ -14,6 +17,10 @@ import sessionBeans.ParticipantManagementSBLocal;
 @Named(value = "lectureMB")
 @RequestScoped
 public class LectureMB {
+    @EJB
+    private CourseManagementSBLocal courseManagementSB;
+    @EJB
+    private LectureManagementSBLocal lectureManagementSB;
     @Inject LectureConversationMB lectureConversation;
     
     @EJB
@@ -27,6 +34,11 @@ public class LectureMB {
     void init(){
         id = lectureConversation.getId();
         lectureList= participantManagementSB.selectParticipantByLecture(id);
+    }
+    
+    void createLecture(Long idCourse){
+        Course actualCourse = courseManagementSB.getCourse(idCourse);
+        lectureManagementSB.createLecture("","","",actualCourse);
     }
 
     public Long getId() {

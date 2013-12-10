@@ -5,6 +5,7 @@
 package sessionBeans;
 
 import DTOs.LectureDTO;
+import entity.Course;
 import entity.Lecture;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -46,5 +47,17 @@ public class LectureManagementSB implements LectureManagementSBLocal {
         }
         return result;
     }    
+
+    @Override
+    public void createLecture(String date, String timeIni, String timeFin,Course Course) {
+        Lecture newLecture = new Lecture();
+        newLecture.setDate(date);
+        newLecture.setStartingTime(timeIni);
+        newLecture.setFinishingTime(timeFin);
+        newLecture.setCourse(Course);
+        em.persist(newLecture);
+        
+        
+    }
 
 }

@@ -39,5 +39,12 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         }
         return result;
     }
+
+    @Override
+    public Course getCourse(Long idCourse) {
+        Query q = em.createNamedQuery("Course.getCurso", Course.class);
+        q.setParameter("idCourse", idCourse);
+        return (Course) q.getSingleResult();
+    }
     
 }
