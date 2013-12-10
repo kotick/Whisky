@@ -12,6 +12,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.FacesException;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.imageio.stream.FileImageOutputStream;
 import javax.inject.Inject;
@@ -20,6 +21,7 @@ import sessionBeans.PhotoManagementSBLocal;
 import org.primefaces.event.CaptureEvent;
 import sessionBeans.ParticipantManagementSBLocal;
 import sessionBeans.UtilitiesSBLocal;
+import managedBeans.Utilities;
 
 /**
  *
@@ -56,22 +58,18 @@ public class AttendanceMB {
     
         System.out.println(email);
         System.out.println(password);
-        
+        FacesContext context = FacesContext.getCurrentInstance();
         if(participantManagementSB.checkEmailPassword(email, password)){
             id = utilitiesSB.selectFirstIdByEmail(email);
-            
-                
                 //Comprobar si el wn que se logea pertenece al curso
                 // Si pertenece al curso, que se vaya a la otra vista de la foto
                 //sino que te diga que no pertenece al curso
             letsGoToTakePhoto();
-               
-               
-            }
-            
-            
+        }
        else{
            System.out.println("Usuario o contraseña incorrectos");
+           context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrecta", "Login inválido"));
+
        }
         
         

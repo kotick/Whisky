@@ -11,15 +11,12 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-
-
 import javax.faces.FacesException;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
-
 import javax.faces.context.FacesContext;
-
+import javax.faces.event.ActionEvent;
 import sessionBeans.FaceRecognizerSBLocal;
-
 import sessionBeans.ParticipantManagementSBLocal;
 
 
@@ -66,4 +63,5 @@ public class Utilities {
     public void setParticipantsList(LinkedList<ParticipantDTO> participantsList) {
         this.participantsList = participantsList;
     }
+    
 }

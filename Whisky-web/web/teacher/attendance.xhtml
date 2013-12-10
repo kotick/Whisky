@@ -12,7 +12,7 @@
     </h:head>
     <ui:define name="content">
         <div class="cajaCentro">
-
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
             <h:form >
                 <div class="form-group">
                     <p:outputLabel for="username" 
@@ -31,7 +31,8 @@
 
                 </div>
 
-                <center> <p:commandButton type="submit" value="Ingresar" action="#{attendanceMB.checkEmailPassword()}" />
+                <center>
+                    <p:commandButton type="submit" value="Ingresar" action="#{attendanceMB.checkEmailPassword()}" />
                 </center>
             </h:form>
 
