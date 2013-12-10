@@ -59,7 +59,15 @@ public class AttendanceMB {
         System.out.println(email);
         System.out.println(password);
         FacesContext context = FacesContext.getCurrentInstance();
-        if(participantManagementSB.checkEmailPassword(email, password)){
+        try{
+          participantManagementSB.checkEmailPassword(email, password);
+          id = utilitiesSB.selectFirstIdByEmail(email);
+          letsGoToTakePhoto();
+        }catch(Exception e){
+          System.out.println("Usuario o contraseña incorrectos");
+          context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrecta", "Login inválido"));
+        }
+ /*      if(participantManagementSB.checkEmailPassword(email, password)){
             id = utilitiesSB.selectFirstIdByEmail(email);
                 //Comprobar si el wn que se logea pertenece al curso
                 // Si pertenece al curso, que se vaya a la otra vista de la foto
@@ -71,7 +79,7 @@ public class AttendanceMB {
            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrecta", "Login inválido"));
 
        }
-        
+        */
         
     }
     

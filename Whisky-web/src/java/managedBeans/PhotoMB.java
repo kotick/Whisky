@@ -8,6 +8,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import org.primefaces.event.CaptureEvent;
 import sessionBeans.PhotoManagementSBLocal;
@@ -35,7 +37,7 @@ public class PhotoMB {
         
     }
      public void oncapture(CaptureEvent captureEvent) {  
-        
+        FacesContext context = FacesContext.getCurrentInstance();
         System.out.println("entro a oncapture");
          byte[] foto = captureEvent.getData();
          
@@ -47,6 +49,7 @@ public class PhotoMB {
         }
         else{
             System.out.println("No te reconozco");
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrecta", "Login inválido"));
         }
        
         
