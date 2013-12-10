@@ -57,11 +57,13 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
 
     @Override
     public Collection<ParticipantDTO> selectParticipantByLecture(Long id) {
+        String rol = "Student";
         Collection<Attendance> resultQuery;
         Collection<ParticipantDTO> result = new LinkedList<ParticipantDTO>();
         ParticipantDTO participantDTOTemp;
         Query q = em.createNamedQuery("Attendance.getParticipantByLecture", Attendance.class);
-        q.setParameter("idlecture", id);
+        q.setParameter("idlecture" ,id);
+        q.setParameter("rol", rol);
         
         resultQuery = (Collection<Attendance>) q.getResultList();
         for(Attendance iter: resultQuery){
