@@ -11,41 +11,35 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </h:head>
     <ui:define name="content">
-        <div class="cajaCentro">
-        <h:form>
-            <p:photoCam widgetVar="pc" listener="#{loginMB.oncapture}" />  
-            <p:commandButton type="button" value="Capture" onclick="pc.capture()" ajax ="false"/>  
-        </h:form>
-            
-            <h:form class="prueba">
+        <div class="cajaCentroAttendance">
+            <div class="columna">
+                <h:form >
+                    <div class="form-group">
+                        <p:outputLabel for="username" 
+                                       value="Escriba su nombre de usuario:"/>
+                        <p:inputText styleClass="form-control" id="username" autocomplete="off" 
+                                     size="20" value="#{attendanceMB.email}" />
+                    </div>
 
-                <div class="form-group">
-                    <p:outputLabel for="username" 
-                                   value="Escriba su nombre de usuario:"/>
+                    <div class="form-group">
 
-                    <p:inputText class="form-control" id="username" autocomplete="off" 
-                                 size="20" value="#{loginMB.email}" />
 
-                </div>
-
-                <div class="form-group">
-
-                <p:outputLabel for="password" 
+                        <p:outputLabel for="password" 
                                        value="Escriba su contraseña:"/>
+                        <p:inputText styleClass="form-control" id="password" autocomplete="off" 
+                                     size="20" value="#{attendanceMB.password}"/>
+                    </div>
 
-                <p:inputText class="form-control" id="password" autocomplete="off" 
-                                       size="20" value="#{loginMB.password}"/>
-
-                </div>
-
-               
-                
-                <h:panelGrid columns="2">
-                <p:photoCam widgetVar="pc" listener="#{attendanceMB.oncapture}" />  
-                <p:commandButton type="button" value="Ingresar" onclick="pc.capture()" ajax ="false"/>  
-                </h:panelGrid>
            
-            </h:form>
+                </h:form>
+            </div>
+            <div class="columna">
+                <h:form>
+                    <p:photoCam widgetVar="pc" listener="#{attendanceMB.oncapture}" />  
+                    <p:commandButton type="button" value="Indicar Asistencia" onclick="pc.capture()" ajax ="false"/>  
+                </h:form>
+            </div>
+
         </div>
     </ui:define>
 
