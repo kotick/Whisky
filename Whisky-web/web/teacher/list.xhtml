@@ -10,7 +10,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:dataTable id="tabla" value="#{homeMB.participantsList}" var="participant">
+        <p:dataTable id="tabla" value="#{lectureMB.lectureList}" var="participant">
             
             <p:column>
                 <h:outputText value="#{participant.firstName}"/>
@@ -19,8 +19,10 @@
                 <h:outputText value="#{participant.lastName}"/>
             </p:column>
             <p:column>
-                <h:link outcome="teacher" value="Primefaces welcome page" />
-            </p:column>
+                <h:form>
+                    <h:commandButton type="submit" value="Submit" action="#{lectureMB}"/>
+                </h:form>
+            </p:column>             
         </p:dataTable>
     </ui:define>
 

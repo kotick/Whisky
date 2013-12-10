@@ -22,6 +22,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     }
     
     @Override
+    
     public Collection<CourseDTO> selectCoursesByTeacher(String username) {
         Collection<Course> resultQuery;
         Collection<CourseDTO> result = new LinkedList<CourseDTO>();

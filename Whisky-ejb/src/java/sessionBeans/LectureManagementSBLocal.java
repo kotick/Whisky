@@ -4,7 +4,7 @@
  */
 package sessionBeans;
 
-import DTOs.ParticipantDTO;
+import DTOs.LectureDTO;
 import java.util.Collection;
 import javax.ejb.Local;
 
@@ -13,7 +13,8 @@ import javax.ejb.Local;
  * @author kotick
  */
 @Local
-public interface ParticipantManagementSBLocal {
-    public Collection<ParticipantDTO> selectParticipantByLecture(Long id);
+public interface LectureManagementSBLocal {
+
+    public Collection<LectureDTO> selectLectureByCourses(Long id);
     
 }

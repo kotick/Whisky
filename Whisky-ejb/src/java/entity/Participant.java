@@ -22,7 +22,7 @@ import javax.persistence.OneToOne;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Participant.getAllUser", query = "SELECT u FROM Participant u"),
+    //@NamedQuery(name = "Participant.getAllUser", query = "SELECT u FROM Attendace u WHERE  "),
 })
 public class Participant implements Serializable {
     private static final long serialVersionUID = 1L;
