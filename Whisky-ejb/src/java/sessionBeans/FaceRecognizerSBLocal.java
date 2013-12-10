@@ -14,7 +14,15 @@ import javax.ejb.Local;
 public interface FaceRecognizerSBLocal {
 
 
-    public int predict(String ruta_foto);
+
+
+    public void test(String ruta_foto, int[] id, double[] distancia);
+
+    public void train();
+
+    public boolean predict(String ruta_foto, long id);
+
+    
 
 
 }

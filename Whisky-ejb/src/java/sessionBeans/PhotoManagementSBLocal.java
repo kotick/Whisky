@@ -13,6 +13,6 @@ import javax.ejb.Local;
 @Local
 public interface PhotoManagementSBLocal {
 
-    public int save_predict(byte[] foto, int id);
+    public boolean save_predict(byte[] foto, long id);
     
 }

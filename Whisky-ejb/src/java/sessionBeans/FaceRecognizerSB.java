@@ -27,9 +27,10 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
         
     }
     
-    @Override
-    public int predict(String ruta_foto){
-        System.out.println("Comienza el entrenamiento del predictor");        
+     @Override
+    public void train(){
+    
+         System.out.println("Comienza el entrenamiento del predictor");        
         String trainingDir = "C:\\fotos\\test\\";
        // IplImage testImage = cvLoadImage("/Users/kotick/NetBeansProjects/Whisky/prueba.jpg");
         File root = new File(trainingDir);
@@ -61,32 +62,48 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
         
 
         faceRecognizer.train(images, labels);
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-        
+    
+    }
+    
+     @Override
+    public void test(String ruta_foto, int [] id, double [] distancia){
+    
        System.out.println("Comienza el reconocimiento de imagen");
        
        IplImage testImage = cvLoadImage(ruta_foto);
 
-       
        IplImage greyTestImage = IplImage.create(testImage.width(), testImage.height(), IPL_DEPTH_8U, 1);
     
-  
         cvCvtColor(testImage, greyTestImage, CV_BGR2GRAY);
-
-        int prediccion = faceRecognizer.predict(greyTestImage);
         
-        int [] predictlabel = {-1};
-        double []confidence = {0.0};
-        faceRecognizer.predict(greyTestImage, predictlabel, confidence);
+        faceRecognizer.predict(greyTestImage, id, distancia);
+        
+    }
+
+     @Override
+    public boolean predict(String ruta_foto, long id){
+               
+      
+        int [] id_test = {-1};
+        double []distancia = {0.0};
+        double distancia_minima= 10000;
+        
+        this.train();
+        this.test(ruta_foto, id_test, distancia);
         System.out.println("Label");
-        System.out.println(predictlabel[0]);
+        System.out.println(id_test[0]);
         System.out.println("Confidence");
-        System.out.println(confidence[0]);
+        System.out.println(distancia[0]);
+        if (id_test[0] >distancia_minima && id == id_test[0]){
+            return true;
+        }
+        else{
+        
+            return false;
+        }
         //double[] acercamiento = {};
        
-        return prediccion;
+       
     
     }
     
