@@ -34,6 +34,7 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
     public ParticipantManagementSB() {
     }
 
+
     @Override
     public boolean checkEmailPassword(String email, String password) {
 
@@ -80,5 +81,12 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
 
     public void persist(Object object) {
         em.persist(object);
+    }
+
+    @Override
+    public Participant getParticipant(Long idParticipant) {
+        Query q = em.createNamedQuery("Participant.getUser", Participant.class);
+        q.setParameter("idParticipant", idParticipant);
+        return (Participant) q.getSingleResult();
     }
 }

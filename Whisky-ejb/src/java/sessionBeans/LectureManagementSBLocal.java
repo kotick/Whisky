@@ -6,6 +6,7 @@ package sessionBeans;
 
 import DTOs.LectureDTO;
 import entity.Course;
+import entity.Lecture;
 import java.util.Collection;
 import javax.ejb.Local;
 
@@ -18,6 +19,10 @@ public interface LectureManagementSBLocal {
 
     public Collection<LectureDTO> selectLectureByCourses(Long id);
 
-    void createLecture(String date, String timeIni, String timeFin,Course Course);
+    Long createLecture(String date, String timeIni, String timeFin,Course Course);
+
+    Lecture getLecturebyId(Long idLecture);
+
+    Lecture getLecturebyCourse(Long idCourse);
     
 }

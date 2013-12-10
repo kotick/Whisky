@@ -33,7 +33,7 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
          //this.faceRecognizer = createEigenFaceRecognizer();
     
          System.out.println("Comienza el entrenamiento del predictor");        
-        String trainingDir = "/users/kotick/fotos/test/";
+        String trainingDir = "C:\\fotos\\test\\";
        // IplImage testImage = cvLoadImage("/Users/kotick/NetBeansProjects/Whisky/prueba.jpg");
         File root = new File(trainingDir);
         FilenameFilter jpgFilter = new FilenameFilter() {
@@ -88,7 +88,7 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
       
         int [] id_test = {-1};
         double []distancia = {0.0};
-        double distancia_minima= 10000;
+        double distancia_minima= 20000;
         
         this.train();
         this.test(ruta_foto, id_test, distancia);
@@ -96,7 +96,7 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
         System.out.println(id_test[0]);
         System.out.println("Confidence");
         System.out.println(distancia[0]);
-        if (id_test[0] >distancia_minima && id == id_test[0]){
+        if (id_test[0] <distancia_minima && id == id_test[0]){
             return true;
         }
         else{

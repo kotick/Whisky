@@ -49,15 +49,29 @@ public class LectureManagementSB implements LectureManagementSBLocal {
     }    
 
     @Override
-    public void createLecture(String date, String timeIni, String timeFin,Course Course) {
+    public Long createLecture(String date, String timeIni, String timeFin,Course Course) {
         Lecture newLecture = new Lecture();
         newLecture.setDate(date);
         newLecture.setStartingTime(timeIni);
         newLecture.setFinishingTime(timeFin);
         newLecture.setCourse(Course);
         em.persist(newLecture);
-        
-        
+        em.flush();   
+        return newLecture.getId();
+    }
+
+    @Override
+    public Lecture getLecturebyId(Long idLecture) {
+        Query q = em.createNamedQuery("Lecture.getLecturebyId", Lecture.class);
+        q.setParameter("idLecture", idLecture);
+        return (Lecture) q.getSingleResult();
+    }
+
+    @Override
+    public Lecture getLecturebyCourse(Long idCourse) {
+        Query q = em.createNamedQuery("Lecture.getLecture", Lecture.class);
+        q.setParameter("idcourse", idCourse);
+        return (Lecture) q.getSingleResult();
     }
 
 }

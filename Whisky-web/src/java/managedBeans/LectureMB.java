@@ -27,32 +27,28 @@ public class LectureMB {
     
     @EJB
     private ParticipantManagementSBLocal participantManagementSB;
-    private Long id;
+    private Long idCourse;
+    private Long idLecture;
+    private Long idLecture2;
     private Collection<ParticipantDTO> lectureList;
+
 
     public LectureMB() {
     }
     @PostConstruct
     void init(){
-        id = lectureConversation.getId();
-        lectureList= participantManagementSB.selectParticipantByLecture(id);
+        idLecture = lectureConversation.getId();
+        lectureList= participantManagementSB.selectParticipantByLecture(idLecture);
     }
     
     public void createLecture(Long idCourse){
         Course actualCourse = courseManagementSB.getCourse(idCourse);
-        lectureManagementSB.createLecture("","","",actualCourse);
+        idLecture2 = lectureManagementSB.createLecture("","","",actualCourse);
         this.attendanceConversationMB.beginConversation();
-        this.attendanceConversationMB.setId(id);
+        this.attendanceConversationMB.setId(idLecture2);
         session.redirect("/faces/teacher/attendance.xhtml?cid=".concat(this.attendanceConversationMB.getConversation().getId().toString()));
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Collection<ParticipantDTO> getLectureList() {
         return lectureList;
@@ -60,6 +56,23 @@ public class LectureMB {
 
     public void setLectureList(Collection<ParticipantDTO> lectureList) {
         this.lectureList = lectureList;
+    }
+    
+    
+    public Long getIdCourse() {
+        return idCourse;
+    }
+
+    public void setIdCourse(Long idCourse) {
+        this.idCourse = idCourse;
+    }
+
+    public Long getIdLecture() {
+        return idLecture;
+    }
+
+    public void setIdLecture(Long idLecture) {
+        this.idLecture = idLecture;
     }
 
 }

@@ -17,7 +17,8 @@ import javax.persistence.OneToOne;
 @NamedQueries({
     @NamedQuery(name = "Participant.getAllUser", query = "SELECT u FROM Participant u"),
     @NamedQuery(name = "Participant.getPassword", query = "SELECT u FROM Participant u WHERE u.email = :username"),
-    @NamedQuery(name = "Participant.getId", query = "SELECT u FROM Participant u WHERE u.email = :username")
+    @NamedQuery(name = "Participant.getId", query = "SELECT u FROM Participant u WHERE u.email = :username"),
+    @NamedQuery(name = "Participant.getUser", query = "SELECT u FROM Participant u WHERE u.id = :idParticipant")
 
 })
 public class Participant implements Serializable {

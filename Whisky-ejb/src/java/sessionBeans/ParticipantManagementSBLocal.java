@@ -5,6 +5,7 @@
 package sessionBeans;
 
 import DTOs.ParticipantDTO;
+import entity.Participant;
 import java.util.Collection;
 import javax.ejb.Local;
 
@@ -17,6 +18,8 @@ public interface ParticipantManagementSBLocal {
 
     public Collection<ParticipantDTO> selectParticipantByLecture(Long id); 
     public boolean checkEmailPassword(String email, String password);
+
+    Participant getParticipant(Long idParticipant);
 
     
 }
