@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./base.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+    <ui:define name="content">
+        <div class="cajaCentro">
+            
+            <h:form class="prueba">
+
+                <div class="form-group">
+                    <p:outputLabel for="username" 
+                                   value="Escriba su nombre de usuario:"/>
+
+                    <p:inputText class="form-control" id="username" autocomplete="off" 
+                                 size="20" value="#{attendanceMB.email}" />
+
+                </div>
+
+                <div class="form-group">
+
+                <p:outputLabel for="password" 
+                                       value="Escriba su contraseña:"/>
+
+                <p:inputText class="form-control" id="password" autocomplete="off" 
+                             size="20" value="#{attendanceMB.password}"/>
+
+                </div>
+
+               
+                
+                <h:panelGrid columns="2">
+                <p:photoCam widgetVar="pc" listener="#{attendanceMB.oncapture}" />  
+                <p:commandButton type="button" value="Ingresar" onclick="pc.capture()" ajax ="false"/>  
+                </h:panelGrid>
+           
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>
