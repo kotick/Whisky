@@ -40,7 +40,7 @@ public class Utilities {
     
     @PostConstruct
     void init(){
-        participantsList= participantManagementSB.selectAllUser();
+        //participantsList= participantManagementSB.selectAllUser();
         
     }
     

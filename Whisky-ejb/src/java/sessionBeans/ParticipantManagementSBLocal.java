@@ -5,7 +5,7 @@
 package sessionBeans;
 
 import DTOs.ParticipantDTO;
-import java.util.LinkedList;
+import java.util.Collection;
 import javax.ejb.Local;
 
 /**
@@ -15,9 +15,9 @@ import javax.ejb.Local;
 @Local
 public interface ParticipantManagementSBLocal {
 
-    LinkedList<ParticipantDTO> selectAllUser();
-
-    
+    public Collection<ParticipantDTO> selectParticipantByLecture(Long id);
+    LinkedList<ParticipantDTO> selectAllUser();   
     public boolean checkEmailPassword(String email, String password);
+
     
 }

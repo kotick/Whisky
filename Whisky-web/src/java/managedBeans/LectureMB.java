@@ -1,0 +1,48 @@
+package managedBeans;
+
+import DTOs.ParticipantDTO;
+import java.util.Collection;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.inject.Named;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+
+import sessionBeans.ParticipantManagementSBLocal;
+
+
+@Named(value = "lectureMB")
+@RequestScoped
+public class LectureMB {
+    @Inject LectureConversationMB lectureConversation;
+    
+    @EJB
+    private ParticipantManagementSBLocal participantManagementSB;
+    private Long id;
+    private Collection<ParticipantDTO> lectureList;
+
+    public LectureMB() {
+    }
+    @PostConstruct
+    void init(){
+        id = lectureConversation.getId();
+        lectureList= participantManagementSB.selectParticipantByLecture(id);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Collection<ParticipantDTO> getLectureList() {
+        return lectureList;
+    }
+
+    public void setLectureList(Collection<ParticipantDTO> lectureList) {
+        this.lectureList = lectureList;
+    }
+
+}

@@ -25,7 +25,6 @@ public class SessionMB implements Serializable {
         try {
             if (request.getRemoteUser() == null) {
                 try {
-                    System.out.println(email+"   "+password);
                     request.login(email, password);
                     request.getRemoteUser();
                     this.loginConversation.beginConversation();
@@ -73,15 +72,12 @@ public class SessionMB implements Serializable {
         }
     }
     
-    private void redirect(String page){
+    public void redirect(String page){
         ExternalContext extcon = FacesContext.getCurrentInstance().getExternalContext();
         try{
-            System.out.println("Se redirige");
-            page = page;
             extcon.redirect(extcon.getRequestContextPath() + page);
         }
         catch(IOException ex){
-            System.out.println("no Se redirige");
             System.out.println("No se ha podido redirigir a la página ".concat(page));            
         }
     }

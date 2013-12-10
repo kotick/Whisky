@@ -6,6 +6,7 @@ package sessionBeans;
 
 import DTOs.AttendanceDTO;
 import DTOs.ParticipantDTO;
+import entity.Attendance;
 import com.sun.mail.smtp.DigestMD5;
 import entity.Participant;
 import java.util.Collection;
@@ -55,17 +56,19 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
     }
 
     @Override
-    public LinkedList<ParticipantDTO> selectAllUser() {
-        Collection<Participant> resultQuery;
-        LinkedList<ParticipantDTO> result = new LinkedList<ParticipantDTO>();
-        ParticipantDTO userDTOTemp;
-        Query q = em.createNamedQuery("Participant.getAllUser", Participant.class);        
-        resultQuery = (Collection<Participant>) q.getResultList();
-        for(Participant iter: resultQuery){
-            userDTOTemp = new ParticipantDTO();
-            userDTOTemp.setFirstName(iter.getFirstName());
-            userDTOTemp.setLastName(iter.getLastName());
-            result.add(userDTOTemp);
+    public Collection<ParticipantDTO> selectParticipantByLecture(Long id) {
+        Collection<Attendance> resultQuery;
+        Collection<ParticipantDTO> result = new LinkedList<ParticipantDTO>();
+        ParticipantDTO participantDTOTemp;
+        Query q = em.createNamedQuery("Attendance.getParticipantByLecture", Attendance.class);
+        q.setParameter("idlecture", id);
+        
+        resultQuery = (Collection<Attendance>) q.getResultList();
+        for(Attendance iter: resultQuery){
+            participantDTOTemp = new ParticipantDTO();
+            participantDTOTemp.setFirstName(iter.getParticipant().getFirstName());
+            participantDTOTemp.setLastName(iter.getParticipant().getLastName());
+            result.add(participantDTOTemp);
         }
         return result;
     }

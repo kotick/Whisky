@@ -14,7 +14,9 @@ import sessionBeans.CourseManagementSBLocal;
 @RequestScoped
 public class TeacherMB {
     @Inject LoginConversationMB loginConversation;
-  
+    @Inject CourseConversationMB courseConversation ;
+    @Inject SessionMB session;
+    
     @EJB
     private CourseManagementSBLocal cursoManagementSB;
     private Collection<CourseDTO> courseList;
@@ -28,14 +30,12 @@ public class TeacherMB {
         courseList= cursoManagementSB.selectCoursesByTeacher(username);
         
     }
-
-    public CourseManagementSBLocal getCursoManagementSB() {
-        return cursoManagementSB;
+    public void lecture(Long id){
+        this.courseConversation.beginConversation();
+        this.courseConversation.setId(id);
+        session.redirect("/faces/teacher/lecture.xhtml?cid=".concat(this.courseConversation.getConversation().getId().toString()));
     }
 
-    public void setCursoManagementSB(CourseManagementSBLocal cursoManagementSB) {
-        this.cursoManagementSB = cursoManagementSB;
-    }
 
     public Collection<CourseDTO> getCourseList() {
         return courseList;
