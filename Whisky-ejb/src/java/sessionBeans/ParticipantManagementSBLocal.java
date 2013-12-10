@@ -16,5 +16,8 @@ import javax.ejb.Local;
 public interface ParticipantManagementSBLocal {
 
     LinkedList<ParticipantDTO> selectAllUser();
+
+    
+    public boolean checkEmailPassword(String email, String password);
     
 }
