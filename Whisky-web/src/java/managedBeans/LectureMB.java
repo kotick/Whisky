@@ -17,6 +17,8 @@ import sessionBeans.ParticipantManagementSBLocal;
 @Named(value = "lectureMB")
 @RequestScoped
 public class LectureMB {
+    @Inject AttendanceConversationMB attendanceConversationMB ;
+    @Inject SessionMB session;
     @EJB
     private CourseManagementSBLocal courseManagementSB;
     @EJB
@@ -36,9 +38,12 @@ public class LectureMB {
         lectureList= participantManagementSB.selectParticipantByLecture(id);
     }
     
-    void createLecture(Long idCourse){
+    public void createLecture(Long idCourse){
         Course actualCourse = courseManagementSB.getCourse(idCourse);
         lectureManagementSB.createLecture("","","",actualCourse);
+        this.attendanceConversationMB.beginConversation();
+        this.attendanceConversationMB.setId(id);
+        session.redirect("/faces/teacher/attendance.xhtml?cid=".concat(this.attendanceConversationMB.getConversation().getId().toString()));
     }
 
     public Long getId() {

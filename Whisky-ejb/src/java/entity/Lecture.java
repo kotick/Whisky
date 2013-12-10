@@ -78,7 +78,7 @@ public class Lecture implements Serializable {
     }
 
     public void setCourse(Course course) {
-        this.course = course;
+        this.course=course;
     }
 
 
