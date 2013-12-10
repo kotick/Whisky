@@ -18,41 +18,44 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-    
+
 /**
  *
  * @author kotick
  */
 @Stateless
 public class ParticipantManagementSB implements ParticipantManagementSBLocal {
+
     @EJB
     private UtilitiesSBLocal utilitiesSB;
     @PersistenceContext(unitName = "Whisky-ejbPU")
     private EntityManager em;
-   
-
-    
 
     public ParticipantManagementSB() {
     }
-    
+
     @Override
-    public boolean checkEmailPassword(String email, String password){
-        
-         LinkedList<AttendanceDTO> lista = utilitiesSB.selectPasswordByEmail(email);
-        
-        String password_list=lista.getFirst().getPassword();
+    public boolean checkEmailPassword(String email, String password) {
+
+        LinkedList<AttendanceDTO> lista = utilitiesSB.selectPasswordByEmail(email);
+
+        String password_list = lista.getFirst().getPassword();
+
+        String pass_md5;
         try {
-            String pass_md5= utilitiesSB.stringToMD5(password_list);
+            pass_md5 = utilitiesSB.stringToMD5(password);
+
+
+            if (password_list.equals(pass_md5)) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (Exception ex) {
             Logger.getLogger(ParticipantManagementSB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        password_list= "adsfasdfasd";
-        if (password.equals(password_list)){
-            return true;
-        }
-        else{return false;}
-      
+
+        return false;
     }
 
     @Override
@@ -62,11 +65,11 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
         Collection<ParticipantDTO> result = new LinkedList<ParticipantDTO>();
         ParticipantDTO participantDTOTemp;
         Query q = em.createNamedQuery("Attendance.getParticipantByLecture", Attendance.class);
-        q.setParameter("idlecture" ,id);
+        q.setParameter("idlecture", id);
         q.setParameter("rol", rol);
-        
+
         resultQuery = (Collection<Attendance>) q.getResultList();
-        for(Attendance iter: resultQuery){
+        for (Attendance iter : resultQuery) {
             participantDTOTemp = new ParticipantDTO();
             participantDTOTemp.setFirstName(iter.getParticipant().getFirstName());
             participantDTOTemp.setLastName(iter.getParticipant().getLastName());

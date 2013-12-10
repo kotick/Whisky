@@ -7,12 +7,14 @@ package managedBeans;
 import DTOs.AttendanceDTO;
 import java.io.File;
 import java.util.LinkedList;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.imageio.stream.FileImageOutputStream;
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import sessionBeans.PhotoManagementSBLocal;
 import org.primefaces.event.CaptureEvent;
@@ -26,13 +28,16 @@ import sessionBeans.UtilitiesSBLocal;
 @Named(value = "attendanceMB")
 @RequestScoped
 public class AttendanceMB {
+    @Inject PhotoConversationMB photoConversation;
+    @Inject AttendanceConversationMB attendanceConversation ;
+    @Inject SessionMB session;
     @EJB
     private UtilitiesSBLocal utilitiesSB;
     @EJB
     private ParticipantManagementSBLocal participantManagementSB;
     @EJB
     private PhotoManagementSBLocal photoManagementSB;
-
+    private Long id;
     private String email;
     private String password;
     
@@ -41,6 +46,11 @@ public class AttendanceMB {
      */
     public AttendanceMB() {
     }
+    @PostConstruct
+    void init(){
+        id = attendanceConversation.getId();
+        
+    }
     
     public void checkEmailPassword(){
     
@@ -48,12 +58,13 @@ public class AttendanceMB {
         System.out.println(password);
         
         if(participantManagementSB.checkEmailPassword(email, password)){
-            long id = utilitiesSB.selectFirstIdByEmail(email);
+            id = utilitiesSB.selectFirstIdByEmail(email);
             
                 
                 //Comprobar si el wn que se logea pertenece al curso
                 // Si pertenece al curso, que se vaya a la otra vista de la foto
                 //sino que te diga que no pertenece al curso
+            letsGoToTakePhoto();
                
                
             }
@@ -66,6 +77,12 @@ public class AttendanceMB {
         
     }
     
+    
+    public void letsGoToTakePhoto(){
+        this.photoConversation.beginConversation();
+        this.photoConversation.setId(id);
+        session.redirect("/faces/teacher/photo.xhtml?cid=".concat(this.photoConversation.getConversation().getId().toString()));
+    }
     
    
 
