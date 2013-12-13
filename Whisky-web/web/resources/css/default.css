@@ -73,7 +73,7 @@ img{
 
 #footer{
     position: fixed;
-    bottom:0;
+    bottom:5px;
     right:0;
     display: block;
     width: 100%;
