@@ -65,11 +65,13 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
         Collection<Attendance> resultQuery;
         Collection<ParticipantDTO> result = new LinkedList<ParticipantDTO>();
         ParticipantDTO participantDTOTemp;
+        
         Query q = em.createNamedQuery("Attendance.getParticipantByLecture", Attendance.class);
         q.setParameter("idlecture", id);
         q.setParameter("rol", rol);
 
         resultQuery = (Collection<Attendance>) q.getResultList();
+        
         for (Attendance iter : resultQuery) {
             participantDTOTemp = new ParticipantDTO();
             participantDTOTemp.setFirstName(iter.getParticipant().getFirstName());
