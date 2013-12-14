@@ -29,6 +29,7 @@ public class SessionMB implements Serializable {
                     request.getRemoteUser();
                     this.loginConversation.beginConversation();
                     this.loginConversation.setUsername(email);
+        
                     redirect("/faces/teacher/course.xhtml?cid=".concat(this.loginConversation.getConversation().getId().toString()));
                 } catch (ServletException e) {
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrecta", "Login inválido"));

@@ -36,7 +36,7 @@ public class UtilitiesSB implements UtilitiesSBLocal {
         Collection<Participant> resultQuery ;
         LinkedList<AttendanceDTO> result = new LinkedList<>();
         AttendanceDTO userDTOTemp;
-        Query q = em.createNamedQuery("Participant.getPassword", Participant.class);
+        Query q = em.createNamedQuery("Participant.getParticipantByEmail", Participant.class);
         q.setParameter("username", email);
         
         resultQuery = (Collection<Participant>) q.getResultList();
@@ -53,7 +53,7 @@ public class UtilitiesSB implements UtilitiesSBLocal {
         Collection<Participant> resultQuery ;
         LinkedList<AttendanceDTO> result = new LinkedList<>();
         AttendanceDTO userDTOTemp;
-        Query q = em.createNamedQuery("Participant.getId", Participant.class);
+        Query q = em.createNamedQuery("Participant.getParticipantByEmail", Participant.class);
         q.setParameter("username", email);
         
         resultQuery = (Collection<Participant>) q.getResultList();
