@@ -39,7 +39,8 @@ public class AttendanceMB {
     private ParticipantManagementSBLocal participantManagementSB;
     @EJB
     private PhotoManagementSBLocal photoManagementSB;
-    private Long id;
+    private Long idLecture;
+    private Long idParticipant;
     private String email;
     private String password;
     
@@ -50,7 +51,8 @@ public class AttendanceMB {
     }
     @PostConstruct
     void init(){
-        id = attendanceConversation.getId();
+        idLecture = attendanceConversation.getId();
+        
         
     }
     
@@ -58,27 +60,35 @@ public class AttendanceMB {
     
         System.out.println(email);
         System.out.println(password);
+
         FacesContext context = FacesContext.getCurrentInstance();
-        if(participantManagementSB.checkEmailPassword(email, password)){
-            id = utilitiesSB.selectFirstIdByEmail(email);
-                //Comprobar si el wn que se logea pertenece al curso
-                // Si pertenece al curso, que se vaya a la otra vista de la foto
-                //sino que te diga que no pertenece al curso
+        try{
+         if(participantManagementSB.checkEmailPassword(email, password)){
+            idParticipant = utilitiesSB.selectFirstIdByEmail(email);
             letsGoToTakePhoto();
         }
-       else{
+
+            else{
            System.out.println("Usuario o contraseña incorrectos");
            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrecta", "Login inválido"));
 
        }
-        
+
+        }
+
+        catch(Exception e){
+          System.out.println("Usuario o contraseña incorrectos");
+          context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrecta", "Login inválido"));
+        }
+
         
     }
     
     
     public void letsGoToTakePhoto(){
         this.photoConversation.beginConversation();
-        this.photoConversation.setId(id);
+        this.photoConversation.setIdParticipant(idParticipant);
+        this.photoConversation.setIdLecture(idLecture);
         session.redirect("/faces/teacher/photo.xhtml?cid=".concat(this.photoConversation.getConversation().getId().toString()));
     }
     

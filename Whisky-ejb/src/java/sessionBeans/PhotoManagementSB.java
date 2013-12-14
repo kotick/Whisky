@@ -37,7 +37,7 @@ public class PhotoManagementSB implements PhotoManagementSBLocal {
           
      
       
-            String newFileName = "/users/kotick/fotos/" + i + ".jpg";  
+            String newFileName = "C:\\fotos\\" + i + ".jpg";  
 
             FileImageOutputStream imageOutput;  
             try {  

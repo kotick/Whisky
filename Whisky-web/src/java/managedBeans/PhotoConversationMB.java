@@ -19,7 +19,10 @@ import javax.inject.Inject;
 public class PhotoConversationMB implements Serializable {
     @Inject
     Conversation conversation;
-    private Long id;
+    private Long idLecture;
+
+
+    private Long idParticipant;
     /**
      * Creates a new instance of PhotoConversationMB
      */
@@ -40,11 +43,19 @@ public class PhotoConversationMB implements Serializable {
         return conversation;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdLecture() {
+        return idLecture;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdLecture(Long idLecture) {
+        this.idLecture = idLecture;
+    }
+
+    public Long getIdParticipant() {
+        return idParticipant;
+    }
+
+    public void setIdParticipant(Long idParticipant) {
+        this.idParticipant = idParticipant;
     }
 }
