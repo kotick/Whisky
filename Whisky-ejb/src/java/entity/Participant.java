@@ -15,16 +15,15 @@ import javax.persistence.OneToOne;
 
 @Entity
 @NamedQueries({
-<<<<<<< HEAD
     @NamedQuery(name = "Participant.getAllParticipant", query = "SELECT u FROM Participant u"),
     @NamedQuery(name = "Participant.getParticipantByEmail", query = "SELECT u FROM Participant u WHERE u.email = :username"),
-=======
+   //Revisar las query, cuales se usan y cuales no.
     @NamedQuery(name = "Participant.getAllUser", query = "SELECT u FROM Participant u"),
     @NamedQuery(name = "Participant.getPassword", query = "SELECT u FROM Participant u WHERE u.email = :username"),
     @NamedQuery(name = "Participant.getId", query = "SELECT u FROM Participant u WHERE u.email = :username"),
     @NamedQuery(name = "Participant.getUser", query = "SELECT u FROM Participant u WHERE u.id = :idParticipant")
 
->>>>>>> 1665374d4dba895b9b44f066083745c13397e852
+
 })
 public class Participant implements Serializable {
     private static final long serialVersionUID = 1L;
