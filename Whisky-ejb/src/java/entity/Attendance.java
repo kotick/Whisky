@@ -28,6 +28,7 @@ public class Attendance implements Serializable {
     private Long id;
     private boolean present;
     private String hour;
+    private String photo;
     @ManyToOne
     private Participant participant;
     @ManyToOne
