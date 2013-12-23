@@ -17,26 +17,17 @@ import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.transaction.UserTransaction;
-import sessionBeans.CourseManagementSBLocal;
 import sessionBeans.UtilitiesSBLocal;
 import sessionBeans.exceptions.RollbackFailureException;
 
-@Named(value = "teacherMB")
+@Named(value = "studentMB")
 @RequestScoped
-public class TeacherMB {
+public class StudentMB {
     @EJB
     private UtilitiesSBLocal utilitiesSB;
-
-    @Inject
-    LoginConversationMB loginConversation;
-    @Inject
-    CourseConversationMB courseConversation;
-    @Inject
-    SessionMB session;
     
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("Whisky-ejbPU");
     @Resource
@@ -44,43 +35,29 @@ public class TeacherMB {
     private ParticipantJpaController participantJpa;
     private CourseJpaController courseJpa;
     private RoleJpaController roleJpa;
-    @EJB
-    private CourseManagementSBLocal cursoManagementSB;
     
-    private Collection<CourseDTO> courseList;
+    private Collection<ParticipantDTO> studentList;
     private CourseDTO[] courseToAdd;
-    private String username;
-    private Collection<ParticipantDTO> teacherList;
-    //Datos participant
+    private ParticipantDataModel allStudents;
+        //Datos participant
     private String firstName;
     private String lastName;
     private String email;
     private String rut;
 
 
-    public TeacherMB() {
+
+    public StudentMB() {
     }
 
     @PostConstruct
     void init() {
-        courseList = new LinkedList<CourseDTO>();
-        if (loginConversation.getUsername() != null) {
-            username = loginConversation.getUsername();
-            courseList = cursoManagementSB.selectCoursesByTeacher(username);
-        }
+
         participantJpa = new ParticipantJpaController(utx, emf);
-
-        teacherList = participantJpa.getAllByRol("Teacher");
-
+        studentList = participantJpa.getAllByRol("Student");
+        allStudents = new ParticipantDataModel((LinkedList<ParticipantDTO>) studentList);
     }
-
-    public void lecture(Long id) {
-        this.courseConversation.beginConversation();
-        this.courseConversation.setId(id);
-        session.redirect("/faces/teacher/lecture.xhtml?cid=".concat(this.courseConversation.getConversation().getId().toString()));
-    }
-
-    public void addTeacher() {
+public void addTeacher() {
         courseJpa = new CourseJpaController(utx, emf);
         roleJpa = new RoleJpaController(utx,emf);
         Long idTemp;
@@ -93,7 +70,7 @@ public class TeacherMB {
         newParticipant.setLastName(lastName);
         newParticipant.setEmail(email);
         newParticipant.setRut(rut);
-        rol = roleJpa.getRol("Teacher");
+        rol = roleJpa.getRol("Student");
         newParticipant.setRol(rol);
         newParticipant.setPhoto("C:");
         try {
@@ -119,15 +96,45 @@ public class TeacherMB {
         }
 
     }
-
-
-
-    public Collection<CourseDTO> getCourseList() {
-        return courseList;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setCourseList(LinkedList<CourseDTO> courseList) {
-        this.courseList = courseList;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRut() {
+        return rut;
+    }
+
+    public void setRut(String rut) {
+        this.rut = rut;
+    }
+
+    
+    public Collection<ParticipantDTO> getStudentList() {
+        return studentList;
+    }
+
+    public void setStudentList(Collection<ParticipantDTO> studentList) {
+        this.studentList = studentList;
     }
 
     public CourseDTO[] getCourseToAdd() {
@@ -137,44 +144,13 @@ public class TeacherMB {
     public void setCourseToAdd(CourseDTO[] courseToAdd) {
         this.courseToAdd = courseToAdd;
     }
-
-    public Collection<ParticipantDTO> getTeacherList() {
-        return teacherList;
+    
+    
+    public ParticipantDataModel getAllStudents() {
+        return allStudents;
     }
 
-    public void setTeacherList(Collection<ParticipantDTO> teacherList) {
-        this.teacherList = teacherList;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setRut(String rut) {
-        this.rut = rut;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getRut() {
-        return rut;
+    public void setAllStudents(ParticipantDataModel allStudents) {
+        this.allStudents = allStudents;
     }
 }

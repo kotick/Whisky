@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sessionBeans;
+package JpaControllers;
 
+import DTOs.ParticipantDTO;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
@@ -13,6 +14,7 @@ import entity.Course;
 import entity.Participant;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -198,6 +200,35 @@ public class ParticipantJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    public Participant getParticipantById(Long id) {
+        EntityManager em = getEntityManager();
+
+        
+        Query q = em.createNamedQuery("Participant.getParticipantById", Participant.class);
+        q.setParameter("id", id);
+        return (Participant) q.getSingleResult();
+    }
+    
+    public Collection<ParticipantDTO> getAllByRol(String rol) {
+        EntityManager em = getEntityManager();
+        Collection<Participant> resultQuery;
+        Collection<ParticipantDTO> result = new LinkedList<ParticipantDTO>();
+        ParticipantDTO participantDTOTemp;
+        
+        Query q = em.createNamedQuery("Participant.getAllByType", Participant.class);
+        q.setParameter("rol", rol);
+
+        resultQuery = (Collection<Participant>) q.getResultList();
+        
+        for (Participant iter : resultQuery) {
+            participantDTOTemp = new ParticipantDTO();
+            participantDTOTemp.setFirstName(iter.getFirstName());
+            participantDTOTemp.setLastName(iter.getLastName());
+            participantDTOTemp.setId(iter.getId());
+            result.add(participantDTOTemp);
+        }
+        return result;
     }
     
 }

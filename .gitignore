@@ -80,4 +80,4 @@ Whisky-ejb\nb-configuration.xml
 !Whisky-ejb\nbproject\project.xml
 
 Whisky-ejb/setup/glassfish-resources.xml
-Whisky-ejb/src/conf/persistence.xml
+Whisky-ejb\src\conf\persistence.xml
