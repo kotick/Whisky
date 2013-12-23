@@ -11,6 +11,7 @@ import static com.googlecode.javacv.cpp.opencv_imgproc.*;
 import static com.googlecode.javacv.cpp.opencv_contrib.*;
 import java.io.File;
 import java.io.FilenameFilter;
+import javax.annotation.PostConstruct;
 
 
 /**
@@ -20,8 +21,8 @@ import java.io.FilenameFilter;
 @Stateless
 public class FaceRecognizerSB implements FaceRecognizerSBLocal {
 
-    private FaceRecognizer faceRecognizer = createEigenFaceRecognizer();
-    //FaceRecognizer faceRecognizer = createFisherFaceRecognizer();
+    private static FaceRecognizer faceRecognizer = createEigenFaceRecognizer();
+    //private static FaceRecognizer faceRecognizer = createFisherFaceRecognizer();
     // FaceRecognizer faceRecognizer = createLBPHFaceRecognizer()
     public FaceRecognizerSB(){
         
@@ -32,8 +33,8 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
     public void train(){
          //this.faceRecognizer = createEigenFaceRecognizer();
     
-         System.out.println("Comienza el entrenamiento del predictor");        
-        String trainingDir = "C:\\fotos\\test\\";
+        System.out.println("Comienza el entrenamiento del predictor");        
+        String trainingDir = "./photos/training/";
        // IplImage testImage = cvLoadImage("/Users/kotick/NetBeansProjects/Whisky/prueba.jpg");
         File root = new File(trainingDir);
         FilenameFilter jpgFilter = new FilenameFilter() {
@@ -90,7 +91,6 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
         double []distancia = {0.0};
         double distancia_minima= 20000;
         
-        this.train();
         this.test(ruta_foto, id_test, distancia);
         System.out.println("Label");
         System.out.println(id_test[0]);

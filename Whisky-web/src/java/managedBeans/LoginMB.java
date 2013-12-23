@@ -1,35 +1,40 @@
 package managedBeans;
 
-import java.io.File;
 import java.io.IOException;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
-import javax.imageio.stream.FileImageOutputStream;
 import javax.inject.Inject;
-import javax.servlet.ServletContext;
-import org.primefaces.event.CaptureEvent;
+import sessionBeans.FaceRecognizerSBLocal;
 
 @Named(value = "loginMB")
 @RequestScoped
 public class LoginMB {
+    @EJB
+    private FaceRecognizerSBLocal faceRecognizerSB;
     @Inject SessionMB session;
     
     private String email;
     private String password;
+    private static boolean  entrenado = false;
     
     public LoginMB() {
     }
     
+    @PostConstruct
+    void init(){
+        
+        if (!entrenado){
+            faceRecognizerSB.train();
+            entrenado=true;
+        }
+    
+    }
     public void login(){
         session.login(email, password);
     }
     
-    public boolean loginWithCam(){
-        session.login(email, password);
-        return session.isLogin();
-    }
     
     public void logout() throws IOException{
         session.logout();
@@ -60,27 +65,4 @@ public class LoginMB {
         return String.valueOf(i);  
     }  
   
-  
-      
-    public void oncapture(CaptureEvent captureEvent) {  
-        System.out.println("entro a oncapture");
-        if(loginWithCam()){
-            String photo = getRandomImageName();  
-            byte[] data = captureEvent.getData();  
-
-            ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();  
-            String newFileName = "/Users/kotick/NetBeansProjects/Whisky/fotos/" + photo + ".png";  
-
-            FileImageOutputStream imageOutput;  
-            try {  
-                imageOutput = new FileImageOutputStream(new File(newFileName));  
-                imageOutput.write(data, 0, data.length);
-                imageOutput.close();
-            }  
-            catch(Exception e) {  
-                throw new FacesException("Error in writing captured image.");  
-            }
-        }
-    
-    }
 }

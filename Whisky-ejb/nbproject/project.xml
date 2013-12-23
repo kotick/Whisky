@@ -5,6 +5,7 @@
         <data xmlns="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
             <name>Whisky-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
+            <included-library dirs="200">libs.PostgreSQLDriver.classpath</included-library>
             <included-library dirs="200">file.reference.javacpp.jar</included-library>
             <included-library dirs="200">file.reference.javacv-windows-x86_64.jar</included-library>
             <included-library dirs="200">file.reference.javacv.jar</included-library>

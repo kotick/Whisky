@@ -27,7 +27,19 @@ public class AttendanceManagementSB implements AttendanceManagementSBLocal {
           
     
     }
-
+    
+   /*  public void addAttendance(Participant participant, Lecture lecture, String photoLocation){
+    
+          Attendance clase = new Attendance();
+          clase.setLecture(lecture);
+          clase.setParticipant(participant);
+          clase.setPresent(true);
+          clase.setPhoto(photoLocation);
+          em.persist(clase);
+          
+    
+    }
+*/
     public void persist(Object object) {
         em.persist(object);
     }

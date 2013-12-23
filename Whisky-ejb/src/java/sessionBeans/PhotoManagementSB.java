@@ -6,6 +6,10 @@ package sessionBeans;
 
 import java.io.File;
 import java.security.Timestamp;
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -26,29 +30,27 @@ public class PhotoManagementSB implements PhotoManagementSBLocal {
     
     
     @Override
-    public boolean save_predict(byte [] foto, long id) {
+    public void save_predict(byte [] foto, long id, boolean reconocido, String direccion_foto) {
         
-        Date date = new Date();
-        String fecha = date.toString();
         
-       // String photo = id +"-"+fecha;
-       // System.out.println(photo);
-        int i = (int) (Math.random() * 10000000);  
-          
-     
-      
-            String newFileName = "C:\\fotos\\" + i + ".jpg";  
-
-            FileImageOutputStream imageOutput;  
-            try {  
-                imageOutput = new FileImageOutputStream(new File(newFileName));  
-                imageOutput.write(foto, 0, foto.length);
-                imageOutput.close();
-            }  
-            catch(Exception e) {  
-                throw new FacesException("Error en escribir la fotografia");  
-            }
+       DateFormat df = new SimpleDateFormat("MM-dd-yyyy-HH-mm-ss");
+       Date today = Calendar.getInstance().getTime();        
+       String date_name = df.format(today);
         
-    return faceRecognizerSB.predict(newFileName, id);
+            
+            //String newFileName = "./"+ date_name + ".jpg";  
+        String newFileName = "./photos/test/"+ date_name + ".jpg"; 
+        FileImageOutputStream imageOutput;  
+        try {  
+            imageOutput = new FileImageOutputStream(new File(newFileName));  
+            imageOutput.write(foto, 0, foto.length);
+            imageOutput.close();
+        }  
+        catch(Exception e) {  
+            throw new FacesException("Error en escribir la fotografia");  
+        }
+        
+    reconocido = faceRecognizerSB.predict(newFileName, id);
+    direccion_foto= newFileName;
     }
 }

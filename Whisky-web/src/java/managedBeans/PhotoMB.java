@@ -56,13 +56,17 @@ public class PhotoMB {
         System.out.println("entro a oncapture");
          byte[] foto = captureEvent.getData();
          
-        if (photoManagementSB.save_predict(foto, idParticipant)){
+        boolean reconocido=false;
+        String ubicacion_foto = null;
+        photoManagementSB.save_predict(foto, idParticipant,reconocido,ubicacion_foto);
+        if (reconocido){
             
             actualParticipant=participantManagementSB.getParticipant(idParticipant);
             actualLecture=lectureManagementSB.getLecturebyId(idLecture);
             attendanceManagementSB.addAttendance(actualParticipant, actualLecture);
+           // attendanceManagementSB.addAttendance(actualParticipant, actualLecture, ubicacion_foto);
             
-            System.out.println("te reconoc;i");
+            System.out.println("te reconocí");
             FacesContext facesContext = FacesContext.getCurrentInstance();
             Flash flash = facesContext.getExternalContext().getFlash();
             flash.setKeepMessages(true);
