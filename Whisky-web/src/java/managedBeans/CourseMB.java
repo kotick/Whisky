@@ -28,6 +28,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.TransferEvent;
 import sessionBeans.CourseManagementSBLocal;
 import sessionBeans.LectureManagementSBLocal;
+import sessionBeans.exceptions.NonexistentEntityException;
 import sessionBeans.exceptions.RollbackFailureException;
 
 @Named(value = "courseMB")
@@ -100,6 +101,19 @@ public class CourseMB {
             Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    
+    public void eraseCourse(Long id){
+        try {
+            courseJpa.destroy(id);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RollbackFailureException ex) {
+            Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     public Collection<LectureDTO> getLectureList() {

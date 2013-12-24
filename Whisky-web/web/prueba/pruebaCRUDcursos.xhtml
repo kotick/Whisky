@@ -22,6 +22,12 @@
                     <p:commandButton type="submit" value="Ver participantes" disabled="true" />
                 </h:form>
             </p:column> 
+            <p:column>
+                <h:form>
+                    <p:commandButton type="submit" value="Eliminar" action="#{courseMB.eraseCourse(course.id)}" />
+                </h:form>
+            </p:column> 
+
 
         </p:dataTable>
 
