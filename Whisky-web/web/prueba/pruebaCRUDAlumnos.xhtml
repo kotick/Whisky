@@ -20,6 +20,11 @@
             <p:column>
                 <h:outputText value="#{student.lastName}"/>
             </p:column> 
+            <p:column>
+                <h:form>
+                    <p:commandButton type="submit" value="Eliminar" action="#{studentMB.eraseStudent(student.id)}" />
+                </h:form>
+            </p:column> 
 
         </p:dataTable>
 

@@ -21,31 +21,29 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.transaction.UserTransaction;
 import sessionBeans.UtilitiesSBLocal;
+import sessionBeans.exceptions.NonexistentEntityException;
 import sessionBeans.exceptions.RollbackFailureException;
 
 @Named(value = "studentMB")
 @RequestScoped
 public class StudentMB {
+
     @EJB
     private UtilitiesSBLocal utilitiesSB;
-    
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("Whisky-ejbPU");
     @Resource
     UserTransaction utx;
     private ParticipantJpaController participantJpa;
     private CourseJpaController courseJpa;
     private RoleJpaController roleJpa;
-    
     private Collection<ParticipantDTO> studentList;
     private CourseDTO[] courseToAdd;
     private ParticipantDataModel allStudents;
-        //Datos participant
+    //Datos participant
     private String firstName;
     private String lastName;
     private String email;
     private String rut;
-
-
 
     public StudentMB() {
     }
@@ -57,9 +55,10 @@ public class StudentMB {
         studentList = participantJpa.getAllByRol("Student");
         allStudents = new ParticipantDataModel((LinkedList<ParticipantDTO>) studentList);
     }
-public void addTeacher() {
+
+    public void addStudent() {
         courseJpa = new CourseJpaController(utx, emf);
-        roleJpa = new RoleJpaController(utx,emf);
+        roleJpa = new RoleJpaController(utx, emf);
         Long idTemp;
         Course temp;
         Role rol;
@@ -86,7 +85,7 @@ public void addTeacher() {
             coursesTemp.add(temp);
         }
         newParticipant.setCourses(coursesTemp);
-        
+
         try {
             participantJpa.create(newParticipant);
         } catch (RollbackFailureException ex) {
@@ -95,6 +94,18 @@ public void addTeacher() {
             Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    public void eraseStudent(Long id){
+        try {
+            participantJpa.destroy(id);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RollbackFailureException ex) {
+            Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     public String getFirstName() {
         return firstName;
@@ -128,7 +139,6 @@ public void addTeacher() {
         this.rut = rut;
     }
 
-    
     public Collection<ParticipantDTO> getStudentList() {
         return studentList;
     }
@@ -144,8 +154,7 @@ public void addTeacher() {
     public void setCourseToAdd(CourseDTO[] courseToAdd) {
         this.courseToAdd = courseToAdd;
     }
-    
-    
+
     public ParticipantDataModel getAllStudents() {
         return allStudents;
     }

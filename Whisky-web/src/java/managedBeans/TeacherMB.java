@@ -23,6 +23,7 @@ import javax.persistence.Persistence;
 import javax.transaction.UserTransaction;
 import sessionBeans.CourseManagementSBLocal;
 import sessionBeans.UtilitiesSBLocal;
+import sessionBeans.exceptions.NonexistentEntityException;
 import sessionBeans.exceptions.RollbackFailureException;
 
 @Named(value = "teacherMB")
@@ -119,7 +120,18 @@ public class TeacherMB {
         }
 
     }
-
+    public void eraseTeacher(Long id){
+        try {
+            participantJpa.destroy(id);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RollbackFailureException ex) {
+            Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
 
     public Collection<CourseDTO> getCourseList() {
