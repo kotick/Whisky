@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </h:head>
     <ui:define name="content">
-
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
         <h1>Ver Curso</h1>
         <p:dataTable id="tabla" value="#{courseMB.courseList}" var="course" emptyMessage="No se han encontrado cursos">
             <p:column>
@@ -24,7 +24,7 @@
             </p:column> 
             <p:column>
                 <h:form>
-                    <p:commandButton type="submit" value="Eliminar" action="#{courseMB.eraseCourse(course.id)}" />
+                    <p:commandButton type="submit" value="Eliminar" action="#{courseMB.eraseCourse(course.id)}" update="@form" />
                 </h:form>
             </p:column> 
 
@@ -62,7 +62,7 @@
 
             </p:dataTable>  
             <div class="form-group">
-                <p:commandButton type="submit" value="Agregar curso" action="#{courseMB.addCourse}"/>
+                <p:commandButton type="submit" value="Agregar curso" action="#{courseMB.addCourse}" update="@form"/>
             </div>
         </h:form>
     </ui:define>

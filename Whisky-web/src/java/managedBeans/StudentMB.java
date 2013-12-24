@@ -17,6 +17,8 @@ import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.transaction.UserTransaction;
@@ -56,38 +58,62 @@ public class StudentMB {
         allStudents = new ParticipantDataModel((LinkedList<ParticipantDTO>) studentList);
     }
 
+    private Participant createStudent() {
+        Participant newParticipant = null;
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (firstName.equals("") && lastName.equals("") && email.equals("") && rut.equals("")) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Campos obligatorios no pueden ser vacíos", "Error al agregar"));
+
+        } else if (!utilitiesSB.validateRut(rut)) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El rut ingresado es inválido", "Error al agregar"));
+
+        } else if (!utilitiesSB.validateEmail(email)) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El email ingresado es inválido", "Error al agregar"));
+
+        } else {
+            newParticipant = new Participant();
+            courseJpa = new CourseJpaController(utx, emf);
+            roleJpa = new RoleJpaController(utx, emf);
+            Long idTemp;
+            Course temp;
+            Role rol;
+            String password;
+            Collection<Course> coursesTemp = new LinkedList<Course>();
+
+            newParticipant.setFirstName(firstName);
+            newParticipant.setLastName(lastName);
+            newParticipant.setEmail(email);
+            newParticipant.setRut(rut);
+            rol = roleJpa.getRol("Student");
+            newParticipant.setRol(rol);
+            newParticipant.setPhoto("C:");
+            try {
+                password = utilitiesSB.stringToMD5("1234");
+                newParticipant.setPassword(password);
+            } catch (Exception ex) {
+                Logger.getLogger(TeacherMB.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            for (CourseDTO iter : courseToAdd) {
+                idTemp = iter.getId();
+                temp = courseJpa.findCourse(idTemp);
+                coursesTemp.add(temp);
+            }
+            newParticipant.setCourses(coursesTemp);
+
+        }
+        return newParticipant;
+    }
+
     public void addStudent() {
-        courseJpa = new CourseJpaController(utx, emf);
-        roleJpa = new RoleJpaController(utx, emf);
-        Long idTemp;
-        Course temp;
-        Role rol;
-        String password;
-        Collection<Course> coursesTemp = new LinkedList<Course>();
-        Participant newParticipant = new Participant();
-        newParticipant.setFirstName(firstName);
-        newParticipant.setLastName(lastName);
-        newParticipant.setEmail(email);
-        newParticipant.setRut(rut);
-        rol = roleJpa.getRol("Student");
-        newParticipant.setRol(rol);
-        newParticipant.setPhoto("C:");
-        try {
-            password = utilitiesSB.stringToMD5("1234");
-            newParticipant.setPassword(password);
-        } catch (Exception ex) {
-            Logger.getLogger(TeacherMB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        for (CourseDTO iter : courseToAdd) {
-            idTemp = iter.getId();
-            temp = courseJpa.findCourse(idTemp);
-            coursesTemp.add(temp);
-        }
-        newParticipant.setCourses(coursesTemp);
+        FacesContext context = FacesContext.getCurrentInstance();
+        Participant newParticipant = createStudent();
 
         try {
-            participantJpa.create(newParticipant);
+            if (newParticipant != null) {
+                participantJpa.create(newParticipant);
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Alumno agregado con éxito", ""));
+            }
         } catch (RollbackFailureException ex) {
             Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
@@ -95,7 +121,8 @@ public class StudentMB {
         }
 
     }
-    public void eraseStudent(Long id){
+
+    public void eraseStudent(Long id) {
         try {
             participantJpa.destroy(id);
         } catch (NonexistentEntityException ex) {
@@ -105,8 +132,9 @@ public class StudentMB {
         } catch (Exception ex) {
             Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
+
     public String getFirstName() {
         return firstName;
     }

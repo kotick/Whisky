@@ -17,6 +17,8 @@ import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -29,16 +31,15 @@ import sessionBeans.exceptions.RollbackFailureException;
 @Named(value = "teacherMB")
 @RequestScoped
 public class TeacherMB {
+
     @EJB
     private UtilitiesSBLocal utilitiesSB;
-
     @Inject
     LoginConversationMB loginConversation;
     @Inject
     CourseConversationMB courseConversation;
     @Inject
     SessionMB session;
-    
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("Whisky-ejbPU");
     @Resource
     UserTransaction utx;
@@ -47,7 +48,6 @@ public class TeacherMB {
     private RoleJpaController roleJpa;
     @EJB
     private CourseManagementSBLocal cursoManagementSB;
-    
     private Collection<CourseDTO> courseList;
     private CourseDTO[] courseToAdd;
     private String username;
@@ -57,7 +57,6 @@ public class TeacherMB {
     private String lastName;
     private String email;
     private String rut;
-
 
     public TeacherMB() {
     }
@@ -81,38 +80,62 @@ public class TeacherMB {
         session.redirect("/faces/teacher/lecture.xhtml?cid=".concat(this.courseConversation.getConversation().getId().toString()));
     }
 
-    public void addTeacher() {
-        courseJpa = new CourseJpaController(utx, emf);
-        roleJpa = new RoleJpaController(utx,emf);
-        Long idTemp;
-        Course temp;
-        Role rol;
-        String password;
-        Collection<Course> coursesTemp = new LinkedList<Course>();
-        Participant newParticipant = new Participant();
-        newParticipant.setFirstName(firstName);
-        newParticipant.setLastName(lastName);
-        newParticipant.setEmail(email);
-        newParticipant.setRut(rut);
-        rol = roleJpa.getRol("Teacher");
-        newParticipant.setRol(rol);
-        newParticipant.setPhoto("C:");
-        try {
-            password = utilitiesSB.stringToMD5("1234");
-            newParticipant.setPassword(password);
-        } catch (Exception ex) {
-            Logger.getLogger(TeacherMB.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private Participant createTeacher() {
+        Participant newParticipant = null;
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (firstName.equalsIgnoreCase("") || lastName.equalsIgnoreCase("") || email.equalsIgnoreCase("") || rut.equalsIgnoreCase("")) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Campos obligatorios no pueden ser vacíos", "Error al agregar"));
 
-        for (CourseDTO iter : courseToAdd) {
-            idTemp = iter.getId();
-            temp = courseJpa.findCourse(idTemp);
-            coursesTemp.add(temp);
+        } else if (!utilitiesSB.validateRut(rut)) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El rut ingresado es inválido", "Error al agregar"));
+
+        } else if (!utilitiesSB.validateEmail(email)) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El email ingresado es inválido", "Error al agregar"));
+
+        } else {
+            newParticipant = new Participant();
+            courseJpa = new CourseJpaController(utx, emf);
+            roleJpa = new RoleJpaController(utx, emf);
+            Long idTemp;
+            Course temp;
+            Role rol;
+            String password;
+            Collection<Course> coursesTemp = new LinkedList<Course>();
+
+            newParticipant.setFirstName(firstName);
+            newParticipant.setLastName(lastName);
+            newParticipant.setEmail(email);
+            newParticipant.setRut(rut);
+            rol = roleJpa.getRol("Teacher");
+            newParticipant.setRol(rol);
+            newParticipant.setPhoto("C:");
+            try {
+                password = utilitiesSB.stringToMD5("1234");
+                newParticipant.setPassword(password);
+            } catch (Exception ex) {
+                Logger.getLogger(TeacherMB.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            for (CourseDTO iter : courseToAdd) {
+                idTemp = iter.getId();
+                temp = courseJpa.findCourse(idTemp);
+                coursesTemp.add(temp);
+            }
+            newParticipant.setCourses(coursesTemp);
+
         }
-        newParticipant.setCourses(coursesTemp);
-        
+        return newParticipant;
+    }
+
+    public void addTeacher() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Participant newParticipant = createTeacher();
+
         try {
-            participantJpa.create(newParticipant);
+            if (newParticipant != null) {
+                participantJpa.create(newParticipant);
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Profesor agregado con éxito", ""));
+            }
         } catch (RollbackFailureException ex) {
             Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
@@ -120,7 +143,8 @@ public class TeacherMB {
         }
 
     }
-    public void eraseTeacher(Long id){
+
+    public void eraseTeacher(Long id) {
         try {
             participantJpa.destroy(id);
         } catch (NonexistentEntityException ex) {
@@ -130,9 +154,8 @@ public class TeacherMB {
         } catch (Exception ex) {
             Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }
 
+    }
 
     public Collection<CourseDTO> getCourseList() {
         return courseList;

@@ -78,23 +78,43 @@ public class CourseMB {
         session.redirect("/faces/teacher/list.xhtml?cid=".concat(this.lectureConversation.getConversation().getId().toString()));
     }
 
-    public void addCourse() {
-        participantJpa = new ParticipantJpaController(utx, emf);
-        Long idTemp;
-        Participant temp;
-        Collection<Participant> participantTemp = new LinkedList<Participant>();
-        Course newCourse = new Course();
-        newCourse.setName(name);
+    private Course createCourse() {
+        Course newCourse = null;
+        FacesContext context = FacesContext.getCurrentInstance();
 
-        for (ParticipantDTO iter : participants) {
-            idTemp = iter.getId();
-            temp = participantJpa.getParticipantById(idTemp);
-            participantTemp.add(temp);
+        if (name.equalsIgnoreCase("")) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Campos obligatorios no pueden ser vacíos", "Error al agregar"));
+
+        } else {
+            newCourse = new Course();
+            participantJpa = new ParticipantJpaController(utx, emf);
+            Long idTemp;
+            Participant temp;
+            Collection<Participant> participantTemp = new LinkedList<Participant>();
+
+            newCourse.setName(name);
+
+            for (ParticipantDTO iter : participants) {
+                idTemp = iter.getId();
+                temp = participantJpa.getParticipantById(idTemp);
+                participantTemp.add(temp);
+            }
+            newCourse.setParticipant(participantTemp);
         }
-        newCourse.setParticipant(participantTemp);
+        return newCourse;
+
+    }
+
+    public void addCourse() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Course newCourse = createCourse();
         courseJpa = new CourseJpaController(utx, emf);
         try {
-            courseJpa.create(newCourse);
+            if (newCourse != null) {
+                courseJpa.create(newCourse);
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Curso agregado con éxito", ""));
+
+            }
         } catch (RollbackFailureException ex) {
             Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
@@ -102,8 +122,8 @@ public class CourseMB {
         }
 
     }
-    
-    public void eraseCourse(Long id){
+
+    public void eraseCourse(Long id) {
         try {
             courseJpa.destroy(id);
         } catch (NonexistentEntityException ex) {
@@ -113,7 +133,7 @@ public class CourseMB {
         } catch (Exception ex) {
             Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     public Collection<LectureDTO> getLectureList() {
