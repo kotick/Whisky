@@ -20,5 +20,9 @@ public interface UtilitiesSBLocal {
     public LinkedList<AttendanceDTO> selectPasswordByEmail(String email);
 
     public Long selectFirstIdByEmail(String email);
+
+    boolean validateRut(String rut);
+
+    boolean validateEmail(String email);
     
 }

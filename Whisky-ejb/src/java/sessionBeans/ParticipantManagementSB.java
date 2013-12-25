@@ -80,6 +80,8 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
         }
         return result;
     }
+    
+
 
     public void persist(Object object) {
         em.persist(object);
@@ -91,4 +93,6 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
         q.setParameter("idParticipant", idParticipant);
         return (Participant) q.getSingleResult();
     }
+
+    
 }

@@ -19,79 +19,57 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.transaction.UserTransaction;
-import sessionBeans.CourseManagementSBLocal;
 import sessionBeans.UtilitiesSBLocal;
 import sessionBeans.exceptions.NonexistentEntityException;
 import sessionBeans.exceptions.RollbackFailureException;
 
-@Named(value = "teacherMB")
+@Named(value = "studentMB")
 @RequestScoped
-public class TeacherMB {
+public class StudentMB {
 
     @EJB
     private UtilitiesSBLocal utilitiesSB;
-    @Inject
-    LoginConversationMB loginConversation;
-    @Inject
-    CourseConversationMB courseConversation;
-    @Inject
-    SessionMB session;
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("Whisky-ejbPU");
     @Resource
     UserTransaction utx;
     private ParticipantJpaController participantJpa;
     private CourseJpaController courseJpa;
     private RoleJpaController roleJpa;
-    @EJB
-    private CourseManagementSBLocal cursoManagementSB;
-    private Collection<CourseDTO> courseList;
+    private Collection<ParticipantDTO> studentList;
     private CourseDTO[] courseToAdd;
-    private String username;
-    private Collection<ParticipantDTO> teacherList;
+    private ParticipantDataModel allStudents;
     //Datos participant
     private String firstName;
     private String lastName;
     private String email;
     private String rut;
 
-    public TeacherMB() {
+    public StudentMB() {
     }
 
     @PostConstruct
     void init() {
-        courseList = new LinkedList<CourseDTO>();
-        if (loginConversation.getUsername() != null) {
-            username = loginConversation.getUsername();
-            courseList = cursoManagementSB.selectCoursesByTeacher(username);
-        }
+
         participantJpa = new ParticipantJpaController(utx, emf);
-
-        teacherList = participantJpa.getAllByRol("Teacher");
-
+        studentList = participantJpa.getAllByRol("Student");
+        allStudents = new ParticipantDataModel((LinkedList<ParticipantDTO>) studentList);
     }
 
-    public void lecture(Long id) {
-        this.courseConversation.beginConversation();
-        this.courseConversation.setId(id);
-        session.redirect("/faces/teacher/lecture.xhtml?cid=".concat(this.courseConversation.getConversation().getId().toString()));
-    }
-
-    private Participant createTeacher() {
+    private Participant createStudent() {
         Participant newParticipant = null;
         FacesContext context = FacesContext.getCurrentInstance();
-        if (firstName.equalsIgnoreCase("") || lastName.equalsIgnoreCase("") || email.equalsIgnoreCase("") || rut.equalsIgnoreCase("")) {
+        if (firstName.equals("") && lastName.equals("") && email.equals("") && rut.equals("")) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Campos obligatorios no pueden ser vacíos", "Error al agregar"));
 
         } else if (!utilitiesSB.validateRut(rut)) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El rut ingresado es inválido", "Error al agregar"));
-
+            /* TODO F:agregar mensaje más descriptivo, verificar dígito verificador, el formato 123123123-2" etc... */
         } else if (!utilitiesSB.validateEmail(email)) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El email ingresado es inválido", "Error al agregar"));
-
+            /* TODO F:agregar mensaje más descriptivo, verificar formato con @ y agregar el caso de que sea un correo duplicado en el validador */
         } else {
             newParticipant = new Participant();
             courseJpa = new CourseJpaController(utx, emf);
@@ -106,7 +84,7 @@ public class TeacherMB {
             newParticipant.setLastName(lastName);
             newParticipant.setEmail(email);
             newParticipant.setRut(rut);
-            rol = roleJpa.getRol("Teacher");
+            rol = roleJpa.getRol("Student");
             newParticipant.setRol(rol);
             newParticipant.setPhoto("C:");
             try {
@@ -127,14 +105,15 @@ public class TeacherMB {
         return newParticipant;
     }
 
-    public void addTeacher() {
+    public void addStudent() {
         FacesContext context = FacesContext.getCurrentInstance();
-        Participant newParticipant = createTeacher();
+        Participant newParticipant = createStudent();
 
         try {
             if (newParticipant != null) {
                 participantJpa.create(newParticipant);
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Profesor agregado con éxito", ""));
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Alumno agregado con éxito", ""));
+                /* TODO F:redirigir al listado de alumnos */
             }
         } catch (RollbackFailureException ex) {
             Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,7 +123,7 @@ public class TeacherMB {
 
     }
 
-    public void eraseTeacher(Long id) {
+    public void eraseStudent(Long id) {
         try {
             participantJpa.destroy(id);
         } catch (NonexistentEntityException ex) {
@@ -157,12 +136,44 @@ public class TeacherMB {
 
     }
 
-    public Collection<CourseDTO> getCourseList() {
-        return courseList;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setCourseList(LinkedList<CourseDTO> courseList) {
-        this.courseList = courseList;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRut() {
+        return rut;
+    }
+
+    public void setRut(String rut) {
+        this.rut = rut;
+    }
+
+    public Collection<ParticipantDTO> getStudentList() {
+        return studentList;
+    }
+
+    public void setStudentList(Collection<ParticipantDTO> studentList) {
+        this.studentList = studentList;
     }
 
     public CourseDTO[] getCourseToAdd() {
@@ -173,43 +184,11 @@ public class TeacherMB {
         this.courseToAdd = courseToAdd;
     }
 
-    public Collection<ParticipantDTO> getTeacherList() {
-        return teacherList;
+    public ParticipantDataModel getAllStudents() {
+        return allStudents;
     }
 
-    public void setTeacherList(Collection<ParticipantDTO> teacherList) {
-        this.teacherList = teacherList;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setRut(String rut) {
-        this.rut = rut;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getRut() {
-        return rut;
+    public void setAllStudents(ParticipantDataModel allStudents) {
+        this.allStudents = allStudents;
     }
 }

@@ -2,8 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sessionBeans;
+package JpaControllers;
 
+import DTOs.CourseDTO;
+import DTOs.ParticipantDTO;
 import entity.Course;
 import java.io.Serializable;
 import javax.persistence.Query;
@@ -13,6 +15,7 @@ import javax.persistence.criteria.Root;
 import entity.Participant;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -45,7 +48,7 @@ public class CourseJpaController implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Collection<Participant> attachedParticipant = new ArrayList<Participant>();
+            Collection<Participant> attachedParticipant = new ArrayList<>();
             for (Participant participantParticipantToAttach : course.getParticipant()) {
                 participantParticipantToAttach = em.getReference(participantParticipantToAttach.getClass(), participantParticipantToAttach.getId());
                 attachedParticipant.add(participantParticipantToAttach);
@@ -154,16 +157,19 @@ public class CourseJpaController implements Serializable {
         }
     }
 
-    public List<Course> findCourseEntities() {
+    public List<CourseDTO> findCourseEntities() {
         return findCourseEntities(true, -1, -1);
     }
 
-    public List<Course> findCourseEntities(int maxResults, int firstResult) {
+    public List<CourseDTO> findCourseEntities(int maxResults, int firstResult) {
         return findCourseEntities(false, maxResults, firstResult);
     }
 
-    private List<Course> findCourseEntities(boolean all, int maxResults, int firstResult) {
+    private List<CourseDTO> findCourseEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
+        Collection<Course> resultQuery;
+        Collection<CourseDTO> result = new LinkedList<CourseDTO>();
+        CourseDTO courseDTOTemp;
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(Course.class));
@@ -172,7 +178,15 @@ public class CourseJpaController implements Serializable {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
             }
-            return q.getResultList();
+
+            resultQuery = q.getResultList();
+            for (Course iter : resultQuery) {
+                courseDTOTemp = new CourseDTO();
+                courseDTOTemp.setName(iter.getName());
+                courseDTOTemp.setId(iter.getId());
+                result.add(courseDTOTemp);
+            }
+            return (List<CourseDTO>) result;
         } finally {
             em.close();
         }
@@ -180,8 +194,10 @@ public class CourseJpaController implements Serializable {
 
     public Course findCourse(Long id) {
         EntityManager em = getEntityManager();
+
         try {
             return em.find(Course.class, id);
+
         } finally {
             em.close();
         }
@@ -199,5 +215,4 @@ public class CourseJpaController implements Serializable {
             em.close();
         }
     }
-    
 }
