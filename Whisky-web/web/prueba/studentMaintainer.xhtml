@@ -18,6 +18,9 @@
         </h:form>
         <p:dataTable id="tabla" value="#{studentMB.studentList}" var="student" emptyMessage="No se han encontrado alumnos">
             <p:column>
+                <h:outputText value="#{student.rut}"/>
+            </p:column> 
+            <p:column>
                 <h:outputText value="#{student.firstName}"/>
             </p:column>
             <p:column>

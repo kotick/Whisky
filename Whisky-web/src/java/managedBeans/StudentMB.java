@@ -65,10 +65,10 @@ public class StudentMB {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Campos obligatorios no pueden ser vacíos", "Error al agregar"));
 
         } else if (!utilitiesSB.validateRut(rut)) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El rut ingresado es inválido", "Error al agregar"));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al agregar", "Rut inválido"));
             /* TODO F:agregar mensaje más descriptivo, verificar dígito verificador, el formato 123123123-2" etc... */
         } else if (!utilitiesSB.validateEmail(email)) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El email ingresado es inválido", "Error al agregar"));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al agregar", "Email inválido"));
             /* TODO F:agregar mensaje más descriptivo, verificar formato con @ y agregar el caso de que sea un correo duplicado en el validador */
         } else {
             newParticipant = new Participant();

@@ -10,7 +10,18 @@ public class ParticipantDTO {
     private String firstName;
     private String lastName;
     
+    private String rut;
+    
+    
     private Long id;
+
+    public String getRut() {
+        return rut;
+    }
+
+    public void setRut(String rut) {
+        this.rut = rut;
+    }
 
     public Long getId() {
         return id;

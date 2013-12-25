@@ -15,6 +15,9 @@
         <h1>Ver Profesor</h1>
         <p:dataTable id="tabla" value="#{teacherMB.teacherList}" var="teacher" emptyMessage="No se han encontrado profesores">
             <p:column>
+                <h:outputText value="#{teacher.rut}"/>
+            </p:column> 
+            <p:column>
                 <h:outputText value="#{teacher.firstName}"/>
             </p:column>
             <p:column>

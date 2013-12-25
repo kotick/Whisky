@@ -201,6 +201,7 @@ public class ParticipantJpaController implements Serializable {
             em.close();
         }
     }
+    
     public Participant getParticipantById(Long id) {
         EntityManager em = getEntityManager();
 
@@ -226,6 +227,7 @@ public class ParticipantJpaController implements Serializable {
             participantDTOTemp.setFirstName(iter.getFirstName());
             participantDTOTemp.setLastName(iter.getLastName());
             participantDTOTemp.setId(iter.getId());
+            participantDTOTemp.setRut(iter.getRut());
             result.add(participantDTOTemp);
         }
         return result;
