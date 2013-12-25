@@ -6,9 +6,10 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class ParticipantDTO {
+    /* TODO agregar correo y rut para mostrarlos en la lista */
     private String firstName;
     private String lastName;
-
+    
     private Long id;
 
     public Long getId() {

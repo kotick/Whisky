@@ -9,6 +9,11 @@
             <included-library dirs="200">file.reference.javacpp.jar</included-library>
             <included-library dirs="200">file.reference.javacv-windows-x86_64.jar</included-library>
             <included-library dirs="200">file.reference.javacv.jar</included-library>
+            <included-library dirs="200">file.reference.javacv-android-arm.jar</included-library>
+            <included-library dirs="200">file.reference.javacv-linux-x86.jar</included-library>
+            <included-library dirs="200">file.reference.javacv-linux-x86_64.jar</included-library>
+            <included-library dirs="200">file.reference.javacv-macosx-x86_64.jar</included-library>
+            <included-library dirs="200">file.reference.javacv-windows-x86.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>

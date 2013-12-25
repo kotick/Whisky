@@ -66,10 +66,10 @@ public class StudentMB {
 
         } else if (!utilitiesSB.validateRut(rut)) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El rut ingresado es inválido", "Error al agregar"));
-
+            /* TODO F:agregar mensaje más descriptivo, verificar dígito verificador, el formato 123123123-2" etc... */
         } else if (!utilitiesSB.validateEmail(email)) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El email ingresado es inválido", "Error al agregar"));
-
+            /* TODO F:agregar mensaje más descriptivo, verificar formato con @ y agregar el caso de que sea un correo duplicado en el validador */
         } else {
             newParticipant = new Participant();
             courseJpa = new CourseJpaController(utx, emf);
@@ -113,6 +113,7 @@ public class StudentMB {
             if (newParticipant != null) {
                 participantJpa.create(newParticipant);
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Alumno agregado con éxito", ""));
+                /* TODO F:redirigir al listado de alumnos */
             }
         } catch (RollbackFailureException ex) {
             Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
