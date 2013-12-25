@@ -4,6 +4,7 @@
  */
 package managedBeans;
 
+import classes.photoConfirmation;
 import entity.Lecture;
 import entity.Participant;
 import javax.annotation.PostConstruct;
@@ -55,16 +56,16 @@ public class PhotoMB {
         FacesContext context = FacesContext.getCurrentInstance();
         System.out.println("entro a oncapture");
          byte[] foto = captureEvent.getData();
+        
+        
+        photoConfirmation confirmacion = photoManagementSB.save_predict(foto, idParticipant);
          
-        boolean reconocido=false;
-        String ubicacion_foto = null;
-        photoManagementSB.save_predict(foto, idParticipant,reconocido,ubicacion_foto);
-        if (reconocido){
+        if (confirmacion.isValidado()){
             
             actualParticipant=participantManagementSB.getParticipant(idParticipant);
             actualLecture=lectureManagementSB.getLecturebyId(idLecture);
-            attendanceManagementSB.addAttendance(actualParticipant, actualLecture);
-           // attendanceManagementSB.addAttendance(actualParticipant, actualLecture, ubicacion_foto);
+           // attendanceManagementSB.addAttendance(actualParticipant, actualLecture);
+            attendanceManagementSB.addAttendance(actualParticipant, actualLecture, confirmacion.getDireccionFoto());
             
             System.out.println("te reconocí");
             FacesContext facesContext = FacesContext.getCurrentInstance();
