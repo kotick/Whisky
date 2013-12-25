@@ -4,19 +4,16 @@
  */
 package sessionBeans;
 
+import classes.photoConfirmation;
 import java.io.File;
-import java.security.Timestamp;
 import java.text.DateFormat;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
 import javax.imageio.stream.FileImageOutputStream;
-import javax.servlet.ServletContext;
 
 /**
  *
@@ -30,8 +27,8 @@ public class PhotoManagementSB implements PhotoManagementSBLocal {
     
     
     @Override
-    public void save_predict(byte [] foto, long id, boolean reconocido, String direccion_foto) {
-        
+    
+      public photoConfirmation save_predict(byte[] foto, Long id){    
         
        DateFormat df = new SimpleDateFormat("MM-dd-yyyy-HH-mm-ss");
        Date today = Calendar.getInstance().getTime();        
@@ -50,7 +47,9 @@ public class PhotoManagementSB implements PhotoManagementSBLocal {
             throw new FacesException("Error en escribir la fotografia");  
         }
         
-    reconocido = faceRecognizerSB.predict(newFileName, id);
-    direccion_foto= newFileName;
+    photoConfirmation confirmacion= new photoConfirmation();
+    confirmacion.setValidado(faceRecognizerSB.predict(newFileName, id));
+    confirmacion.setDireccionFoto(newFileName);
+    return confirmacion;
     }
 }
