@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sessionBeans;
+package JpaControllers;
 
 import entity.Attendance;
 import java.io.Serializable;

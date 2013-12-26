@@ -76,10 +76,14 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
             participantDTOTemp = new ParticipantDTO();
             participantDTOTemp.setFirstName(iter.getParticipant().getFirstName());
             participantDTOTemp.setLastName(iter.getParticipant().getLastName());
+            participantDTOTemp.setPhoto(iter.getPhoto());
+            
             result.add(participantDTOTemp);
         }
         return result;
     }
+    
+
 
     public void persist(Object object) {
         em.persist(object);
@@ -91,4 +95,6 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
         q.setParameter("idParticipant", idParticipant);
         return (Participant) q.getSingleResult();
     }
+
+    
 }

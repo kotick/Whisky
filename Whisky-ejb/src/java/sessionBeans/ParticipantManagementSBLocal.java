@@ -21,5 +21,6 @@ public interface ParticipantManagementSBLocal {
 
     Participant getParticipant(Long idParticipant);
 
+
     
 }
