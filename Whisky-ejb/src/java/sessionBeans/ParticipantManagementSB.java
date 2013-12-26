@@ -76,6 +76,8 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
             participantDTOTemp = new ParticipantDTO();
             participantDTOTemp.setFirstName(iter.getParticipant().getFirstName());
             participantDTOTemp.setLastName(iter.getParticipant().getLastName());
+            participantDTOTemp.setPhoto(iter.getPhoto());
+            
             result.add(participantDTOTemp);
         }
         return result;

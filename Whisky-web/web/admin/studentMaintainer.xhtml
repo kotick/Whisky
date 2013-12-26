@@ -17,6 +17,20 @@
             <div class="pull-right">
                 <h:form>
                     <p:commandButton type="submit" value="Agregar Alumno" action="#{sessionMB.redirect('/faces/prueba/addStudent.xhtml')}" update="@form"/>
+            <p:dataTable sortBy="#{student.lastName}" id="tabla" value="#{studentMB.studentList}" var="student" emptyMessage="No se han encontrado alumnos">
+                <p:column headerText="Rut">
+                <h:outputText  value="#{student.rut}"/>
+                </p:column> 
+                <p:column headerText="Nombre">
+                <h:outputText value="#{student.firstName}"/>
+            </p:column>
+            <p:column headerText="Apellido" >
+                <h:outputText value="#{student.lastName}"/>
+            </p:column> 
+            <p:column>
+                <h:form>
+                    <p:commandButton type="submit" value="Editar" action="#{studentMB.editStudent(student.id)}" update="@form"/>
+                    <p:commandButton type="submit" value="Eliminar" action="#{studentMB.eraseStudent(student.id)}" update="@form" ajax="false"/>
                 </h:form>
             </div>
             <h:form>

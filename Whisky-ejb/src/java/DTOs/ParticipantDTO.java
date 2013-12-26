@@ -9,6 +9,7 @@ public class ParticipantDTO {
     /* TODO agregar correo y rut para mostrarlos en la lista */
     private String firstName;
     private String lastName;
+    private String photo;
     
     private Long id;
 
@@ -20,7 +21,24 @@ public class ParticipantDTO {
         this.id = id;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
 
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+    
+    private String rut;
+    
+    
+    public String getRut() {
+        return rut;
+    }
+
+    public void setRut(String rut) {
+        this.rut = rut;
+    }
 
     public String getFirstName() {
         return firstName;

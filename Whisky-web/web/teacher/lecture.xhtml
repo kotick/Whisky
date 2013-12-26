@@ -6,16 +6,12 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
 
-    <ui:define name="top">
-        top
-    </ui:define>
-
     <ui:define name="content">
-        <p:dataTable id="tabla" value="#{courseMB.lectureList}" var="lecture">
-            <p:column>
+        <p:dataTable id="tabla" value="#{courseMB.lectureList}" var="lecture"  sortBy="#{lecture.date}">
+            <p:column headerText="Id">
                 <h:outputText value="#{lecture.date}"/>
             </p:column>
-            <p:column>
+            <p:column headerText="Ver">
                 <h:form>
                     <p:commandButton type="submit" value="Ver asistencia" action="#{courseMB.list(lecture.id)}"/>
                 </h:form>
@@ -23,8 +19,5 @@
         </p:dataTable>
     </ui:define>
 
-    <ui:define name="bottom">
-        bottom
-    </ui:define>
 
 </ui:composition>

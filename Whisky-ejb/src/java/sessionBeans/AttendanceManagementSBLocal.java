@@ -16,5 +16,7 @@ import javax.ejb.Local;
 public interface AttendanceManagementSBLocal {
 
     public void addAttendance(Participant participant, Lecture lecture);
+
+    public void addAttendance(Participant participant, Lecture lecture, String photoLocation);
     
 }

@@ -4,6 +4,7 @@
  */
 package sessionBeans;
 
+import classes.photoConfirmation;
 import javax.ejb.Local;
 
 /**
@@ -13,8 +14,7 @@ import javax.ejb.Local;
 @Local
 public interface PhotoManagementSBLocal {
 
-   
 
-    public void save_predict(byte[] foto, long id, boolean reconocido, String direccion_foto);
+    public photoConfirmation save_predict(byte[] foto, Long idParticipant);
     
 }

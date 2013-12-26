@@ -11,7 +11,6 @@ import static com.googlecode.javacv.cpp.opencv_imgproc.*;
 import static com.googlecode.javacv.cpp.opencv_contrib.*;
 import java.io.File;
 import java.io.FilenameFilter;
-import javax.annotation.PostConstruct;
 
 
 /**
@@ -21,14 +20,15 @@ import javax.annotation.PostConstruct;
 @Stateless
 public class FaceRecognizerSB implements FaceRecognizerSBLocal {
 
-    private static FaceRecognizer faceRecognizer = createEigenFaceRecognizer();
+     private static FaceRecognizer faceRecognizer= createEigenFaceRecognizer(0, 7000);
+   
     //private static FaceRecognizer faceRecognizer = createFisherFaceRecognizer();
     // FaceRecognizer faceRecognizer = createLBPHFaceRecognizer()
     public FaceRecognizerSB(){
         
         
     }
-    
+   
      @Override
     public void train(){
          //this.faceRecognizer = createEigenFaceRecognizer();
@@ -89,14 +89,14 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
       
         int [] id_test = {-1};
         double []distancia = {0.0};
-        double distancia_minima= 20000;
+        double distancia_minima= 40000;
         
         this.test(ruta_foto, id_test, distancia);
         System.out.println("Label");
         System.out.println(id_test[0]);
         System.out.println("Confidence");
         System.out.println(distancia[0]);
-        if (id_test[0] <distancia_minima && id == id_test[0]){
+        if ((id_test[0] < distancia_minima) && (id == id_test[0])){
             return true;
         }
         else{

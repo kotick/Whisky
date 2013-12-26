@@ -12,57 +12,54 @@
     </h:head>
     <ui:define name="content">
         <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-        <h1>Ver Curso</h1>
-        <p:dataTable id="tabla" value="#{courseMB.courseList}" var="course" emptyMessage="No se han encontrado cursos">
-            <p:column>
-                <h:outputText value="#{course.name}"/>
-            </p:column>
-            <p:column>
-                <h:form>
-                    <p:commandButton type="submit" value="Ver participantes" disabled="true" />
-                </h:form>
-            </p:column> 
-            <p:column>
-                <h:form>
-                    <p:commandButton type="submit" value="Eliminar" action="#{courseMB.eraseCourse(course.id)}" update="@form" />
-                </h:form>
-            </p:column> 
-
-
-        </p:dataTable>
-
-
-        <hr></hr>
-
-        <h1>Agregar Curso</h1>
+        <h1>Editar Curso</h1>
         <h:form>
 
             <div class="form-group">
                 <h:outputLabel for="name" 
                                value="Ingrese el nombre del curso:"/>
                 <h:inputText class="form-control" id="name" autocomplete="off" 
-                             size="20" value="#{courseMB.name}" />
+                             size="20" value="#{editMB.name}" />
             </div>
-            <p:dataTable id="students" var="student" value="#{studentMB.allStudents}" rowKey ="#{student.id}"   
-                         selection="#{courseMB.participantsToAdd}">  
+            <p:dataTable id="studentsToRemove" var="studentsToRemove" value="#{studentMB.studentInClass(editMB.id)}" rowKey ="#{studentsToRemove.id}"   
+                         selection="#{editMB.participantsToRemove}">  
 
                 <f:facet name="header">  
-                    Seleccionar alumnos 
+                    Seleccionar alumnos a quitar 
                 </f:facet>  
 
                 <p:column selectionMode="multiple" style="width:2%" />  
 
                 <p:column headerText="Nombre" style="width:25%">  
-                    #{student.firstName}  
+                    #{studentsToRemove.firstName}  
                 </p:column>  
 
                 <p:column headerText="Apellido" style="width:25%">  
-                    #{student.lastName}  
+                    #{studentsToRemove.lastName}  
+                </p:column> 
+
+            </p:dataTable>  
+
+            <p:dataTable id="studentsToAdd" var="studentsToAdd" value="#{studentMB.studentOutClass(editMB.id)}" rowKey ="#{studentsToAdd.id}"   
+                         selection="#{editMB.participantsToAdd}">  
+
+                <f:facet name="header">  
+                    Seleccionar alumnos a agregar
+                </f:facet>  
+
+                <p:column selectionMode="multiple" style="width:2%" />  
+
+                <p:column headerText="Nombre" style="width:25%">  
+                    #{studentsToAdd.firstName}  
+                </p:column>  
+
+                <p:column headerText="Apellido" style="width:25%">  
+                    #{studentsToAdd.lastName}  
                 </p:column> 
 
             </p:dataTable>  
             <div class="form-group">
-                <p:commandButton type="submit" value="Agregar curso" action="#{courseMB.addCourse}" update="@form"/>
+                <p:commandButton type="submit" value="Editar curso" action="#{editMB.editCourse}" update="@form"/>
             </div>
         </h:form>
     </ui:define>

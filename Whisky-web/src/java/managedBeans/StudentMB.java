@@ -20,6 +20,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.transaction.UserTransaction;
@@ -31,6 +32,10 @@ import sessionBeans.exceptions.RollbackFailureException;
 @RequestScoped
 public class StudentMB {
 
+    @Inject
+    EditConversationMB editConversation;
+    @Inject
+    SessionMB session;
     @EJB
     private UtilitiesSBLocal utilitiesSB;
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("Whisky-ejbPU");
@@ -58,6 +63,15 @@ public class StudentMB {
         participantJpa = new ParticipantJpaController(utx, emf);
         studentList = participantJpa.getAllByRol("Student");
         allStudents = new ParticipantDataModel((LinkedList<ParticipantDTO>) studentList);
+    }
+
+    public ParticipantDataModel studentInClass(Long id) {
+        return new ParticipantDataModel((LinkedList<ParticipantDTO>) participantJpa.getParticipantInClass(id, "Student"));
+
+    }
+
+    public ParticipantDataModel studentOutClass(Long id) {
+        return new ParticipantDataModel((LinkedList<ParticipantDTO>) participantJpa.getParticipantOutClass(id, "Student"));
     }
 
     private Participant createStudent() {
@@ -107,6 +121,14 @@ public class StudentMB {
         return newParticipant;
     }
 
+    public void editStudent(Long id) {
+        this.editConversation.beginConversation();
+        this.editConversation.setIdParticipant(id);
+        //TODO Cambiar página de direccionamiento
+        session.redirect("/faces/admin/editStudent.xhtml?cid=".concat(this.editConversation.getConversation().getId().toString()));
+
+    }
+
     public void addStudent() {
         FacesContext context = FacesContext.getCurrentInstance();
         Participant newParticipant = createStudent();
@@ -116,6 +138,8 @@ public class StudentMB {
                 participantJpa.create(newParticipant);
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Alumno agregado con éxito", ""));
                 /* TODO F:redirigir al listado de alumnos */
+                session.redirect("/faces/admin/studentMaintainer.xhtml");
+
             }
         } catch (RollbackFailureException ex) {
             Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
