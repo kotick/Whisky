@@ -203,7 +203,6 @@ public class ParticipantJpaController implements Serializable {
     }
 
     
-    
     public Participant getParticipantById(Long id) {
         EntityManager em = getEntityManager();
 

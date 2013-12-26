@@ -12,6 +12,10 @@ public class ParticipantDTO {
     private String photo;
     
     private Long id;
+    private String rut;
+    
+    
+   
 
     public Long getId() {
         return id;
@@ -28,10 +32,7 @@ public class ParticipantDTO {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
-    
-    private String rut;
-    
-    
+
     public String getRut() {
         return rut;
     }
