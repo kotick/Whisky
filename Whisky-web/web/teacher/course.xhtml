@@ -8,16 +8,16 @@
 
     <ui:define name="content">
         <p:dataTable id="tabla" value="#{teacherMB.courseList}" var="course">
-            <p:column>
+            <p:column headerText="Cursos">
                 <h:outputText value="#{course.name}"/>
             </p:column>
-            <p:column>
+            <p:column headerText="Ver">
                 <h:form>
                     <p:commandButton type="submit" value="Ver clases" action="#{teacherMB.lecture(course.id)}"/>
                 </h:form>
             </p:column> 
             
-            <p:column>
+            <p:column headerText="Iniciar">
                 <h:form>
                     <p:commandButton type="submit" value="Iniciar curso" action="#{lectureMB.createLecture(course.id)}"/>
                 </h:form>

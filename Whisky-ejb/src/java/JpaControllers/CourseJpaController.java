@@ -203,6 +203,50 @@ public class CourseJpaController implements Serializable {
         }
     }
 
+    public Collection<CourseDTO> getCourseForParticipant(Long id) {
+        EntityManager em = getEntityManager();
+        Collection<Course> resultQuery;
+        Collection<CourseDTO> result = new LinkedList<CourseDTO>();
+        CourseDTO courseDTOTemp;
+
+        Query q = em.createNamedQuery("Course.getCourseForParticipant", Course.class);
+        q.setParameter("id", id);
+
+        resultQuery = (Collection<Course>) q.getResultList();
+
+        for (Course iter : resultQuery) {
+            courseDTOTemp = new CourseDTO();
+            courseDTOTemp.setName(iter.getName());
+
+            courseDTOTemp.setId(iter.getId());
+
+            result.add(courseDTOTemp);
+        }
+        return result;
+    }
+
+    public Collection<CourseDTO> getNotCourseForParticipant(Long id) {
+        EntityManager em = getEntityManager();
+        Collection<Course> resultQuery;
+        Collection<CourseDTO> result = new LinkedList<CourseDTO>();
+        CourseDTO courseDTOTemp;
+
+        Query q = em.createNamedQuery("Course.getNotCourseForParticipant", Course.class);
+        q.setParameter("id", id);
+
+        resultQuery = (Collection<Course>) q.getResultList();
+
+        for (Course iter : resultQuery) {
+            courseDTOTemp = new CourseDTO();
+            courseDTOTemp.setName(iter.getName());
+
+            courseDTOTemp.setId(iter.getId());
+
+            result.add(courseDTOTemp);
+        }
+        return result;
+    }
+
     public int getCourseCount() {
         EntityManager em = getEntityManager();
         try {

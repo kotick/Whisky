@@ -24,5 +24,9 @@ public interface LectureManagementSBLocal {
     Lecture getLecturebyId(Long idLecture);
 
     Lecture getLecturebyCourse(Long idCourse);
+
+    public void fillLecture(Long idLecture);
     
+
+      
 }

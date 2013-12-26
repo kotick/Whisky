@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../base.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+    <ui:define name="content">
+        <div class="cajaCentroAttendance">
+            <h1>Bienvenido Administrador</h1>
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+            <h:form>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                Mantenedor
+                            </th>
+                            <th>
+                                ...
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Gestión de Alumnos
+                            </td>
+                            <td>
+                                <p:commandButton type="submit" value="Ir a gestión alumnos" action="#{sessionMB.redirect('/faces/admin/studentMaintainer.xhtml')}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Gestión de Profesores
+                            </td>
+                            <td>
+                                <p:commandButton type="submit" value="Ir a gestión profesores" action="#{sessionMB.redirect('/faces/admin/teacherMaintainer.xhtml')}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Gestión de Cursos
+                            </td>
+                            <td>
+                                <p:commandButton type="submit" value="Ir a gestión cursos" action="#{sessionMB.redirect('/faces/admin/courseMaintainer.xhtml')}"/>
+                            </td>
+                        </tr>
+                    </tbody>
+
+
+                </table>
+                <center>
+                    <div class="form-group">
+                        <p:commandButton type="submit" value="Cerrar Sesión" action="#{loginMB.logout()}"/>
+                    </div>
+                </center>
+            </h:form>
+
+        </div>
+
+    </ui:define>
+
+</ui:composition>    

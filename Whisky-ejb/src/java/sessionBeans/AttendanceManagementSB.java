@@ -22,11 +22,13 @@ public class AttendanceManagementSB implements AttendanceManagementSBLocal {
           Attendance clase = new Attendance();
           clase.setLecture(lecture);
           clase.setParticipant(participant);
-          clase.setPresent(true);
+          clase.setPresent(false);
           em.persist(clase);
+          em.flush();
           
     
     }
+    
     
     @Override
     public void addAttendance(Participant participant, Lecture lecture, String photoLocation){
@@ -37,6 +39,7 @@ public class AttendanceManagementSB implements AttendanceManagementSBLocal {
           clase.setPresent(true);
           clase.setPhoto(photoLocation);
           em.persist(clase);
+          
           
     
     }

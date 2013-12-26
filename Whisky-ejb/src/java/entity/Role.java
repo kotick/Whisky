@@ -28,6 +28,10 @@ public class Role implements Serializable {
     
     private String name;
 
+    public String getName() {
+        return name;
+    }
+
 
     @Override
     public int hashCode() {

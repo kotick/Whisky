@@ -1,11 +1,13 @@
 package managedBeans;
 
+import DTOs.LectureDTO;
 import DTOs.ParticipantDTO;
 import entity.Course;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -33,15 +35,32 @@ public class LectureMB {
     private Long idCourse;
     private Long idLecture;
     private Long idLecture2;
-    private Collection<ParticipantDTO> lectureList;
+    private Collection<ParticipantDTO> participantList;
+    private Collection<LectureDTO> lectureList;
+    private List<LectureDTO> filteredLectures;
 
+    public Collection<LectureDTO> getLectureList() {
+        return lectureList;
+    }
+
+    public void setLectureList(Collection<LectureDTO> lectureList) {
+        this.lectureList = lectureList;
+    }
+
+    public List<LectureDTO> getFilteredLectures() {
+        return filteredLectures;
+    }
+
+    public void setFilteredLectures(List<LectureDTO> filteredLectures) {
+        this.filteredLectures = filteredLectures;
+    }
 
     public LectureMB() {
     }
     @PostConstruct
     void init(){
         idLecture = lectureConversation.getId();
-        lectureList= participantManagementSB.selectParticipantByLecture(idLecture);
+        participantList= participantManagementSB.selectParticipantByLecture(idLecture);
     }
     
     public void createLecture(Long idCourse){
@@ -49,18 +68,25 @@ public class LectureMB {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date date = new Date();
         idLecture2 = lectureManagementSB.createLecture(dateFormat.format(date),"","",actualCourse);
+        fillLecture(idLecture2);
         this.attendanceConversationMB.beginConversation();
         this.attendanceConversationMB.setId(idLecture2);
         session.redirect("/faces/teacher/attendance.xhtml?cid=".concat(this.attendanceConversationMB.getConversation().getId().toString()));
     }
-
-
-    public Collection<ParticipantDTO> getLectureList() {
-        return lectureList;
+    
+    public void fillLecture(Long idLecture){
+        lectureManagementSB.fillLecture(idLecture);
+        
+    
     }
 
-    public void setLectureList(Collection<ParticipantDTO> lectureList) {
-        this.lectureList = lectureList;
+
+    public Collection<ParticipantDTO> getParticipantList() {
+        return participantList;
+    }
+
+    public void setParticipantList(Collection<ParticipantDTO> participantList) {
+        this.participantList = participantList;
     }
     
     
