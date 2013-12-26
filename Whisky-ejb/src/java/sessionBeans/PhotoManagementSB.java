@@ -36,7 +36,7 @@ public class PhotoManagementSB implements PhotoManagementSBLocal {
         
             
             //String newFileName = "./"+ date_name + ".jpg";  
-        String newFileName = "./photos/test/"+ date_name + ".jpg"; 
+        String newFileName = "./photos/test/"+ date_name + ".png"; 
         FileImageOutputStream imageOutput;  
         try {  
             imageOutput = new FileImageOutputStream(new File(newFileName));  

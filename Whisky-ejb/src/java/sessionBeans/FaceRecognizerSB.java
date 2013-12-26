@@ -20,12 +20,13 @@ import java.io.FilenameFilter;
 @Stateless
 public class FaceRecognizerSB implements FaceRecognizerSBLocal {
 
-     private static FaceRecognizer faceRecognizer= createEigenFaceRecognizer(0, 7000);
-   
+    //private static FaceRecognizer faceRecognizer= createEigenFaceRecognizer(0, 20000);
+    private static FaceRecognizer faceRecognizer= createEigenFaceRecognizer();
+  // private static FaceRecognizer faceRecognizer= createFisherFaceRecognizer();
     //private static FaceRecognizer faceRecognizer = createFisherFaceRecognizer();
     // FaceRecognizer faceRecognizer = createLBPHFaceRecognizer()
     public FaceRecognizerSB(){
-        
+            
         
     }
    
@@ -34,15 +35,15 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
          //this.faceRecognizer = createEigenFaceRecognizer();
     
         System.out.println("Comienza el entrenamiento del predictor");        
-        String trainingDir = "./photos/training/";
+        String trainingDir = "./photos/training2/";
        // IplImage testImage = cvLoadImage("/Users/kotick/NetBeansProjects/Whisky/prueba.jpg");
         File root = new File(trainingDir);
-        FilenameFilter jpgFilter = new FilenameFilter() {
+        FilenameFilter pngFilter = new FilenameFilter() {
             public boolean accept(File dir, String name) {
-                return name.toLowerCase().endsWith(".jpg");
+                return name.toLowerCase().endsWith(".png");
             }
         };
-        File[] imageFiles = root.listFiles(jpgFilter);
+        File[] imageFiles = root.listFiles(pngFilter);
         MatVector images = new MatVector(imageFiles.length);
         int[] labels = new int[imageFiles.length];
         int counter = 0;
@@ -79,6 +80,9 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
     
         cvCvtColor(testImage, greyTestImage, CV_BGR2GRAY);
         
+        cvSaveImage("/Whisky-web/teacher/oliteacher.jpg" ,greyTestImage);
+       
+        
         faceRecognizer.predict(greyTestImage, id, distancia);
         
     }
@@ -86,10 +90,10 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
      @Override
     public boolean predict(String ruta_foto, long id){
             
-      
-        int [] id_test = {-1};
+        //this.train();
+        int [] id_test = {-2};
         double []distancia = {0.0};
-        double distancia_minima= 40000;
+        double distancia_minima= 18000;
         
         this.test(ruta_foto, id_test, distancia);
         System.out.println("Label");
