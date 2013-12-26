@@ -10,6 +10,7 @@ public class ParticipantDTO {
     private String firstName;
     private String lastName;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private String photo;
     
     private Long id;
@@ -29,6 +30,8 @@ public class ParticipantDTO {
     public void setPhoto(String photo) {
         this.photo = photo;
 =======
+=======
+>>>>>>> 21c8e5a8b5881f85e0006d3f1335317c06e875cd
     
     private String rut;
     
@@ -49,6 +52,9 @@ public class ParticipantDTO {
 
     public void setId(Long id) {
         this.id = id;
+<<<<<<< HEAD
+>>>>>>> 21c8e5a8b5881f85e0006d3f1335317c06e875cd
+=======
 >>>>>>> 21c8e5a8b5881f85e0006d3f1335317c06e875cd
     }
 

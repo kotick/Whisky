@@ -66,15 +66,21 @@ public class StudentMB {
 
         } else if (!utilitiesSB.validateRut(rut)) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El rut ingresado es inválido", "Error al agregar"));
             /* TODO F:agregar mensaje más descriptivo, verificar dígito verificador, el formato 123123123-2" etc... */
         } else if (!utilitiesSB.validateEmail(email)) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El email ingresado es inválido", "Error al agregar"));
 =======
+=======
+>>>>>>> 21c8e5a8b5881f85e0006d3f1335317c06e875cd
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al agregar", "Rut inválido"));
             /* TODO F:agregar mensaje más descriptivo, verificar dígito verificador, el formato 123123123-2" etc... */
         } else if (!utilitiesSB.validateEmail(email)) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al agregar", "Email inválido"));
+<<<<<<< HEAD
+>>>>>>> 21c8e5a8b5881f85e0006d3f1335317c06e875cd
+=======
 >>>>>>> 21c8e5a8b5881f85e0006d3f1335317c06e875cd
             /* TODO F:agregar mensaje más descriptivo, verificar formato con @ y agregar el caso de que sea un correo duplicado en el validador */
         } else {
