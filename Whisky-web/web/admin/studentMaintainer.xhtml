@@ -18,22 +18,8 @@
             <div class="pull-right">
                 <h:form>
                     <p:commandButton type="submit" value="Agregar Alumno" action="#{sessionMB.redirect('/faces/prueba/addStudent.xhtml')}" update="@form"/>
-            <p:dataTable sortBy="#{student.lastName}" id="tabla" value="#{studentMB.studentList}" var="student" emptyMessage="No se han encontrado alumnos">
-                <p:column headerText="Rut">
-                <h:outputText  value="#{student.rut}"/>
-                </p:column> 
-                <p:column headerText="Nombre">
-                <h:outputText value="#{student.firstName}"/>
-            </p:column>
-            <p:column headerText="Apellido" >
-                <h:outputText value="#{student.lastName}"/>
-            </p:column> 
-            <p:column>
-                <h:form>
-                    <p:commandButton type="submit" value="Editar" action="#{studentMB.editStudent(student.id)}" update="@form"/>
-                    <p:commandButton type="submit" value="Eliminar" action="#{studentMB.eraseStudent(student.id)}" update="@form" ajax="false"/>
                 </h:form>
-            </div>
+            </div>    
             <h:form>
                 <p:dataTable id="tabla" value="#{studentMB.studentList}"
                              widgetVar="tabla"
@@ -45,6 +31,9 @@
                     <f:facet name="header">  
                         Todos los Alumnos 
                     </f:facet>  
+                    <p:column id="rutColumn" sortBy="rut" filterBy="rut" headerText="Rut" filterMatchMode="startsWith">
+                        <h:outputText value="#{student.rut}"/>
+                    </p:column>
                     <p:column id="firstNameColumn" sortBy="firstName" filterBy="firstName" headerText="Nombre" filterMatchMode="startsWith">
                         <h:outputText value="#{student.firstName}"/>
                     </p:column>
@@ -52,12 +41,18 @@
                         <h:outputText value="#{student.lastName}"/>
                     </p:column> 
                     <p:column>
-                        <p:commandButton type="submit" value="Editar" onclick="alert('no implementado aún')" update="@form"/>
+
+                        <p:commandButton type="submit" value="Editar" action="#{studentMB.editStudent(student.id)}" update="@form"/>
                         <p:commandButton type="submit" value="Eliminar" action="#{studentMB.eraseStudent(student.id)}" update="@form" ajax="false"/>
 
                     </p:column> 
                 </p:dataTable>
             </h:form>
+            <div class="pull-right">
+                <h:form>
+                    <p:commandButton type="submit" value="Volver" action="#{sessionMB.redirect('/faces/admin/welcomeAdmin.xhtml')}"/>
+                </h:form>
+            </div>
         </div>
     </ui:define>
 

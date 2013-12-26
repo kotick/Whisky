@@ -39,6 +39,8 @@ public class TeacherMB {
     LoginConversationMB loginConversation;
     @Inject
     CourseConversationMB courseConversation;
+      @Inject
+    EditConversationMB editConversation;
     @Inject
     SessionMB session;
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("Whisky-ejbPU");
@@ -128,6 +130,13 @@ public class TeacherMB {
         }
         return newParticipant;
     }
+        public void editTeacher(Long id) {
+        this.editConversation.beginConversation();
+        this.editConversation.setIdParticipant(id);
+        //TODO Cambiar página de direccionamiento
+        session.redirect("/faces/admin/editTeacher.xhtml?cid=".concat(this.editConversation.getConversation().getId().toString()));
+
+    }
 
     public void addTeacher() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -137,6 +146,7 @@ public class TeacherMB {
             if (newParticipant != null) {
                 participantJpa.create(newParticipant);
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Profesor agregado con éxito", ""));
+                session.redirect("/faces/admin/teacherMaintainer.xhtml");
             }
         } catch (RollbackFailureException ex) {
             Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);

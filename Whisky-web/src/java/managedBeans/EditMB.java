@@ -8,12 +8,9 @@ import DTOs.CourseDTO;
 import DTOs.ParticipantDTO;
 import JpaControllers.CourseJpaController;
 import JpaControllers.ParticipantJpaController;
-import JpaControllers.RoleJpaController;
 import entity.Course;
 import entity.Participant;
-import entity.Role;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -118,7 +115,7 @@ public class EditMB {
             courseTemp.setParticipant(participants);
             try {
                 courseJpa.edit(courseTemp);
-                
+
             } catch (NonexistentEntityException ex) {
                 Logger.getLogger(EditMB.class.getName()).log(Level.SEVERE, null, ex);
             } catch (RollbackFailureException ex) {
@@ -166,9 +163,11 @@ public class EditMB {
             newParticipant.setCourses(courses);
             try {
                 participantJpa.edit(newParticipant);
-                if(newParticipant.getRol().getName().equalsIgnoreCase("student")){
+                if (newParticipant.getRol().getName().equalsIgnoreCase("student")) {
                     session.redirect("/faces/admin/studentMaintainer.xhtml");
 
+                } else {
+                    session.redirect("/faces/admin/teacherMaintainer.xhtml");
                 }
             } catch (NonexistentEntityException ex) {
                 Logger.getLogger(EditMB.class.getName()).log(Level.SEVERE, null, ex);
