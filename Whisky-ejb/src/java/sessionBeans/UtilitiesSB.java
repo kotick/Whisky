@@ -5,6 +5,7 @@
 package sessionBeans;
 
 import DTOs.AttendanceDTO;
+import JpaControllers.ParticipantJpaController;
 import entity.Participant;
 import java.security.MessageDigest;
 import java.util.Collection;
@@ -12,6 +13,7 @@ import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -22,9 +24,10 @@ import javax.persistence.Query;
  */
 @Stateless
 public class UtilitiesSB implements UtilitiesSBLocal {
-    private static final String EMAIL_PATTERN = 
-			"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+    private static final String EMAIL_PATTERN =
+            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     @PersistenceContext(unitName = "Whisky-ejbPU")
     private EntityManager em;
 
@@ -118,15 +121,28 @@ public class UtilitiesSB implements UtilitiesSBLocal {
 
     @Override
     public boolean validateEmail(String email) {
-        try{
-	    // Compiles the given regular expression into a pattern.
-	    Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-	    // Match the given input against this pattern
-	    Matcher matcher = pattern.matcher(email);
-	    return matcher.matches();
-	}catch(Exception e){
-		e.printStackTrace();
-	}
-	return false;
+        try {
+            // Compiles the given regular expression into a pattern.
+            Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+            // Match the given input against this pattern
+            Matcher matcher = pattern.matcher(email);
+            Participant resultQuery;
+            Query q = em.createNamedQuery("Participant.getParticipantByEmail", Participant.class);
+            q.setParameter("username", email);
+            if (matcher.matches()) {
+                try {
+                    resultQuery = (Participant) q.getSingleResult();
+                    return false;
+                } catch (Exception ex) {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

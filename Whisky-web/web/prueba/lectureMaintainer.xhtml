@@ -34,7 +34,6 @@
                         <h:outputText value="#{course.name}"/>
                     </p:column>
                     <p:column>
-                        <p:commandButton type="submit" value="Ver participantes" disabled="true" />
                         <p:commandButton type="submit" value="Editar" onclick="alert('no implementado aún')" update="@form"/>
                         <p:commandButton type="submit" value="Eliminar" action="#{courseMB.eraseCourse(course.id)}" update="@form" />
                     </p:column> 
