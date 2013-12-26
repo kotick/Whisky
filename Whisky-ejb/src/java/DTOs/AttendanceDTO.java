@@ -17,7 +17,8 @@ public class AttendanceDTO {
     
     private Long id;
     private String password;
-
+    private String photo;
+    
     public Long getId() {
         return id;
     }
