@@ -201,71 +201,8 @@ public class ParticipantJpaController implements Serializable {
             em.close();
         }
     }
-<<<<<<< HEAD
 
-=======
-    public Participant getParticipantById(Long id) {
-        EntityManager em = getEntityManager();
-
-        
-        Query q = em.createNamedQuery("Participant.getParticipantById", Participant.class);
-        q.setParameter("id", id);
-        return (Participant) q.getSingleResult();
-    }
     
-    public Collection<ParticipantDTO> getAllByRol(String rol) {
-        EntityManager em = getEntityManager();
-        Collection<Participant> resultQuery;
-        Collection<ParticipantDTO> result = new LinkedList<ParticipantDTO>();
-        ParticipantDTO participantDTOTemp;
-        
-        Query q = em.createNamedQuery("Participant.getAllByType", Participant.class);
-        q.setParameter("rol", rol);
-
-        resultQuery = (Collection<Participant>) q.getResultList();
-        
-        for (Participant iter : resultQuery) {
-            participantDTOTemp = new ParticipantDTO();
-            participantDTOTemp.setFirstName(iter.getFirstName());
-            participantDTOTemp.setLastName(iter.getLastName());
-            participantDTOTemp.setId(iter.getId());
-            result.add(participantDTOTemp);
-        }
-        return result;
-    }
-    
-    public Participant getParticipantById(Long id) {
-        EntityManager em = getEntityManager();
-
-        
-        Query q = em.createNamedQuery("Participant.getParticipantById", Participant.class);
-        q.setParameter("id", id);
-        return (Participant) q.getSingleResult();
-    }
-    
-    public Collection<ParticipantDTO> getAllByRol(String rol) {
-        EntityManager em = getEntityManager();
-        Collection<Participant> resultQuery;
-        Collection<ParticipantDTO> result = new LinkedList<ParticipantDTO>();
-        ParticipantDTO participantDTOTemp;
-        
-        Query q = em.createNamedQuery("Participant.getAllByType", Participant.class);
-        q.setParameter("rol", rol);
-
-        resultQuery = (Collection<Participant>) q.getResultList();
-        
-        for (Participant iter : resultQuery) {
-            participantDTOTemp = new ParticipantDTO();
-            participantDTOTemp.setFirstName(iter.getFirstName());
-            participantDTOTemp.setLastName(iter.getLastName());
-            participantDTOTemp.setId(iter.getId());
-            participantDTOTemp.setRut(iter.getRut());
-            result.add(participantDTOTemp);
-        }
-        return result;
-    }
-    
->>>>>>> 72b869c7416c29b0452eb26d08aefacf06c7e12c
     public Participant getParticipantById(Long id) {
         EntityManager em = getEntityManager();
 
