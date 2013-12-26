@@ -24,6 +24,8 @@ import javax.persistence.OneToOne;
     @NamedQuery(name = "Participant.getUser", query = "SELECT u FROM Participant u WHERE u.id = :idParticipant"),
     @NamedQuery(name = "Participant.getAllByType", query = "SELECT u FROM Participant u WHERE u.rol.name = :rol"),
     @NamedQuery(name = "Participant.getParticipantById", query = "SELECT u FROM Participant u WHERE u.id = :id"),
+@NamedQuery(name = "Participant.getParticipantInClass", query = "SELECT u FROM Participant u, Course c WHERE c.id = :id AND u member of c.participant AND u.rol.name = :rol"),
+@NamedQuery(name = "Participant.getParticipantOutClass", query = "SELECT u FROM Participant u, Course c WHERE c.id = :id AND  u not member of c.participant AND u.rol.name = :rol"),
 
 
 })

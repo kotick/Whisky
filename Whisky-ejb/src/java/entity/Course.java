@@ -14,6 +14,9 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
     @NamedQuery(name = "Course.getCursos", query = "SELECT c FROM Course c, Participant p WHERE p.email = :usernameMail and c member of p.courses"),
     @NamedQuery(name = "Course.getCurso", query = "SELECT c FROM Course c WHERE c.id =:idCourse"),
+    @NamedQuery(name = "Course.getCourseForParticipant", query = "SELECT c FROM Participant u, Course c WHERE u.id = :id AND c member of u.courses"),
+    @NamedQuery(name = "Course.getNotCourseForParticipant", query = "SELECT c FROM Participant u, Course c WHERE u.id = :id AND  c not member of u.courses"),
+
 })
 public class Course implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -14,21 +14,21 @@
         <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
         <h1>Mantenedor De Alumnos</h1>
         <h:form>
-            <p:commandButton type="submit" value="Agregar Alumno" action="#{sessionMB.redirect('/faces/prueba/addStudent.xhtml')}" update="@form"/>
+            <p:commandButton type="submit" value="Agregar Alumno" action="#{sessionMB.redirect('/faces/admin/addStudent.xhtml')}" update="@form"/>
         </h:form>
-        <p:dataTable id="tabla" value="#{studentMB.studentList}" var="student" emptyMessage="No se han encontrado alumnos">
-            <p:column>
-                <h:outputText value="#{student.rut}"/>
+        <p:dataTable sortBy="#{student.lastName}" id="tabla" value="#{studentMB.studentList}" var="student" emptyMessage="No se han encontrado alumnos">
+            <p:column headerText="Rut">
+                <h:outputText  value="#{student.rut}"/>
             </p:column> 
-            <p:column>
+            <p:column headerText="Nombre">
                 <h:outputText value="#{student.firstName}"/>
             </p:column>
-            <p:column>
+            <p:column headerText="Apellido" >
                 <h:outputText value="#{student.lastName}"/>
             </p:column> 
             <p:column>
                 <h:form>
-                    <p:commandButton type="submit" value="Editar" onclick="alert('no implementado aún')" update="@form"/>
+                    <p:commandButton type="submit" value="Editar" action="#{studentMB.editStudent(student.id)}" update="@form"/>
                     <p:commandButton type="submit" value="Eliminar" action="#{studentMB.eraseStudent(student.id)}" update="@form" ajax="false"/>
                 </h:form>
             </p:column> 
