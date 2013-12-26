@@ -33,7 +33,7 @@ public class LectureMB {
     private Long idCourse;
     private Long idLecture;
     private Long idLecture2;
-    private Collection<ParticipantDTO> lectureList;
+    private Collection<ParticipantDTO> participantList;
 
 
     public LectureMB() {
@@ -41,7 +41,7 @@ public class LectureMB {
     @PostConstruct
     void init(){
         idLecture = lectureConversation.getId();
-        lectureList= participantManagementSB.selectParticipantByLecture(idLecture);
+        participantList= participantManagementSB.selectParticipantByLecture(idLecture);
     }
     
     public void createLecture(Long idCourse){
@@ -55,12 +55,12 @@ public class LectureMB {
     }
 
 
-    public Collection<ParticipantDTO> getLectureList() {
-        return lectureList;
+    public Collection<ParticipantDTO> getParticipantList() {
+        return participantList;
     }
 
-    public void setLectureList(Collection<ParticipantDTO> lectureList) {
-        this.lectureList = lectureList;
+    public void setParticipantList(Collection<ParticipantDTO> participantList) {
+        this.participantList = participantList;
     }
     
     

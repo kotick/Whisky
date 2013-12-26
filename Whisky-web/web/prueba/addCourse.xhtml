@@ -25,29 +25,30 @@
                                          size="20" value="#{courseMB.name}" />
                         </div>
                     </div>
-            <p:dataTable id="students" var="student" value="#{studentMB.allStudents}" rowKey ="#{student.id}"   
-                         selection="#{courseMB.participantsToAdd}">  
+                    <p:dataTable id="students" var="student" value="#{studentMB.allStudents}" rowKey ="#{student.id}"   
+                                 selection="#{courseMB.participantsToAdd}">  
 
-                <f:facet name="header">  
-                    Seleccione alumnos que tienen tomado este curso:
-                </f:facet>  
+                        <f:facet name="header">  
+                            Seleccione alumnos que tienen tomado este curso:
+                        </f:facet>  
 
-                <p:column selectionMode="multiple" style="width:2%" />  
+                        <p:column selectionMode="multiple" style="width:2%" />  
 
-                <p:column headerText="Nombre" style="width:25%">  
-                    #{student.firstName}  
-                </p:column>  
+                        <p:column headerText="Nombre" style="width:25%">  
+                            #{student.firstName}  
+                        </p:column>  
 
-                <p:column headerText="Apellido" style="width:25%">  
-                    #{student.lastName}  
-                </p:column> 
+                        <p:column headerText="Apellido" style="width:25%">  
+                            #{student.lastName}  
+                        </p:column> 
 
-            </p:dataTable>  
-            <div class="form-group">
-                <p:commandButton type="submit" value="Agregar curso" action="#{courseMB.addCourse}" update="@form"/>
-            </div>
+                    </p:dataTable>  
+                    <div class="form-group">
+                        <p:commandButton type="submit" value="Agregar curso" action="#{courseMB.addCourse}" update="@form"/>
+                    </div>
+                </div>
+
             </h:form>
-
         </div>
     </ui:define>
 

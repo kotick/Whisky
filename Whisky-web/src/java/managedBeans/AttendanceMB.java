@@ -6,7 +6,9 @@ package managedBeans;
 
 import DTOs.AttendanceDTO;
 import java.io.File;
+import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -39,6 +41,8 @@ public class AttendanceMB {
     private ParticipantManagementSBLocal participantManagementSB;
     @EJB
     private PhotoManagementSBLocal photoManagementSB;
+    private Collection<AttendanceDTO> attendanceList;
+    private List<AttendanceDTO> filteredAttendances;
     private Long idLecture;
     private Long idParticipant;
     private String email;
@@ -108,6 +112,22 @@ public class AttendanceMB {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Collection<AttendanceDTO> getAttendanceList() {
+        return attendanceList;
+    }
+
+    public void setAttendanceList(Collection<AttendanceDTO> attendanceList) {
+        this.attendanceList = attendanceList;
+    }
+
+    public List<AttendanceDTO> getFilteredAttendances() {
+        return filteredAttendances;
+    }
+
+    public void setFilteredAttendances(List<AttendanceDTO> filteredAttendances) {
+        this.filteredAttendances = filteredAttendances;
     }
     
     }

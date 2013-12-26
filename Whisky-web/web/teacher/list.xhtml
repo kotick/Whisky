@@ -10,7 +10,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:dataTable id="tabla" value="#{lectureMB.lectureList}" var="participant">
+        <p:dataTable id="tabla" value="#{lectureMB.participantList}" var="participant">
             
             <p:column>
                 <h:outputText value="#{participant.firstName}"/>
