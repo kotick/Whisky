@@ -11,17 +11,18 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </h:head>
     <ui:define name="content">
-        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-        <h1>Mantenedor De Alumnos</h1>
-        <h:form>
-            <p:commandButton type="submit" value="Agregar Alumno" action="#{sessionMB.redirect('/faces/admin/addStudent.xhtml')}" update="@form"/>
-        </h:form>
 
-        <p:dataTable  rowKey="#{student.id}" id="tabla" value="#{studentMB.studentList}" var="student" emptyMessage="No se han encontrado alumnos" >
-            <p:column headerText="Rut">
+        <div class="container">
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+            <h1>Mantenedor De Alumnos</h1>
+            <div class="pull-right">
+                <h:form>
+                    <p:commandButton type="submit" value="Agregar Alumno" action="#{sessionMB.redirect('/faces/prueba/addStudent.xhtml')}" update="@form"/>
+            <p:dataTable sortBy="#{student.lastName}" id="tabla" value="#{studentMB.studentList}" var="student" emptyMessage="No se han encontrado alumnos">
+                <p:column headerText="Rut">
                 <h:outputText  value="#{student.rut}"/>
-            </p:column> 
-            <p:column headerText="Nombre">
+                </p:column> 
+                <p:column headerText="Nombre">
                 <h:outputText value="#{student.firstName}"/>
             </p:column>
             <p:column headerText="Apellido" >
@@ -32,8 +33,32 @@
                     <p:commandButton type="submit" value="Editar" action="#{studentMB.editStudent(student.id)}" update="@form"/>
                     <p:commandButton type="submit" value="Eliminar" action="#{studentMB.eraseStudent(student.id)}" update="@form" ajax="false"/>
                 </h:form>
-            </p:column> 
-        </p:dataTable>
+            </div>
+            <h:form>
+                <p:dataTable id="tabla" value="#{studentMB.studentList}"
+                             widgetVar="tabla"
+                             var="student"
+                             emptyMessage="No se han encontrado alumnos"
+                             filteredValue="#{studentMB.filteredStudents}"
+                             paginator="true"
+                             rows="5">
+                    <f:facet name="header">  
+                        Todos los Alumnos 
+                    </f:facet>  
+                    <p:column id="firstNameColumn" sortBy="firstName" filterBy="firstName" headerText="Nombre" filterMatchMode="startsWith">
+                        <h:outputText value="#{student.firstName}"/>
+                    </p:column>
+                    <p:column id="lastNameColumn" filterBy="lastName" headerText="Apellido" filterMatchMode="startsWith">
+                        <h:outputText value="#{student.lastName}"/>
+                    </p:column> 
+                    <p:column>
+                        <p:commandButton type="submit" value="Editar" onclick="alert('no implementado aún')" update="@form"/>
+                        <p:commandButton type="submit" value="Eliminar" action="#{studentMB.eraseStudent(student.id)}" update="@form" ajax="false"/>
+
+                    </p:column> 
+                </p:dataTable>
+            </h:form>
+        </div>
     </ui:define>
 
 </ui:composition>    

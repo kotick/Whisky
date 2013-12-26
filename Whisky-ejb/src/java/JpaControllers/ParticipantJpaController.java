@@ -206,23 +206,23 @@ public class ParticipantJpaController implements Serializable {
     public Participant getParticipantById(Long id) {
         EntityManager em = getEntityManager();
 
-
+        
         Query q = em.createNamedQuery("Participant.getParticipantById", Participant.class);
         q.setParameter("id", id);
         return (Participant) q.getSingleResult();
     }
-
+    
     public Collection<ParticipantDTO> getAllByRol(String rol) {
         EntityManager em = getEntityManager();
         Collection<Participant> resultQuery;
         Collection<ParticipantDTO> result = new LinkedList<ParticipantDTO>();
         ParticipantDTO participantDTOTemp;
-
+        
         Query q = em.createNamedQuery("Participant.getAllByType", Participant.class);
         q.setParameter("rol", rol);
 
         resultQuery = (Collection<Participant>) q.getResultList();
-
+        
         for (Participant iter : resultQuery) {
             participantDTOTemp = new ParticipantDTO();
             participantDTOTemp.setFirstName(iter.getFirstName());
@@ -233,6 +233,7 @@ public class ParticipantJpaController implements Serializable {
         }
         return result;
     }
+    
 
     public Collection<ParticipantDTO> getParticipantInClass(Long id, String rol) {
         EntityManager em = getEntityManager();

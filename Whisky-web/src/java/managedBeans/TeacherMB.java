@@ -10,6 +10,7 @@ import entity.Participant;
 import entity.Role;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -52,6 +53,7 @@ public class TeacherMB {
     private CourseDTO[] courseToAdd;
     private String username;
     private Collection<ParticipantDTO> teacherList;
+    private List<ParticipantDTO> filteredTeachers;
     //Datos participant
     private String firstName;
     private String lastName;
@@ -179,6 +181,14 @@ public class TeacherMB {
 
     public void setTeacherList(Collection<ParticipantDTO> teacherList) {
         this.teacherList = teacherList;
+    }
+
+    public List<ParticipantDTO> getFilteredTeachers() {
+        return filteredTeachers;
+    }
+
+    public void setFilteredTeachers(List<ParticipantDTO> filteredTeachers) {
+        this.filteredTeachers = filteredTeachers;
     }
 
     public void setFirstName(String firstName) {
