@@ -7,9 +7,11 @@ package sessionBeans;
 import DTOs.LectureDTO;
 import entity.Course;
 import entity.Lecture;
+import entity.Participant;
 import java.util.Collection;
 import java.util.LinkedList;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -22,6 +24,9 @@ import javax.persistence.Query;
 public class LectureManagementSB implements LectureManagementSBLocal {
     @PersistenceContext(unitName = "Whisky-ejbPU")
     private EntityManager em;
+    @Inject AttendanceManagementSBLocal amSB;
+            
+    
 
     public void persist(Object object) {
         em.persist(object);
@@ -56,7 +61,8 @@ public class LectureManagementSB implements LectureManagementSBLocal {
         newLecture.setFinishingTime(timeFin);
         newLecture.setCourse(Course);
         em.persist(newLecture);
-        em.flush();   
+        em.flush();
+        
         return newLecture.getId();
     }
 
@@ -73,5 +79,15 @@ public class LectureManagementSB implements LectureManagementSBLocal {
         q.setParameter("idcourse", idCourse);
         return (Lecture) q.getSingleResult();
     }
+    
+    @Override
+    public void fillLecture(Long idLecture){
+        Lecture lecture= getLecturebyId(idLecture);
+        Collection<Participant> resultQuery=lecture.getCourse().getParticipant();
+        for(Participant iter: resultQuery){
+            amSB.addAttendance(iter,lecture); 
+        }
+    }
+  
 
 }

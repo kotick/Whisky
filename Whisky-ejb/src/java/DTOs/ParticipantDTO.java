@@ -10,6 +10,15 @@ public class ParticipantDTO {
     private String firstName;
     private String lastName;
     private String photo;
+    private boolean present;
+
+    public boolean isPresent() {
+        return present;
+    }
+
+    public void setPresent(boolean present) {
+        this.present = present;
+    }
     
     private Long id;
     private String rut;

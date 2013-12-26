@@ -54,6 +54,8 @@ public class AttendanceJpaController implements Serializable {
             }
         }
     }
+    
+    
 
     public void edit(Attendance attendance) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;

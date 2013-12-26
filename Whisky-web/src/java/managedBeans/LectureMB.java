@@ -49,9 +49,16 @@ public class LectureMB {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date date = new Date();
         idLecture2 = lectureManagementSB.createLecture(dateFormat.format(date),"","",actualCourse);
+        fillLecture(idLecture2);
         this.attendanceConversationMB.beginConversation();
         this.attendanceConversationMB.setId(idLecture2);
         session.redirect("/faces/teacher/attendance.xhtml?cid=".concat(this.attendanceConversationMB.getConversation().getId().toString()));
+    }
+    
+    public void fillLecture(Long idLecture){
+        lectureManagementSB.fillLecture(idLecture);
+        
+    
     }
 
 
