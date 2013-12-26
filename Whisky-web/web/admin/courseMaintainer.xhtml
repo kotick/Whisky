@@ -14,36 +14,31 @@
 
         <div class="container">
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-            <h1>Mantenedor De Alumnos</h1>
+            <h1>Mantenedor De Cursos</h1>
             <div class="pull-right">
                 <h:form>
-                    <p:commandButton type="submit" value="Agregar Alumno" action="#{sessionMB.redirect('/faces/admin/addStudent.xhtml')}" update="@form"/>
+                    <p:commandButton type="submit" value="Agregar Curso" 
+                                     action="#{sessionMB.redirect('/faces/admin/addCourse.xhtml')}" update="@form"/>
                 </h:form>
             </div>    
             <h:form>
-                <p:dataTable id="tabla" value="#{studentMB.studentList}"
+                <p:dataTable id="tabla" value="#{courseMB.courseList}"
                              widgetVar="tabla"
-                             var="student"
-                             emptyMessage="No se han encontrado alumnos"
-                             filteredValue="#{studentMB.filteredStudents}"
+                             var="course"
+                             emptyMessage="No se han encontrado cursos"
                              paginator="true"
                              rows="5">
                     <f:facet name="header">  
-                        Todos los Alumnos 
+                        Todos los Cursos 
                     </f:facet>  
-                    <p:column id="rutColumn" sortBy="rut" filterBy="rut" headerText="Rut" filterMatchMode="startsWith">
-                        <h:outputText value="#{student.rut}"/>
+                    <p:column id="nameColumn" sortBy="name" filterBy="name" headerText="Nombre" filterMatchMode="startsWith">
+                        <h:outputText value="#{course.name}"/>
                     </p:column>
-                    <p:column id="firstNameColumn" sortBy="firstName" filterBy="firstName" headerText="Nombre" filterMatchMode="startsWith">
-                        <h:outputText value="#{student.firstName}"/>
-                    </p:column>
-                    <p:column id="lastNameColumn" filterBy="lastName" headerText="Apellido" filterMatchMode="startsWith">
-                        <h:outputText value="#{student.lastName}"/>
-                    </p:column> 
                     <p:column>
 
-                        <p:commandButton type="submit" value="Editar" action="#{studentMB.editStudent(student.id)}" update="@form"/>
-                        <p:commandButton type="submit" value="Eliminar" action="#{studentMB.eraseStudent(student.id)}" update="@form" ajax="false"/>
+
+                        <p:commandButton type="submit" value="Editar" action="#{courseMB.editCourse(course.id)}" update="@form" />
+                        <p:commandButton type="submit" value="Eliminar" action="#{courseMB.eraseCourse(course.id)}" update="@form" ajax="false"/>
 
                     </p:column> 
                 </p:dataTable>
@@ -56,4 +51,4 @@
         </div>
     </ui:define>
 
-</ui:composition>    
+</ui:composition> 

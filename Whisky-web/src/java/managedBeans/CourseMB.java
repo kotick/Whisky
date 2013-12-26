@@ -118,6 +118,7 @@ public class CourseMB {
             if (newCourse != null) {
                 courseJpa.create(newCourse);
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Curso agregado con éxito", ""));
+                session.redirect("/faces/admin/courseMaintainer.xhtml");
 
             }
         } catch (RollbackFailureException ex) {
@@ -132,7 +133,7 @@ public class CourseMB {
         this.editConversation.beginConversation();
         this.editConversation.setIdCourse(id);
         //TODO Cambiar página de direccionamiento
-        //session.redirect("/faces/prueba/list.xhtml?cid=".concat(this.lectureConversation.getConversation().getId().toString()));
+        session.redirect("/faces/admin/editCourse.xhtml?cid=".concat(this.lectureConversation.getConversation().getId().toString()));
 
     }
 

@@ -115,6 +115,7 @@ public class EditMB {
             courseTemp.setParticipant(participants);
             try {
                 courseJpa.edit(courseTemp);
+                session.redirect("/faces/admin/courseMaintainer.xhtml");
 
             } catch (NonexistentEntityException ex) {
                 Logger.getLogger(EditMB.class.getName()).log(Level.SEVERE, null, ex);
