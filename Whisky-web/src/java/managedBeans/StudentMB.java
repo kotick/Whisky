@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
@@ -44,6 +45,7 @@ public class StudentMB {
     private CourseJpaController courseJpa;
     private RoleJpaController roleJpa;
     private Collection<ParticipantDTO> studentList;
+    private List<ParticipantDTO> filteredStudents;
     private CourseDTO[] courseToAdd;
     private ParticipantDataModel allStudents;
     //Datos participant
@@ -79,12 +81,10 @@ public class StudentMB {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Campos obligatorios no pueden ser vacíos", "Error al agregar"));
 
         } else if (!utilitiesSB.validateRut(rut)) {
-
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El rut ingresado es inválido", "Error al agregar"));
             /* TODO F:agregar mensaje más descriptivo, verificar dígito verificador, el formato 123123123-2" etc... */
         } else if (!utilitiesSB.validateEmail(email)) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El email ingresado es inválido", "Error al agregar"));
-
             /* TODO F:agregar mensaje más descriptivo, verificar formato con @ y agregar el caso de que sea un correo duplicado en el validador */
         } else {
             newParticipant = new Participant();
@@ -200,6 +200,13 @@ public class StudentMB {
 
     public void setStudentList(Collection<ParticipantDTO> studentList) {
         this.studentList = studentList;
+    }
+    public List<ParticipantDTO> getFilteredStudents() {
+        return filteredStudents;
+    }
+
+    public void setFilteredStudents(List<ParticipantDTO> filteredStudents) {
+        this.filteredStudents = filteredStudents;
     }
 
     public CourseDTO[] getCourseToAdd() {

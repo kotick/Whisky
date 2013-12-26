@@ -20,6 +20,7 @@ import JpaControllers.CourseJpaController;
 import JpaControllers.ParticipantJpaController;
 import entity.Participant;
 import java.util.LinkedList;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import sessionBeans.LectureManagementSBLocal;
@@ -49,6 +50,7 @@ public class CourseMB {
     private Long id;
     private Collection<LectureDTO> lectureList;
     private Collection<CourseDTO> courseList;
+    private List<CourseDTO> filteredCourses;
     private String name;
     private ParticipantDTO[] participantsToAdd;
     private CourseDataModel allCourses;
@@ -65,8 +67,6 @@ public class CourseMB {
         courseJpa = new CourseJpaController(utx, emf);
         courseList = courseJpa.findCourseEntities();
         allCourses = new CourseDataModel((LinkedList<CourseDTO>) courseList);
-
-
     }
 
     public void list(Long id) {
@@ -81,7 +81,6 @@ public class CourseMB {
     }
     public CourseDataModel notCourseForParticipant(Long id) {
         return new CourseDataModel((LinkedList<CourseDTO>) courseJpa.getNotCourseForParticipant(id));
-
     }
 
     private Course createCourse() {
@@ -119,6 +118,7 @@ public class CourseMB {
             if (newCourse != null) {
                 courseJpa.create(newCourse);
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Curso agregado con éxito", ""));
+                session.redirect("/faces/admin/courseMaintainer.xhtml");
 
             }
         } catch (RollbackFailureException ex) {
@@ -133,7 +133,7 @@ public class CourseMB {
         this.editConversation.beginConversation();
         this.editConversation.setIdCourse(id);
         //TODO Cambiar página de direccionamiento
-        //session.redirect("/faces/prueba/list.xhtml?cid=".concat(this.lectureConversation.getConversation().getId().toString()));
+        session.redirect("/faces/admin/editCourse.xhtml?cid=".concat(this.lectureConversation.getConversation().getId().toString()));
 
     }
 
@@ -166,6 +166,15 @@ public class CourseMB {
         this.lectureList = lectureList;
     }
 
+    public List<CourseDTO> getFilteredCourses() {
+        return filteredCourses;
+    }
+
+    public void setFilteredTeachers(List<CourseDTO> filteredCourses) {
+        this.filteredCourses = filteredCourses;
+    }
+
+    
     public CourseDataModel getAllCourses() {
         return allCourses;
     }

@@ -10,6 +10,7 @@ import entity.Participant;
 import entity.Role;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -38,6 +39,8 @@ public class TeacherMB {
     LoginConversationMB loginConversation;
     @Inject
     CourseConversationMB courseConversation;
+      @Inject
+    EditConversationMB editConversation;
     @Inject
     SessionMB session;
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("Whisky-ejbPU");
@@ -52,6 +55,7 @@ public class TeacherMB {
     private CourseDTO[] courseToAdd;
     private String username;
     private Collection<ParticipantDTO> teacherList;
+    private List<ParticipantDTO> filteredTeachers;
     //Datos participant
     private String firstName;
     private String lastName;
@@ -126,6 +130,13 @@ public class TeacherMB {
         }
         return newParticipant;
     }
+        public void editTeacher(Long id) {
+        this.editConversation.beginConversation();
+        this.editConversation.setIdParticipant(id);
+        //TODO Cambiar página de direccionamiento
+        session.redirect("/faces/admin/editTeacher.xhtml?cid=".concat(this.editConversation.getConversation().getId().toString()));
+
+    }
 
     public void addTeacher() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -135,6 +146,7 @@ public class TeacherMB {
             if (newParticipant != null) {
                 participantJpa.create(newParticipant);
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Profesor agregado con éxito", ""));
+                session.redirect("/faces/admin/teacherMaintainer.xhtml");
             }
         } catch (RollbackFailureException ex) {
             Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
@@ -179,6 +191,14 @@ public class TeacherMB {
 
     public void setTeacherList(Collection<ParticipantDTO> teacherList) {
         this.teacherList = teacherList;
+    }
+
+    public List<ParticipantDTO> getFilteredTeachers() {
+        return filteredTeachers;
+    }
+
+    public void setFilteredTeachers(List<ParticipantDTO> filteredTeachers) {
+        this.filteredTeachers = filteredTeachers;
     }
 
     public void setFirstName(String firstName) {

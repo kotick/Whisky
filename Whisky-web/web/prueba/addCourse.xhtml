@@ -11,43 +11,25 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </h:head>
     <ui:define name="content">
-        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-        <h1>Ver Curso</h1>
-        <p:dataTable id="tabla" value="#{courseMB.courseList}" var="course" emptyMessage="No se han encontrado cursos">
-            <p:column>
-                <h:outputText value="#{course.name}"/>
-            </p:column>
-            <p:column>
-                <h:form>
-                    <p:commandButton type="submit" value="Ver participantes" disabled="true" />
-                </h:form>
-            </p:column> 
-            <p:column>
-                <h:form>
-                    <p:commandButton type="submit" value="Eliminar" action="#{courseMB.eraseCourse(course.id)}" update="@form" />
-                </h:form>
-            </p:column> 
-
-
-        </p:dataTable>
-
-
-        <hr></hr>
-
-        <h1>Agregar Curso</h1>
-        <h:form>
-
-            <div class="form-group">
-                <h:outputLabel for="name" 
-                               value="Ingrese el nombre del curso:"/>
-                <h:inputText class="form-control" id="name" autocomplete="off" 
-                             size="20" value="#{courseMB.name}" />
-            </div>
+        <div class="container">
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+            <h1>Agregar Alumno</h1>
+            <h:form>
+                <div class="clearfix">
+                    <div class="form-group">
+                        <h:outputLabel for="name" 
+                                       value="Ingrese el nombre del curso"
+                                       styleClass="col-sm-6 control-label text-right"/>
+                        <div class="col-sm-3">
+                            <h:inputText class="form-control" id="name" autocomplete="off" 
+                                         size="20" value="#{courseMB.name}" />
+                        </div>
+                    </div>
             <p:dataTable id="students" var="student" value="#{studentMB.allStudents}" rowKey ="#{student.id}"   
                          selection="#{courseMB.participantsToAdd}">  
 
                 <f:facet name="header">  
-                    Seleccionar alumnos 
+                    Seleccione alumnos que tienen tomado este curso:
                 </f:facet>  
 
                 <p:column selectionMode="multiple" style="width:2%" />  
@@ -64,7 +46,9 @@
             <div class="form-group">
                 <p:commandButton type="submit" value="Agregar curso" action="#{courseMB.addCourse}" update="@form"/>
             </div>
-        </h:form>
+            </h:form>
+
+        </div>
     </ui:define>
 
 </ui:composition>    

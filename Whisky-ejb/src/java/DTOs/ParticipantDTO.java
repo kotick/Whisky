@@ -40,11 +40,7 @@ public class ParticipantDTO {
 
     public void setPhoto(String photo) {
         this.photo = photo;
-    
     }
-
-    
-    
 
     public String getRut() {
         return rut;
@@ -53,9 +49,6 @@ public class ParticipantDTO {
     public void setRut(String rut) {
         this.rut = rut;
     }
-
-
-
 
     public String getFirstName() {
         return firstName;
