@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
@@ -39,6 +40,7 @@ public class StudentMB {
     private CourseJpaController courseJpa;
     private RoleJpaController roleJpa;
     private Collection<ParticipantDTO> studentList;
+    private List<ParticipantDTO> filteredStudents;
     private CourseDTO[] courseToAdd;
     private ParticipantDataModel allStudents;
     //Datos participant
@@ -174,6 +176,13 @@ public class StudentMB {
 
     public void setStudentList(Collection<ParticipantDTO> studentList) {
         this.studentList = studentList;
+    }
+    public List<ParticipantDTO> getFilteredStudents() {
+        return filteredStudents;
+    }
+
+    public void setFilteredStudents(List<ParticipantDTO> filteredStudents) {
+        this.filteredStudents = filteredStudents;
     }
 
     public CourseDTO[] getCourseToAdd() {
