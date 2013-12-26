@@ -39,7 +39,7 @@ public class SessionMB implements Serializable {
                     
                     if(request.isUserInRole("Admin")){
                         
-                        redirect("/faces/prueba/welcomeAdmin.xhtml?cid=".concat(this.loginConversation.getConversation().getId().toString()));
+                        redirect("/faces/admin/welcomeAdmin.xhtml");
                   
                     };
 
