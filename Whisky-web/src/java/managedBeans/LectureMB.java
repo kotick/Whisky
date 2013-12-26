@@ -1,11 +1,13 @@
 package managedBeans;
 
+import DTOs.LectureDTO;
 import DTOs.ParticipantDTO;
 import entity.Course;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -34,7 +36,24 @@ public class LectureMB {
     private Long idLecture;
     private Long idLecture2;
     private Collection<ParticipantDTO> participantList;
+    private Collection<LectureDTO> lectureList;
+    private List<LectureDTO> filteredLectures;
 
+    public Collection<LectureDTO> getLectureList() {
+        return lectureList;
+    }
+
+    public void setLectureList(Collection<LectureDTO> lectureList) {
+        this.lectureList = lectureList;
+    }
+
+    public List<LectureDTO> getFilteredLectures() {
+        return filteredLectures;
+    }
+
+    public void setFilteredLectures(List<LectureDTO> filteredLectures) {
+        this.filteredLectures = filteredLectures;
+    }
 
     public LectureMB() {
     }
