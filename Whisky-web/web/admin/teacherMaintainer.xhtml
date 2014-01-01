@@ -30,14 +30,14 @@
                                  emptyMessage="No se han encontrado profesores."
                                  filteredValue="#{teacherMB.filteredTeachers}"
                                  paginator="true"
-                                 rows="5">
+                                 rows="30">
                         <f:facet name="header">  
                             Todos los Profesores
                         </f:facet>  
-                        <p:column id="firstNameColumn" sortBy="firstName" filterBy="firstName" headerText="Nombre" filterMatchMode="startsWith">
+                        <p:column id="firstNameColumn" filterBy="#{teacher.firstName}" headerText="Nombre" filterMatchMode="startsWith">
                             <h:outputText value="#{teacher.firstName}"/>
                         </p:column>
-                        <p:column id="lastNameColumn" filterBy="lastName" headerText="Apellido" filterMatchMode="startsWith">
+                        <p:column id="lastNameColumn" filterBy="#{teacher.lastName}" headerText="Apellido" filterMatchMode="startsWith">
                             <h:outputText value="#{teacher.lastName}"/>
                         </p:column> 
                         <p:column>
