@@ -5,25 +5,18 @@
 package managedBeans;
 
 import DTOs.AttendanceDTO;
-import java.io.File;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.imageio.stream.FileImageOutputStream;
 import javax.inject.Inject;
-import javax.servlet.ServletContext;
 import sessionBeans.PhotoManagementSBLocal;
-import org.primefaces.event.CaptureEvent;
 import sessionBeans.ParticipantManagementSBLocal;
 import sessionBeans.UtilitiesSBLocal;
-import managedBeans.Utilities;
 
 /**
  *

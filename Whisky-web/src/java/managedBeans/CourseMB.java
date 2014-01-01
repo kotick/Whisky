@@ -75,6 +75,12 @@ public class CourseMB {
         session.redirect("/faces/teacher/list.xhtml?cid=".concat(this.lectureConversation.getConversation().getId().toString()));
     }
 
+    public void letsGoToLectureMaintainer(Long id){
+        this.lectureConversation.beginConversation();
+        this.lectureConversation.setId(id);
+        session.redirect("/faces/admin/lectureMaintainer.xhtml?cid=".concat(this.lectureConversation.getConversation().getId().toString()));
+    
+    }
     public CourseDataModel courseForParticipant(Long id) {
         return new CourseDataModel((LinkedList<CourseDTO>) courseJpa.getCourseForParticipant(id));
 
