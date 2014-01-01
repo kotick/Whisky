@@ -32,7 +32,6 @@ import sessionBeans.exceptions.RollbackFailureException;
 public class CourseMB {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("Whisky-ejbPU");
-    ; 
     @Resource
     UserTransaction utx;
     @Inject
