@@ -16,7 +16,8 @@ import javax.inject.Inject;
 public class AttendanceConversationMB implements Serializable {
     @Inject
     Conversation conversation;
-    private Long id;
+    private Long idLecture;
+    private Long idCourse;
 
     public AttendanceConversationMB() {
     }
@@ -31,16 +32,26 @@ public class AttendanceConversationMB implements Serializable {
             conversation.end();
         }
     }
+
+    public Long getIdCourse() {
+        return idCourse;
+    }
+
+    public void setIdCourse(Long idCourse) {
+        this.idCourse = idCourse;
+    }
+    
+    
     public Conversation getConversation(){
         return conversation;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdLecture() {
+        return idLecture;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdLecture(Long idLecture) {
+        this.idLecture = idLecture;
     }
 
 }

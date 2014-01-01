@@ -65,6 +65,7 @@ public class PhotoMB {
             actualParticipant=participantManagementSB.getParticipant(idParticipant);
             actualLecture=lectureManagementSB.getLecturebyId(idLecture);
            // attendanceManagementSB.addAttendance(actualParticipant, actualLecture);
+            
             attendanceManagementSB.addAttendance(actualParticipant, actualLecture, confirmacion.getDireccionFoto());
             
             System.out.println("te reconocí");

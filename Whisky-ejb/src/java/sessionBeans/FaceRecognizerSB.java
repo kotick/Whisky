@@ -80,7 +80,7 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
     
         cvCvtColor(testImage, greyTestImage, CV_BGR2GRAY);
         
-        cvSaveImage("/Whisky-web/teacher/oliteacher.jpg" ,greyTestImage);
+        cvSaveImage("./Whisky-web/teacher/oliteacher.jpg" ,greyTestImage);
        
         
         faceRecognizer.predict(greyTestImage, id, distancia);

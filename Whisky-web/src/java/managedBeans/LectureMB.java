@@ -57,7 +57,8 @@ public class LectureMB {
         idLecture2 = lectureManagementSB.createLecture(dateFormat.format(date),"","",actualCourse);
         fillLecture(idLecture2);
         this.attendanceConversationMB.beginConversation();
-        this.attendanceConversationMB.setId(idLecture2);
+        this.attendanceConversationMB.setIdLecture(idLecture2);
+        this.attendanceConversationMB.setIdCourse(idCourse);
         session.redirect("/faces/teacher/attendance.xhtml?cid=".concat(this.attendanceConversationMB.getConversation().getId().toString()));
     }
 

@@ -10,6 +10,7 @@ public class ParticipantDTO {
     private String firstName;
     private String lastName;
     private String photo;
+    private String email;
     private boolean present;
 
     public boolean isPresent() {
@@ -21,6 +22,14 @@ public class ParticipantDTO {
     }
     
     private Long id;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     private String rut;
     
     

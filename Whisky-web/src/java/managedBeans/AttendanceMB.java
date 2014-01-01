@@ -5,15 +5,23 @@
 package managedBeans;
 
 import DTOs.AttendanceDTO;
+import DTOs.ParticipantDTO;
+import JpaControllers.ParticipantJpaController;
+import java.io.File;
 import java.util.Collection;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.servlet.ServletContext;
+import javax.transaction.UserTransaction;
 import sessionBeans.PhotoManagementSBLocal;
 import sessionBeans.ParticipantManagementSBLocal;
 import sessionBeans.UtilitiesSBLocal;
@@ -25,71 +33,90 @@ import sessionBeans.UtilitiesSBLocal;
 @Named(value = "attendanceMB")
 @RequestScoped
 public class AttendanceMB {
-    @Inject PhotoConversationMB photoConversation;
-    @Inject AttendanceConversationMB attendanceConversation ;
-    @Inject SessionMB session;
+
+    @Inject
+    PhotoConversationMB photoConversation;
+    @Inject
+    AttendanceConversationMB attendanceConversation;
+    @Inject
+    SessionMB session;
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("Whisky-ejbPU");
+    @Resource
+    UserTransaction utx;
     @EJB
     private UtilitiesSBLocal utilitiesSB;
     @EJB
     private ParticipantManagementSBLocal participantManagementSB;
     @EJB
     private PhotoManagementSBLocal photoManagementSB;
+    private ParticipantJpaController participantJpa;
     private Collection<AttendanceDTO> attendanceList;
     private List<AttendanceDTO> filteredAttendances;
     private Long idLecture;
+    private Long idCourse;
     private Long idParticipant;
     private String email;
     private String password;
-    
+
     /**
      * Creates a new instance of AttendanceMB
      */
     public AttendanceMB() {
     }
+
     @PostConstruct
-    void init(){
-        idLecture = attendanceConversation.getId();
-        
-        
-    }
-    
-    public void checkEmailPassword(){
-    
-        System.out.println(email);
-        System.out.println(password);
+    void init() {
+        idLecture = attendanceConversation.getIdLecture();
+        idCourse = attendanceConversation.getIdCourse();
 
+
+    }
+
+    public void checkEmailPassword() {
+        Collection<ParticipantDTO> participants;
+        boolean contain = false;
         FacesContext context = FacesContext.getCurrentInstance();
-        try{
-         if(participantManagementSB.checkEmailPassword(email, password)){
-            idParticipant = utilitiesSB.selectFirstIdByEmail(email);
-            letsGoToTakePhoto();
+        try {
+
+            participantJpa = new ParticipantJpaController(utx, emf);
+            participants = participantJpa.getParticipantInClass(idCourse, "Student");
+            for (ParticipantDTO iter : participants) {
+                System.out.println(iter.getEmail());
+                if (iter.getEmail().equalsIgnoreCase(email)) {
+                    
+                    contain = true;
+                    break;
+                }
+
+            }
+            if (contain) {
+                if (participantManagementSB.checkEmailPassword(email, password)) {
+                    idParticipant = utilitiesSB.selectFirstIdByEmail(email);
+                    letsGoToTakePhoto();
+                } else {
+                    System.out.println("Usuario o contraseña incorrectos");
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrecta", "Login inválido"));
+
+                }
+            } else {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario no pertenece a este curso", "Login inválido"));
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Usuario o contraseña incorrectos");
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrecta", "Login inválido"));
         }
 
-            else{
-           System.out.println("Usuario o contraseña incorrectos");
-           context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrecta", "Login inválido"));
 
-       }
-
-        }
-
-        catch(Exception e){
-          System.out.println("Usuario o contraseña incorrectos");
-          context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrecta", "Login inválido"));
-        }
-
-        
     }
-    
-    
-    public void letsGoToTakePhoto(){
+
+    public void letsGoToTakePhoto() {
         this.photoConversation.beginConversation();
         this.photoConversation.setIdParticipant(idParticipant);
         this.photoConversation.setIdLecture(idLecture);
         session.redirect("/faces/teacher/photo.xhtml?cid=".concat(this.photoConversation.getConversation().getId().toString()));
     }
-    
-   
 
     public String getEmail() {
         return email;
@@ -122,6 +149,4 @@ public class AttendanceMB {
     public void setFilteredAttendances(List<AttendanceDTO> filteredAttendances) {
         this.filteredAttendances = filteredAttendances;
     }
-    
-    }
-
+}

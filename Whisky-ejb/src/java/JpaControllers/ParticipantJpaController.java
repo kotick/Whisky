@@ -253,6 +253,7 @@ public class ParticipantJpaController implements Serializable {
             participantDTOTemp.setLastName(iter.getLastName());
             participantDTOTemp.setId(iter.getId());
             participantDTOTemp.setRut(iter.getRut());
+            participantDTOTemp.setEmail(iter.getEmail());
             result.add(participantDTOTemp);
         }
         return result;
