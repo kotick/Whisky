@@ -6,10 +6,15 @@ package sessionBeans;
 
 import classes.photoConfirmation;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.FacesException;
@@ -30,13 +35,11 @@ public class PhotoManagementSB implements PhotoManagementSBLocal {
     
       public photoConfirmation save_predict(byte[] foto, Long id){    
         
-       DateFormat df = new SimpleDateFormat("MM-dd-yyyy-HH-mm-ss");
+       DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
        Date today = Calendar.getInstance().getTime();        
        String date_name = df.format(today);
-        
-            
-            //String newFileName = "./"+ date_name + ".jpg";  
-        String newFileName = "C:\\Users\\Kay\\Documents\\GitHub\\Whisky\\Whisky-web\\web\\teacher\\foto\\"+ date_name + ".png"; 
+       
+        String newFileName = "../docroot/photos/test/"+ date_name + ".png"; 
         FileImageOutputStream imageOutput;  
         try {  
             imageOutput = new FileImageOutputStream(new File(newFileName));  
@@ -46,10 +49,18 @@ public class PhotoManagementSB implements PhotoManagementSBLocal {
         catch(Exception e) {  
             throw new FacesException("Error en escribir la fotografia");  
         }
-        
+       
+   
     photoConfirmation confirmacion= new photoConfirmation();
     confirmacion.setValidado(faceRecognizerSB.predict(newFileName, id));
-    confirmacion.setDireccionFoto("foto/" + date_name + ".png");
+    if(confirmacion.isValidado()){
+        confirmacion.setDireccionFoto("/photos/test/" + date_name +".png");
+    } 
+    else{
+    File file = new File(newFileName);
+    file.delete();}
     return confirmacion;
     }
+    
+   
 }

@@ -4,46 +4,33 @@
  */
 package managedBeans;
 
-import JpaControllers.AttendanceJpaController;
 import classes.photoConfirmation;
-import entity.Attendance;
 import entity.Lecture;
 import entity.Participant;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
-import javax.imageio.stream.FileImageOutputStream;
 import javax.inject.Inject;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.transaction.UserTransaction;
 import org.primefaces.event.CaptureEvent;
 import sessionBeans.AttendanceManagementSBLocal;
 import sessionBeans.LectureManagementSBLocal;
 import sessionBeans.ParticipantManagementSBLocal;
 import sessionBeans.PhotoManagementSBLocal;
-import sessionBeans.exceptions.NonexistentEntityException;
-import sessionBeans.exceptions.RollbackFailureException;
 
 /**
  *
  * @author Kay
  */
-@Named(value = "photoMB")
+@Named(value = "photoMB1")
 @RequestScoped
-public class PhotoMB {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("Whisky-ejbPU");
-    @Resource
-    UserTransaction utx;
+public class PhotoMB1 {
     @EJB
     private AttendanceManagementSBLocal attendanceManagementSB;
     @EJB
@@ -54,50 +41,45 @@ public class PhotoMB {
     @Inject SessionMB session;
     @EJB
     private PhotoManagementSBLocal photoManagementSB;
-    private AttendanceJpaController attendanceJpa;
     private Lecture actualLecture;
     private Participant actualParticipant;  
     private Long idLecture;
     private Long idParticipant;
-    public PhotoMB() {
+    private FileInputStream imagen;
+    public PhotoMB1() {
     }
     @PostConstruct
-    void init(){
+    void init() {
        idLecture = photoConversationMB.getIdLecture();
        idParticipant = photoConversationMB.getIdParticipant();
+      // imagen = photoManagementSB.oli();
         //this.id = 1;
         //System.out.println(id+" id recibido de la lista");
         
+    }
+
+    public FileInputStream getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(FileInputStream imagen) {
+        this.imagen = imagen;
     }
      public void oncapture(CaptureEvent captureEvent) {  
         FacesContext context = FacesContext.getCurrentInstance();
         System.out.println("entro a oncapture");
          byte[] foto = captureEvent.getData();
+        long id_bla = 5;
         
-        
-        photoConfirmation confirmacion = photoManagementSB.save_predict(foto, idParticipant);
+        photoConfirmation confirmacion = photoManagementSB.save_predict(foto,id_bla);
          
         if (confirmacion.isValidado()){
             
-           // actualParticipant=participantManagementSB.getParticipant(idParticipant);
-          //  actualLecture=lectureManagementSB.getLecturebyId(idLecture);
-
+            actualParticipant=participantManagementSB.getParticipant(idParticipant);
+            actualLecture=lectureManagementSB.getLecturebyId(idLecture);
            // attendanceManagementSB.addAttendance(actualParticipant, actualLecture);
-            attendanceJpa = new AttendanceJpaController(utx,emf);
-            Attendance newAttendance= new Attendance();
-            newAttendance.setLecture(actualLecture);
-            newAttendance.setParticipant(actualParticipant);
-            newAttendance.setPhoto(confirmacion.getDireccionFoto());
-            newAttendance.setPresent(true);
-            try {
-                attendanceJpa.edit(newAttendance);
-            } catch (NonexistentEntityException ex) {
-                Logger.getLogger(PhotoMB.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (RollbackFailureException ex) {
-                Logger.getLogger(PhotoMB.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(PhotoMB.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
+            attendanceManagementSB.addAttendance(actualParticipant, actualLecture, confirmacion.getDireccionFoto());
             
             System.out.println("te reconocí");
             FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -107,7 +89,7 @@ public class PhotoMB {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Estás presente","Registro con exito"));
             session.redirect("/faces/teacher/attendance.xhtml");
             
-            //Crear la clase con la foto, y notificar que está logeado
+            //Crear la clase con la foto, y notificar que el wn está logeado
             
         
         }

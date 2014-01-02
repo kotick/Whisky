@@ -75,12 +75,12 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
        System.out.println("Comienza el reconocimiento de imagen");
        
        IplImage testImage = cvLoadImage(ruta_foto);
-
+   
        IplImage greyTestImage = IplImage.create(testImage.width(), testImage.height(), IPL_DEPTH_8U, 1);
     
         cvCvtColor(testImage, greyTestImage, CV_BGR2GRAY);
         
-        cvSaveImage("./Whisky-web/teacher/oliteacher.jpg" ,greyTestImage);
+        
        
         
         faceRecognizer.predict(greyTestImage, id, distancia);
