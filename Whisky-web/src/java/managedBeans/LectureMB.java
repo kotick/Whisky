@@ -86,7 +86,7 @@ public class LectureMB {
 
     public void createLecture(Long idCourse) {
         Course actualCourse = courseManagementSB.getCourse(idCourse);
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
         Date date2 = new Date();
         idLecture = lectureManagementSB.createLecture(dateFormat.format(date2), "", "", actualCourse);
         fillLecture(idLecture);

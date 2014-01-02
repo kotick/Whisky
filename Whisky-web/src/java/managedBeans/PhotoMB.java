@@ -79,8 +79,8 @@ public class PhotoMB {
          
         if (confirmacion.isValidado()){
             
-           // actualParticipant=participantManagementSB.getParticipant(idParticipant);
-          //  actualLecture=lectureManagementSB.getLecturebyId(idLecture);
+           actualParticipant=participantManagementSB.getParticipant(idParticipant);
+           actualLecture=lectureManagementSB.getLecturebyId(idLecture);
 
            // attendanceManagementSB.addAttendance(actualParticipant, actualLecture);
             attendanceJpa = new AttendanceJpaController(utx,emf);
