@@ -35,11 +35,9 @@
                         <h:outputText value="#{course.name}"/>
                     </p:column>
                     <p:column>
-
-
+                        <p:commandButton type="submit" value="Ver Sesiones de Clases" action="#{courseMB.letsGoToLectureMaintainer(course.id)}" update="@form" />
                         <p:commandButton type="submit" value="Editar" action="#{courseMB.editCourse(course.id)}" update="@form" />
                         <p:commandButton type="submit" value="Eliminar" action="#{courseMB.eraseCourse(course.id)}" update="@form" ajax="false"/>
-
                     </p:column> 
                 </p:dataTable>
             </h:form>
