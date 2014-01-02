@@ -20,7 +20,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Attendance.getParticipantByLecture", query = "SELECT u FROM Attendance u WHERE u.lecture.id = :idlecture AND u.participant.rol.name = :rol"),
-    @NamedQuery(name = "Attendance.getAttendance", query = "SELECT u FROM Attendance u WHERE u.lecture.id = :idlecture AND u.participant.id = :idParticipant"),
+    @NamedQuery(name = "Attendance.getAttendance", query = "SELECT u FROM Attendance u WHERE u.lecture.id = :idLecture AND u.participant.id = :idParticipant"),
 
 })
 public class Attendance implements Serializable {
