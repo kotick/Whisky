@@ -5,6 +5,8 @@
 package sessionBeans;
 
 import classes.photoConfirmation;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import javax.ejb.Local;
 
 /**
@@ -16,5 +18,7 @@ public interface PhotoManagementSBLocal {
 
 
     public photoConfirmation save_predict(byte[] foto, Long idParticipant);
+
+    
     
 }

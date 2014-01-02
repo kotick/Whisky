@@ -18,13 +18,13 @@
             </p:column>
             <p:column headerText="Estado">
                 <h:graphicImage  rendered="#{participant.present}" value="http://icons.iconarchive.com/icons/gakuseisean/ivista-2/256/Alarm-Tick-icon.png" width="50" height="50"/>
-
+                
                 <h:graphicImage  rendered="#{!participant.present}" value="http://icons.iconarchive.com/icons/gakuseisean/ivista-2/256/Alarm-Error-icon.png" width="50" height="50"/>
             </p:column>
             
             <p:column>
-                <p:graphicImage id="foto"  value="#{participant.photo}" width="133" height="100"></p:graphicImage>
-               
+            <!-- <p:graphicImage id="foto"  value="#{participant.photo}" width="133" height="100"></p:graphicImage> -->
+               <img src="#{participant.photo}" width="133" height="100" /> 
             </p:column>
 
             <p:column>
