@@ -77,7 +77,7 @@ public class LectureMB {
     void init() {
 
         idLecture = lectureConversation.getIdLecture();
-        idCourse = Long.valueOf("0");
+        idCourse = lectureConversation.getCourse();
         participantList = participantManagementSB.selectParticipantByLecture(idLecture);
 
         lectureList = lectureManagementSB.selectLectureByCourses(idCourse);
