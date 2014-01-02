@@ -20,6 +20,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.inject.Inject;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -145,6 +146,9 @@ public class TeacherMB {
         try {
             if (newParticipant != null) {
                 participantJpa.create(newParticipant);
+                Flash flash = context.getExternalContext().getFlash();
+            flash.setKeepMessages(true);
+            flash.setRedirect(true);
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Profesor agregado con éxito", ""));
                 session.redirect("/faces/admin/teacherMaintainer.xhtml");
             }

@@ -23,6 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import sessionBeans.LectureManagementSBLocal;
 import sessionBeans.exceptions.NonexistentEntityException;
 import sessionBeans.exceptions.RollbackFailureException;
@@ -70,13 +71,13 @@ public class CourseMB {
 
     public void list(Long id) {
         this.lectureConversation.beginConversation();
-        this.lectureConversation.setId(id);
+        this.lectureConversation.setIdLecture(id);
         session.redirect("/faces/teacher/list.xhtml?cid=".concat(this.lectureConversation.getConversation().getId().toString()));
     }
 
     public void letsGoToLectureMaintainer(Long id){
         this.lectureConversation.beginConversation();
-        this.lectureConversation.setId(id);
+        this.lectureConversation.setIdCourse(id);
         session.redirect("/faces/admin/lectureMaintainer.xhtml?cid=".concat(this.lectureConversation.getConversation().getId().toString()));
     
     }
@@ -122,6 +123,9 @@ public class CourseMB {
         try {
             if (newCourse != null) {
                 courseJpa.create(newCourse);
+                Flash flash = context.getExternalContext().getFlash();
+            flash.setKeepMessages(true);
+            flash.setRedirect(true);
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Curso agregado con éxito", ""));
                 session.redirect("/faces/admin/courseMaintainer.xhtml");
 

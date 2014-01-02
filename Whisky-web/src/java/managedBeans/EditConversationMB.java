@@ -17,6 +17,7 @@ public class EditConversationMB implements Serializable {
     Conversation conversation;
     private Long idCourse = null;
     private Long idParticipant = null;
+    private Long idLecture = null;
 
     public EditConversationMB() {
     }
@@ -33,6 +34,14 @@ public class EditConversationMB implements Serializable {
     }
     public Conversation getConversation(){
         return conversation;
+    }
+
+    public Long getIdLecture() {
+        return idLecture;
+    }
+
+    public void setIdLecture(Long idLecture) {
+        this.idLecture = idLecture;
     }
 
     public Long getIdCourse() {
