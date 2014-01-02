@@ -80,13 +80,11 @@ public class PhotoMB {
         if (confirmacion.isValidado()){
             
            actualParticipant=participantManagementSB.getParticipant(idParticipant);
-           actualLecture=lectureManagementSB.getLecturebyId(idLecture);
 
            // attendanceManagementSB.addAttendance(actualParticipant, actualLecture);
             attendanceJpa = new AttendanceJpaController(utx,emf);
-            Attendance newAttendance= new Attendance();
-            newAttendance.setLecture(actualLecture);
-            newAttendance.setParticipant(actualParticipant);
+            
+            Attendance newAttendance= attendanceJpa.getAttendance(idLecture, actualParticipant.getId());
             newAttendance.setPhoto(confirmacion.getDireccionFoto());
             newAttendance.setPresent(true);
             try {

@@ -86,9 +86,10 @@ public class LectureMB {
 
     public void createLecture(Long idCourse) {
         Course actualCourse = courseManagementSB.getCourse(idCourse);
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat dateHour = new SimpleDateFormat("HH:mm");
         Date date2 = new Date();
-        idLecture = lectureManagementSB.createLecture(dateFormat.format(date2), "", "", actualCourse);
+        idLecture = lectureManagementSB.createLecture(dateFormat.format(date2), dateHour.format(date2), "", actualCourse);
         fillLecture(idLecture);
         this.attendanceConversationMB.beginConversation();
         this.attendanceConversationMB.setIdLecture(idLecture);
