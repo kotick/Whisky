@@ -17,8 +17,7 @@ import javax.faces.model.ListDataModel;
 import org.primefaces.model.SelectableDataModel; 
 
 
-@ViewScoped
-public class CourseDataModel extends ListDataModel<CourseDTO> implements Serializable , SelectableDataModel<CourseDTO> {    
+public class CourseDataModel extends ListDataModel<CourseDTO> implements  SelectableDataModel<CourseDTO> {    
   
     public CourseDataModel() {  
     }  

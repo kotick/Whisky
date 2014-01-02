@@ -9,16 +9,13 @@ package managedBeans;
  * @author Yani
  */
 import DTOs.ParticipantDTO;
-import java.io.Serializable;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;  
 import javax.faces.model.ListDataModel;  
-import javax.faces.view.ViewScoped;
 import org.primefaces.model.SelectableDataModel;  
 
-@ViewScoped  
-public class ParticipantDataModel extends ListDataModel<ParticipantDTO> implements Serializable ,SelectableDataModel<ParticipantDTO> {    
+
+public class ParticipantDataModel extends ListDataModel<ParticipantDTO> implements SelectableDataModel<ParticipantDTO> {    
   
     public ParticipantDataModel() {  
     }  

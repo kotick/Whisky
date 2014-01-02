@@ -16,26 +16,26 @@
             <h1>Mantenedor De Clases Dictadas</h1>
             <div class="pull-right">
                 <h:form>
-                    <p:commandButton type="submit" value="Agregar Sesión de Clases" action="#{sessionMB.redirect('/faces/prueba/addAttendance.xhtml')}" update="@form"/>
+                    <p:commandButton type="submit" value="Agregar Sesión de Clases" action="#{sessionMB.redirect('/faces/prueba/addLecture.xhtml')}" update="@form"/>
                 </h:form>
             </div>
             <h:form>
-                <p:dataTable id="tabla" value="#{LectureMB.attendanceList}"
+                <p:dataTable id="tabla" value="#{lectureMB.lectureList}"
                              widgetVar="tabla"
-                             var="course"
+                             var="lecture"
                              emptyMessage="No se han encontrado sesiones de clases."
-                             filteredValue="#{LectureMB.filteredAttendances}"
+                             filteredValue="#{lectureMB.filteredLectures}"
                              paginator="true"
                              rows="5">
                     <f:facet name="header">  
                         Todas las Asistencias Registradas
                     </f:facet>  
                     <p:column id="nameColumn" sortBy="name" filterBy="name" headerText="Nombre" filterMatchMode="startsWith">
-                        <h:outputText value="#{course.name}"/>
+                        <h:outputText value="#{lecture.date}"/>
                     </p:column>
                     <p:column>
                         <p:commandButton type="submit" value="Editar" onclick="alert('no implementado aún')" update="@form"/>
-                        <p:commandButton type="submit" value="Eliminar" action="#{courseMB.eraseCourse(course.id)}" update="@form" />
+                        <p:commandButton type="submit" value="Eliminar" action="#{lectureMB.eraseLecture(lecture.id)}" update="@form" ajax="false"/>
                     </p:column> 
                 </p:dataTable>
             </h:form>

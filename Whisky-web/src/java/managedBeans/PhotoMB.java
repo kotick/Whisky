@@ -4,10 +4,15 @@
  */
 package managedBeans;
 
+import JpaControllers.AttendanceJpaController;
 import classes.photoConfirmation;
+import entity.Attendance;
 import entity.Lecture;
 import entity.Participant;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -15,11 +20,16 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.transaction.UserTransaction;
 import org.primefaces.event.CaptureEvent;
 import sessionBeans.AttendanceManagementSBLocal;
 import sessionBeans.LectureManagementSBLocal;
 import sessionBeans.ParticipantManagementSBLocal;
 import sessionBeans.PhotoManagementSBLocal;
+import sessionBeans.exceptions.NonexistentEntityException;
+import sessionBeans.exceptions.RollbackFailureException;
 
 /**
  *
@@ -28,6 +38,9 @@ import sessionBeans.PhotoManagementSBLocal;
 @Named(value = "photoMB")
 @RequestScoped
 public class PhotoMB {
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("Whisky-ejbPU");
+    @Resource
+    UserTransaction utx;
     @EJB
     private AttendanceManagementSBLocal attendanceManagementSB;
     @EJB
@@ -38,6 +51,7 @@ public class PhotoMB {
     @Inject SessionMB session;
     @EJB
     private PhotoManagementSBLocal photoManagementSB;
+    private AttendanceJpaController attendanceJpa;
     private Lecture actualLecture;
     private Participant actualParticipant;  
     private Long idLecture;
@@ -65,8 +79,21 @@ public class PhotoMB {
             actualParticipant=participantManagementSB.getParticipant(idParticipant);
             actualLecture=lectureManagementSB.getLecturebyId(idLecture);
            // attendanceManagementSB.addAttendance(actualParticipant, actualLecture);
-            
-            attendanceManagementSB.addAttendance(actualParticipant, actualLecture, confirmacion.getDireccionFoto());
+            attendanceJpa = new AttendanceJpaController(utx,emf);
+            Attendance newAttendance= new Attendance();
+            newAttendance.setLecture(actualLecture);
+            newAttendance.setParticipant(actualParticipant);
+            newAttendance.setPhoto(confirmacion.getDireccionFoto());
+            newAttendance.setPresent(true);
+            try {
+                attendanceJpa.edit(newAttendance);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(PhotoMB.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (RollbackFailureException ex) {
+                Logger.getLogger(PhotoMB.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(PhotoMB.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
             System.out.println("te reconocí");
             FacesContext facesContext = FacesContext.getCurrentInstance();

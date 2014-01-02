@@ -81,7 +81,7 @@ public class AttendanceMB {
             participantJpa = new ParticipantJpaController(utx, emf);
             participants = participantJpa.getParticipantInClass(idCourse, "Student");
             for (ParticipantDTO iter : participants) {
-                System.out.println(iter.getEmail());
+                //System.out.println(iter.getEmail());
                 if (iter.getEmail().equalsIgnoreCase(email)) {
                     
                     contain = true;

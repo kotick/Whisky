@@ -17,35 +17,36 @@
             <h:form>
                 <div class="clearfix">
                     <div class="form-group">
-                        <h:outputLabel for="name" 
+                        <h:outputLabel for="date" 
                                        value="Ingrese la Fecha de la Clase"
                                        styleClass="col-sm-6 control-label text-right"/>
                         <div class="col-sm-3">
-                            <h:inputText class="form-control" id="name" autocomplete="off" 
+                            <h:inputText class="form-control" id="date" autocomplete="off" 
                                          size="20" value="#{lectureMB.date}" />
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <h:outputLabel for="name" 
+                        <h:outputLabel for="startingtime" 
                                        value="Ingrese la hora de inicio de la clase"
                                        styleClass="col-sm-6 control-label text-right"/>
                         <div class="col-sm-3">
-                            <h:inputText class="form-control" id="name" autocomplete="off" 
+                            <h:inputText class="form-control" id="startingtime" autocomplete="off" 
                                          size="20" value="#{lectureMB.startingDate}" />
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <h:outputLabel for="name" 
+                        <h:outputLabel for="finishtime" 
                                        value="Ingrese la hora de fin de la clase"
                                        styleClass="col-sm-6 control-label text-right"/>
                         <div class="col-sm-3">
-                            <h:inputText class="form-control" id="name" autocomplete="off" 
+                            <h:inputText class="form-control" id="finishtime" autocomplete="off" 
                                          size="20" value="#{lectureMB.finishingDate}" />
                         </div>
                     </div>
-                    <p:dataTable id="students" var="student" value="#{studentMB.getStudentsByCourse(courseId)}" rowKey ="#{student.id}"   
+                    </div>
+                    <p:dataTable id="students" var="student" value="#{studentMB.studentInClass(lectureMB.idCourse)}" rowKey ="#{student.id}"   
                                  selection="#{lectureMB.participantsToAdd}">  
 
                         <f:facet name="header">  
@@ -64,9 +65,9 @@
 
                     </p:dataTable>  
                     <div class="form-group">
-                        <p:commandButton type="submit" value="Agregar curso" action="#{LectureMB.addLecture}" update="@form"/>
+                        <p:commandButton type="submit" value="Agregar clase" action="#{lectureMB.addLecture}" />
                     </div>
-                </div>
+                
 
             </h:form>
         </div>
