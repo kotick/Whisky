@@ -47,6 +47,12 @@ a:link:hover, a:visited:hover  {
     max-height: 150px;
     float:right;
 }
+#cerrarSesion{
+    max-height: 10px;
+    float: right;
+    margin-right: 110px;
+    margin-top: -40px;
+}
  #logoProyecto{
     max-height: 100px;
     /*float:right;*/
