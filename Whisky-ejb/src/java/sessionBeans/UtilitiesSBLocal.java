@@ -24,5 +24,7 @@ public interface UtilitiesSBLocal {
     boolean validateRut(String rut);
 
     boolean validateEmail(String email);
+
+    boolean checkDoubleEmail(String email);
     
 }

@@ -87,6 +87,9 @@ public class StudentMB {
         } else if (!utilitiesSB.validateEmail(email)) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El email ingresado es inválido", "Error al agregar"));
             /* TODO F:agregar mensaje más descriptivo, verificar formato con @ y agregar el caso de que sea un correo duplicado en el validador */
+        } else if(!utilitiesSB.checkDoubleEmail(email)){
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El email ya ocupado", "Error al agregar"));
+
         } else {
             newParticipant = new Participant();
             courseJpa = new CourseJpaController(utx, emf);

@@ -97,7 +97,10 @@ public class TeacherMB {
         } else if (!utilitiesSB.validateEmail(email)) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El email ingresado es inválido", "Error al agregar"));
 
-        } else {
+        } else if(!utilitiesSB.checkDoubleEmail(email)){
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El email ya ocupado", "Error al agregar"));
+
+        }else{
             newParticipant = new Participant();
             courseJpa = new CourseJpaController(utx, emf);
             roleJpa = new RoleJpaController(utx, emf);

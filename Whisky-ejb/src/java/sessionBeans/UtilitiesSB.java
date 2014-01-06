@@ -121,28 +121,28 @@ public class UtilitiesSB implements UtilitiesSBLocal {
 
     @Override
     public boolean validateEmail(String email) {
-        try {
-            // Compiles the given regular expression into a pattern.
-            Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-            // Match the given input against this pattern
-            Matcher matcher = pattern.matcher(email);
-            Participant resultQuery;
-            Query q = em.createNamedQuery("Participant.getParticipantByEmail", Participant.class);
-            q.setParameter("username", email);
-            if (matcher.matches()) {
-                try {
-                    resultQuery = (Participant) q.getSingleResult();
-                    return false;
-                } catch (Exception ex) {
-                    return true;
-                }
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
+        // Compiles the given regular expression into a pattern.
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        // Match the given input against this pattern
+        Matcher matcher = pattern.matcher(email);
+
+        return matcher.matches();
+
+
+    }
+
+    @Override
+    public boolean checkDoubleEmail(String email) {
+        try{
+        Participant resultQuery;
+        Query q = em.createNamedQuery("Participant.getParticipantByEmail", Participant.class);
+        q.setParameter("username", email);
+        resultQuery = (Participant) q.getSingleResult();
         return false;
+        }catch (Exception e) {
+            return true;
+        }
+        
     }
 }
