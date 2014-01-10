@@ -24,6 +24,7 @@ public class Course implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private Integer attendanceRequired;
     
     @ManyToMany(mappedBy = "courses")
     private Collection<Participant> participant;
@@ -34,6 +35,14 @@ public class Course implements Serializable {
 
     public void setParticipant(Collection<Participant> participant) {
         this.participant = participant;
+    }
+
+    public Integer getAttendanceRequired() {
+        return attendanceRequired;
+    }
+
+    public void setAttendanceRequired(Integer attendanceRequired) {
+        this.attendanceRequired = attendanceRequired;
     }
     
     
