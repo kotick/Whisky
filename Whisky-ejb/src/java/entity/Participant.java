@@ -10,7 +10,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 
 
 @Entity
@@ -45,7 +44,18 @@ public class Participant implements Serializable {
     private Role rol;
     
     @ManyToMany
+    private Collection<University> universities;
+    
+    @ManyToMany
     private Collection<Course> courses;
+
+    public Collection<University> getUniversities() {
+        return universities;
+    }
+
+    public void setUniversities(Collection<University> universities) {
+        this.universities = universities;
+    }
 
     public Collection<Course> getCourses() {
         return courses;
