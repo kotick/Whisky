@@ -1,28 +1,50 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./../base.xhtml"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
 
     <ui:define name="content">
-        <p:dataTable id="tabla" value="#{teacherMB.courseList}" var="course">
-            <p:column headerText="Cursos">
-                <h:outputText value="#{course.name}"/>
-            </p:column>
-            <p:column headerText="Ver">
-                <h:form>
-                    <p:commandButton type="submit" value="Ver clases" action="#{teacherMB.lecture(course.id)}"/>
-                </h:form>
-            </p:column> 
-            
-            <p:column headerText="Iniciar">
-                <h:form>
-                    <p:commandButton type="submit" value="Iniciar curso" action="#{lectureMB.createLecture(course.id)}"/>
-                </h:form>
-            </p:column> 
-        </p:dataTable>
+        <div class="container">
+
+            <h1>Bienvenido Profesor, seleccione una opción:</h1>
+            <br />
+            <p:dataTable id="tabla" value="#{teacherMB.courseList}" var="course">
+                <p:column headerText="Cursos">
+                    <h:outputText value="#{course.name}"/>
+                </p:column>
+                <p:column headerText="Ver">
+                    <div class="text-center">
+                        <h:form>
+                            <p:commandButton type="submit" value="Ver clases" action="#{teacherMB.lecture(course.id)}"/>
+                        </h:form>
+                    </div>
+
+                </p:column> 
+
+                <p:column headerText="Iniciar">
+                    <div class="text-center">
+
+                        <h:form>
+                            <p:commandButton type="submit" value="Iniciar curso" action="#{lectureMB.createLecture(course.id)}"/>
+                        </h:form>
+                    </div>
+
+                </p:column>
+
+                <p:column headerText="Estadísticas y Reportes">                    <div class="text-center">
+
+                        <h:form>
+                            <p:commandButton type="submit" value="Ver Estadísticas" action="alert('sin implementar')"/>
+                        </h:form>
+                    </div>
+                </p:column> 
+            </p:dataTable>
+        </div>
     </ui:define>
 
 

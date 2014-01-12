@@ -9,31 +9,51 @@
 
 
     <ui:define name="content">
-        <p:dataTable id="tabla" value="#{lectureMB.participantList}" var="participant">
-            
-            <p:column headerText="Nombre">
-                <h:outputText value="#{participant.firstName}"/>
-            </p:column>
-            <p:column headerText="Apellido">
-                <h:outputText value="#{participant.lastName}"/>
-            </p:column>
-            <p:column headerText="Estado">
-                <h:graphicImage  rendered="#{participant.present}" value="http://icons.iconarchive.com/icons/gakuseisean/ivista-2/256/Alarm-Tick-icon.png" width="50" height="50"/>
-                
-                <h:graphicImage  rendered="#{!participant.present}" value="http://icons.iconarchive.com/icons/gakuseisean/ivista-2/256/Alarm-Error-icon.png" width="50" height="50"/>
-            </p:column>
-            
-            <p:column>
-             <!--<p:graphicImage id="foto"  url="#{participant.photo}" width="133" height="100"></p:graphicImage> -->
-              <img src="#{participant.photo}" width="133" height="100" /> 
-            </p:column>
+        <div class="container">
+            <h1>Visualizando la clase del "fecha" para el ramo "ramo"</h1>
+            <p:dataTable id="tabla" value="#{lectureMB.participantList}" var="participant">
 
-            <p:column>
-                <h:form>
-                    <p:commandButton type="submit" value="Estadísticas" disabled="true" action="#{lectureMB}" title="En construcción"/>
-                </h:form>
-            </p:column>             
-        </p:dataTable>
+                <p:column headerText="Nombre">
+                    <div class="text-center">
+                        <h:outputText value="#{participant.firstName}"/>
+                    </div>
+                </p:column>
+                <p:column headerText="Apellido">
+                    <div class="text-center">
+
+                        <h:outputText value="#{participant.lastName}"/>
+                    </div>
+
+                </p:column>
+                <p:column headerText="Estado">
+                    <div class="text-center">
+
+                        <h:graphicImage  rendered="#{participant.present}" value="http://icons.iconarchive.com/icons/gakuseisean/ivista-2/256/Alarm-Tick-icon.png" width="50" height="50"/>
+
+                        <h:graphicImage  rendered="#{!participant.present}" value="http://icons.iconarchive.com/icons/gakuseisean/ivista-2/256/Alarm-Error-icon.png" width="50" height="50"/>
+                    </div>
+
+                </p:column>
+
+                <p:column>
+                    <div class="text-center">
+
+                 <!--<p:graphicImage id="foto"  url="#{participant.photo}" width="133" height="100"></p:graphicImage> -->
+                        <img src="#{participant.photo}" width="133" height="100" />
+                    </div>
+
+                </p:column>
+
+                <p:column>
+                    <div class="text-center">
+
+                        <h:form>
+                            <p:commandButton type="submit" value="Estadísticas" disabled="true" action="#{lectureMB}" title="En construcción"/>
+                        </h:form>
+                    </div>
+                </p:column>             
+            </p:dataTable>
+        </div>
     </ui:define>
 
     <ui:define name="bottom">

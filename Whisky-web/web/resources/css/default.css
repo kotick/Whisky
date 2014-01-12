@@ -124,3 +124,16 @@ img{
 .cajaCentroAttendance input{
     text-align: center;
 }
+
+/* parche pobre para el breadcrumb sin negritas y alineado verticalmente*/
+.ui-breadcrumb ul li .ui-menuitem-link{
+    font-weight: normal !important;
+    margin-top: 0 !important;
+}
+
+/* parche pobre para el attendance después del fix de bootstrap */
+.attendanceFields{
+    width: 286px !important;
+    height: 30px !important;
+    padding-top: 5px;
+}

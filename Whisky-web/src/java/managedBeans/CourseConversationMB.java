@@ -12,6 +12,8 @@ public class CourseConversationMB implements Serializable {
     @Inject
     Conversation conversation;
     private Long id;
+    private String name;
+    // TODO agregar nombre de la clase para referenciarla en el índice de lectures
 
     public CourseConversationMB() {
     }
@@ -36,6 +38,14 @@ public class CourseConversationMB implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }
