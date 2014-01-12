@@ -24,11 +24,11 @@ public class LoginMB {
     
     @PostConstruct
     void init(){
-        
+        /*
         if (!entrenado){
             faceRecognizerSB.train();
             entrenado=true;
-        }
+        }*/
     
     }
     public void login(){

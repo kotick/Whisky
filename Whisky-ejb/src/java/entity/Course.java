@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
@@ -25,6 +26,8 @@ public class Course implements Serializable {
     private Long id;
     private String name;
     private Integer attendanceRequired;
+    @ManyToOne
+    private University university;
     
     @ManyToMany(mappedBy = "courses")
     private Collection<Participant> participant;
