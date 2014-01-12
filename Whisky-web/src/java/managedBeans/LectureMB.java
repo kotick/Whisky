@@ -62,6 +62,8 @@ public class LectureMB {
     private LectureJpaController lectureJpa;
     private Long idCourse;
     private Long idLecture;
+    private String dateLecture;
+    private String nameCourse;
     private String date;
     private String startingDate;
     private String finishingDate;
@@ -78,6 +80,8 @@ public class LectureMB {
 
         idLecture = lectureConversation.getIdLecture();
         idCourse = lectureConversation.getIdCourse();
+        dateLecture = lectureConversation.getDateLecture();
+        nameCourse = lectureConversation.getNameCourse();
         participantList = participantManagementSB.selectParticipantByLecture(idLecture);
 
         lectureList = lectureManagementSB.selectLectureByCourses(idCourse);

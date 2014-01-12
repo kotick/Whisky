@@ -52,6 +52,7 @@ public class CourseMB {
     private Collection<CourseDTO> courseList;
     private List<CourseDTO> filteredCourses;
     private String name;
+    private String nameCourse;
     private ParticipantDTO[] participantsToAdd;
     private CourseDataModel allCourses;
 
@@ -63,16 +64,18 @@ public class CourseMB {
         if (courseConversation.getId() != null) {
             id = courseConversation.getId();
             lectureList = lectureManagement.selectLectureByCourses(id);
-            setNameCourse(courseConversation.getName());
+            nameCourse = courseConversation.getName();
         }
         courseJpa = new CourseJpaController(utx, emf);
         courseList = courseJpa.findCourseEntities();
         allCourses = new CourseDataModel((LinkedList<CourseDTO>) courseList);
     }
 
-    public void list(Long id) {
+    public void list(Long id, String date) {
         this.lectureConversation.beginConversation();
         this.lectureConversation.setIdLecture(id);
+        this.lectureConversation.setDateLecture(date);
+        this.lectureConversation.setNameCourse(nameCourse);
         session.redirect("/faces/teacher/list.xhtml?cid=".concat(this.lectureConversation.getConversation().getId().toString()));
     }
 
@@ -205,7 +208,17 @@ public class CourseMB {
         return name;
     }
 
-    public void setNameCourse(String name) {
+    public void setName(String name) {
         this.name = name;
     }
+
+    public String getNameCourse() {
+        return nameCourse;
+    }
+
+    public void setNameCourse(String nameCourse) {
+        this.nameCourse = nameCourse;
+    }
+
+
 }

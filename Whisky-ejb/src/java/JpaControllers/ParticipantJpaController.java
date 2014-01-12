@@ -5,22 +5,23 @@
 package JpaControllers;
 
 import DTOs.ParticipantDTO;
+import JpaControllers.exceptions.NonexistentEntityException;
+import JpaControllers.exceptions.RollbackFailureException;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import entity.Course;
-import entity.Participant;
+import entity.University;
 import java.util.ArrayList;
 import java.util.Collection;
+import entity.Course;
+import entity.Participant;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.transaction.UserTransaction;
-import sessionBeans.exceptions.NonexistentEntityException;
-import sessionBeans.exceptions.RollbackFailureException;
 
 /**
  *
@@ -40,6 +41,9 @@ public class ParticipantJpaController implements Serializable {
     }
 
     public void create(Participant participant) throws RollbackFailureException, Exception {
+        if (participant.getUniversities() == null) {
+            participant.setUniversities(new ArrayList<University>());
+        }
         if (participant.getCourses() == null) {
             participant.setCourses(new ArrayList<Course>());
         }
@@ -47,6 +51,12 @@ public class ParticipantJpaController implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
+            Collection<University> attachedUniversities = new ArrayList<University>();
+            for (University universitiesUniversityToAttach : participant.getUniversities()) {
+                universitiesUniversityToAttach = em.getReference(universitiesUniversityToAttach.getClass(), universitiesUniversityToAttach.getId());
+                attachedUniversities.add(universitiesUniversityToAttach);
+            }
+            participant.setUniversities(attachedUniversities);
             Collection<Course> attachedCourses = new ArrayList<Course>();
             for (Course coursesCourseToAttach : participant.getCourses()) {
                 coursesCourseToAttach = em.getReference(coursesCourseToAttach.getClass(), coursesCourseToAttach.getId());
@@ -54,6 +64,10 @@ public class ParticipantJpaController implements Serializable {
             }
             participant.setCourses(attachedCourses);
             em.persist(participant);
+            for (University universitiesUniversity : participant.getUniversities()) {
+                universitiesUniversity.getParticipants().add(participant);
+                universitiesUniversity = em.merge(universitiesUniversity);
+            }
             for (Course coursesCourse : participant.getCourses()) {
                 coursesCourse.getParticipant().add(participant);
                 coursesCourse = em.merge(coursesCourse);
@@ -79,8 +93,17 @@ public class ParticipantJpaController implements Serializable {
             utx.begin();
             em = getEntityManager();
             Participant persistentParticipant = em.find(Participant.class, participant.getId());
+            Collection<University> universitiesOld = persistentParticipant.getUniversities();
+            Collection<University> universitiesNew = participant.getUniversities();
             Collection<Course> coursesOld = persistentParticipant.getCourses();
             Collection<Course> coursesNew = participant.getCourses();
+            Collection<University> attachedUniversitiesNew = new ArrayList<University>();
+            for (University universitiesNewUniversityToAttach : universitiesNew) {
+                universitiesNewUniversityToAttach = em.getReference(universitiesNewUniversityToAttach.getClass(), universitiesNewUniversityToAttach.getId());
+                attachedUniversitiesNew.add(universitiesNewUniversityToAttach);
+            }
+            universitiesNew = attachedUniversitiesNew;
+            participant.setUniversities(universitiesNew);
             Collection<Course> attachedCoursesNew = new ArrayList<Course>();
             for (Course coursesNewCourseToAttach : coursesNew) {
                 coursesNewCourseToAttach = em.getReference(coursesNewCourseToAttach.getClass(), coursesNewCourseToAttach.getId());
@@ -89,6 +112,18 @@ public class ParticipantJpaController implements Serializable {
             coursesNew = attachedCoursesNew;
             participant.setCourses(coursesNew);
             participant = em.merge(participant);
+            for (University universitiesOldUniversity : universitiesOld) {
+                if (!universitiesNew.contains(universitiesOldUniversity)) {
+                    universitiesOldUniversity.getParticipants().remove(participant);
+                    universitiesOldUniversity = em.merge(universitiesOldUniversity);
+                }
+            }
+            for (University universitiesNewUniversity : universitiesNew) {
+                if (!universitiesOld.contains(universitiesNewUniversity)) {
+                    universitiesNewUniversity.getParticipants().add(participant);
+                    universitiesNewUniversity = em.merge(universitiesNewUniversity);
+                }
+            }
             for (Course coursesOldCourse : coursesOld) {
                 if (!coursesNew.contains(coursesOldCourse)) {
                     coursesOldCourse.getParticipant().remove(participant);
@@ -134,6 +169,11 @@ public class ParticipantJpaController implements Serializable {
                 participant.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The participant with id " + id + " no longer exists.", enfe);
+            }
+            Collection<University> universities = participant.getUniversities();
+            for (University universitiesUniversity : universities) {
+                universitiesUniversity.getParticipants().remove(participant);
+                universitiesUniversity = em.merge(universitiesUniversity);
             }
             Collection<Course> courses = participant.getCourses();
             for (Course coursesCourse : courses) {
@@ -201,8 +241,6 @@ public class ParticipantJpaController implements Serializable {
             em.close();
         }
     }
-
-    
     public Participant getParticipantById(Long id) {
         EntityManager em = getEntityManager();
 
@@ -281,4 +319,5 @@ public class ParticipantJpaController implements Serializable {
         }
         return result;
     }
+    
 }

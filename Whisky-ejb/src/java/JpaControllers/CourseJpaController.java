@@ -5,7 +5,8 @@
 package JpaControllers;
 
 import DTOs.CourseDTO;
-import DTOs.ParticipantDTO;
+import JpaControllers.exceptions.NonexistentEntityException;
+import JpaControllers.exceptions.RollbackFailureException;
 import entity.Course;
 import java.io.Serializable;
 import javax.persistence.Query;
@@ -20,8 +21,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.transaction.UserTransaction;
-import sessionBeans.exceptions.NonexistentEntityException;
-import sessionBeans.exceptions.RollbackFailureException;
 
 /**
  *
@@ -48,7 +47,7 @@ public class CourseJpaController implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Collection<Participant> attachedParticipant = new ArrayList<>();
+            Collection<Participant> attachedParticipant = new ArrayList<Participant>();
             for (Participant participantParticipantToAttach : course.getParticipant()) {
                 participantParticipantToAttach = em.getReference(participantParticipantToAttach.getClass(), participantParticipantToAttach.getId());
                 attachedParticipant.add(participantParticipantToAttach);
@@ -157,7 +156,7 @@ public class CourseJpaController implements Serializable {
         }
     }
 
-    public List<CourseDTO> findCourseEntities() {
+  public List<CourseDTO> findCourseEntities() {
         return findCourseEntities(true, -1, -1);
     }
 
@@ -247,6 +246,8 @@ public class CourseJpaController implements Serializable {
         return result;
     }
 
+
+
     public int getCourseCount() {
         EntityManager em = getEntityManager();
         try {
@@ -259,4 +260,5 @@ public class CourseJpaController implements Serializable {
             em.close();
         }
     }
+    
 }

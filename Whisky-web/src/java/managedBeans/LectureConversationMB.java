@@ -13,6 +13,8 @@ public class LectureConversationMB implements Serializable {
     Conversation conversation;
     private Long idCourse;
     private Long idLecture;
+    private String nameCourse;
+    private String dateLecture;
     // TODO F: yani, puedes darme la fecha y el nombre del ramo en strings? para ponerlo en la lista de lectures? <3
 
     public LectureConversationMB() {
@@ -32,6 +34,23 @@ public class LectureConversationMB implements Serializable {
         return conversation;
     }
 
+    public String getNameCourse() {
+        return nameCourse;
+    }
+
+    public void setNameCourse(String nameCourse) {
+        this.nameCourse = nameCourse;
+    }
+
+    public String getDateLecture() {
+        return dateLecture;
+    }
+
+    public void setDateLecture(String dateLecture) {
+        this.dateLecture = dateLecture;
+    }
+
+    
     public Long getIdCourse() {
         return idCourse;
     }
