@@ -13,7 +13,7 @@ public class LectureConversationMB implements Serializable {
     Conversation conversation;
     private Long idCourse;
     private Long idLecture;
-                // TODO F: yani, puedes darme la fecha y el nombre del ramo en strings? para ponerlo en la lista de lectures? <3
+    // TODO F: yani, puedes darme la fecha y el nombre del ramo en strings? para ponerlo en la lista de lectures? <3
 
     public LectureConversationMB() {
     }
