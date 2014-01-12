@@ -25,7 +25,7 @@ import sessionBeans.LectureManagementSBLocal;
 import sessionBeans.exceptions.NonexistentEntityException;
 import sessionBeans.exceptions.RollbackFailureException;
 
-@Named(value = "courseMB")
+@Named(value = "universityMB")
 @RequestScoped
 public class UniversityMB {
 
@@ -40,7 +40,7 @@ public class UniversityMB {
 
     @PostConstruct
     void init() {
-        universityJpa= new UniversityJpaController(utx,emf);
-        universityList= universityJpa.findUniversityEntities();
+        universityJpa = new UniversityJpaController(utx, emf);
+        universityList = universityJpa.findUniversityEntities();
     }
 }
