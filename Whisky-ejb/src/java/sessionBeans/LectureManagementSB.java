@@ -48,6 +48,7 @@ public class LectureManagementSB implements LectureManagementSBLocal {
             lectureDTOTemp = new LectureDTO();
             lectureDTOTemp.setDate(iter.getDate());
             lectureDTOTemp.setId(iter.getId());
+            lectureDTOTemp.setTime(iter.getStartingTime());
             result.add(lectureDTOTemp);
         }
         return result;

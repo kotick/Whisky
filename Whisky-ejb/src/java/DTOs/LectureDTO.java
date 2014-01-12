@@ -7,6 +7,7 @@ import javax.ejb.LocalBean;
 @LocalBean
 public class LectureDTO {
     private String date;
+    private String time;
     private Long id;
 
     public String getDate() {
@@ -24,5 +25,15 @@ public class LectureDTO {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+    
+    
     
 }

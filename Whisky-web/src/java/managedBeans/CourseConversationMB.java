@@ -32,6 +32,15 @@ public class CourseConversationMB implements Serializable {
         return conversation;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    
     public Long getId() {
         return id;
     }
@@ -40,12 +49,5 @@ public class CourseConversationMB implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
 }

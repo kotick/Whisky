@@ -52,6 +52,7 @@ public class CourseMB {
     private Collection<CourseDTO> courseList;
     private List<CourseDTO> filteredCourses;
     private String name;
+    private String nameCourse;
     private ParticipantDTO[] participantsToAdd;
     private CourseDataModel allCourses;
 
@@ -63,6 +64,7 @@ public class CourseMB {
         if (courseConversation.getId() != null) {
             id = courseConversation.getId();
             lectureList = lectureManagement.selectLectureByCourses(id);
+            nameCourse = courseConversation.getName();
         }
         courseJpa = new CourseJpaController(utx, emf);
         courseList = courseJpa.findCourseEntities();

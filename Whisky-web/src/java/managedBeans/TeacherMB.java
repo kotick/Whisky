@@ -79,9 +79,10 @@ public class TeacherMB {
 
     }
 
-    public void lecture(Long id) {
+    public void lecture(Long id, String name) {
         this.courseConversation.beginConversation();
         this.courseConversation.setId(id);
+        this.courseConversation.setName(name);
         session.redirect("/faces/teacher/lecture.xhtml?cid=".concat(this.courseConversation.getConversation().getId().toString()));
     }
 
