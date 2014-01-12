@@ -29,6 +29,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="clearfix">
+                    <div class="form-group">
+                        <p:outputLabel for="uni" 
+                                       value="Seleccione la Universidad a la que pertenece este curso:"
+                                       styleClass="col-sm-6 control-label text-right"/>
+                        <div class="col-sm-3">
+                            
+                            <p:selectOneListbox value="#{courseMB.idUniversity}" id="uni">
+                                <f:selectItem itemLabel="Select One" itemValue="" />  
+                                <f:selectItems value="#{universityMB.universityList}" var="university" itemLabel="#{university.name}" itemValue="#{university.id}"/>
+                            </p:selectOneListbox>
+                
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                 <p:dataTable id="students" var="student" value="#{studentMB.allStudents}" rowKey ="#{student.id}"   
                              selection="#{courseMB.participantsToAdd}">  
