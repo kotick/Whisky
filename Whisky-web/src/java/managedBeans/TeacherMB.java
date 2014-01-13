@@ -5,9 +5,11 @@ import DTOs.ParticipantDTO;
 import JpaControllers.CourseJpaController;
 import JpaControllers.ParticipantJpaController;
 import JpaControllers.RoleJpaController;
+import JpaControllers.UniversityJpaController;
 import entity.Course;
 import entity.Participant;
 import entity.Role;
+import entity.University;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,6 +50,8 @@ public class TeacherMB {
     @Resource
     UserTransaction utx;
     private ParticipantJpaController participantJpa;
+    
+    private UniversityJpaController universityJpa;
     private CourseJpaController courseJpa;
     private RoleJpaController roleJpa;
     @EJB
@@ -58,6 +62,7 @@ public class TeacherMB {
     private Collection<ParticipantDTO> teacherList;
     private List<ParticipantDTO> filteredTeachers;
     //Datos participant
+    private Long idUniversity;
     private String firstName;
     private String lastName;
     private String email;
@@ -176,7 +181,11 @@ public class TeacherMB {
         }
 
     }
-
+    private University findUniversity(Long id){
+        universityJpa = new UniversityJpaController(utx, emf);
+        return universityJpa.findUniversity(id);
+    }
+    
     public Collection<CourseDTO> getCourseList() {
         return courseList;
     }
@@ -240,4 +249,16 @@ public class TeacherMB {
     public String getRut() {
         return rut;
     }
+
+    public Long getIdUniversity() {
+        return idUniversity;
+    }
+
+    public void setIdUniversity(Long idUniversity) {
+        this.idUniversity = idUniversity;
+    }
+    
+    
 }
+
+

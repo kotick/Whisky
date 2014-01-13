@@ -18,7 +18,9 @@ import javax.persistence.Persistence;
 import javax.transaction.UserTransaction;
 import JpaControllers.CourseJpaController;
 import JpaControllers.ParticipantJpaController;
+import JpaControllers.UniversityJpaController;
 import entity.Participant;
+import entity.University;
 import java.util.LinkedList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -47,14 +49,16 @@ public class CourseMB {
     private LectureManagementSBLocal lectureManagement;
     private CourseJpaController courseJpa;
     private ParticipantJpaController participantJpa;
+    private UniversityJpaController universityJpa;
     private Long id;
     private Collection<LectureDTO> lectureList;
     private Collection<CourseDTO> courseList;
     private List<CourseDTO> filteredCourses;
     private String name;
     private String nameCourse;
+    private Long idUniversity;
     private ParticipantDTO[] participantsToAdd;
-    private CourseDataModel allCourses;
+
 
     public CourseMB() {
     }
@@ -68,8 +72,11 @@ public class CourseMB {
         }
         courseJpa = new CourseJpaController(utx, emf);
         courseList = courseJpa.findCourseEntities();
-        allCourses = new CourseDataModel((LinkedList<CourseDTO>) courseList);
-    }
+        }
+    
+
+    
+    
 
     public void list(Long id, String date) {
         this.lectureConversation.beginConversation();
@@ -95,6 +102,7 @@ public class CourseMB {
 
     private Course createCourse() {
         Course newCourse = null;
+        University university=null;
         FacesContext context = FacesContext.getCurrentInstance();
 
         if (name.equalsIgnoreCase("")) {
@@ -106,8 +114,9 @@ public class CourseMB {
             Long idTemp;
             Participant temp;
             Collection<Participant> participantTemp = new LinkedList<Participant>();
-
+            university = findUniversity(idUniversity);
             newCourse.setName(name);
+            newCourse.setUniversity(university);
 
             for (ParticipantDTO iter : participantsToAdd) {
                 idTemp = iter.getId();
@@ -118,6 +127,11 @@ public class CourseMB {
         }
         return newCourse;
 
+    }
+    
+    private University findUniversity(Long id){
+        universityJpa = new UniversityJpaController(utx, emf);
+        return universityJpa.findUniversity(id);
     }
 
     public void addCourse() {
@@ -187,14 +201,17 @@ public class CourseMB {
         this.filteredCourses = filteredCourses;
     }
 
-    
-    public CourseDataModel getAllCourses() {
-        return allCourses;
+    public Long getIdUniversity() {
+        return idUniversity;
     }
 
-    public void setAllCourses(CourseDataModel allCourses) {
-        this.allCourses = allCourses;
+    public void setIdUniversity(Long idUniversity) {
+        this.idUniversity = idUniversity;
     }
+
+    
+    
+
 
     public ParticipantDTO[] getParticipantsToAdd() {
         return participantsToAdd;

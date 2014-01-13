@@ -28,41 +28,39 @@
                                          size="20" value="#{courseMB.name}"/>
                         </div>
                     </div>
-                </div>
-                <div class="clearfix">
+
                     <div class="form-group">
                         <p:outputLabel for="uni" 
                                        value="Seleccione la Universidad a la que pertenece este curso:"
                                        styleClass="col-sm-6 control-label text-right"/>
                         <div class="col-sm-3">
-                            
+
                             <p:selectOneListbox value="#{courseMB.idUniversity}" id="uni">
-                                <f:selectItem itemLabel="Select One" itemValue="" />  
                                 <f:selectItems value="#{universityMB.universityList}" var="university" itemLabel="#{university.name}" itemValue="#{university.id}"/>
                             </p:selectOneListbox>
-                
+
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                <p:dataTable id="students" var="student" value="#{studentMB.allStudents}" rowKey ="#{student.id}"   
-                             selection="#{courseMB.participantsToAdd}">  
+                    <p:dataTable id="students" var="student" value="#{studentMB.allStudents}" rowKey ="#{student.id}"   
+                                 selection="#{courseMB.participantsToAdd}">  
 
-                    <f:facet name="header">  
-                        Seleccionar alumnos 
-                    </f:facet>  
+                        <f:facet name="header">  
+                            Seleccionar alumnos 
+                        </f:facet>  
 
-                    <p:column selectionMode="multiple" style="width:2%" />  
+                        <p:column selectionMode="multiple" style="width:2%" />  
 
-                    <p:column headerText="Nombre" style="width:25%">  
-                        #{student.firstName}  
-                    </p:column>  
+                        <p:column headerText="Nombre" style="width:25%">  
+                            #{student.firstName}  
+                        </p:column>  
 
-                    <p:column headerText="Apellido" style="width:25%">  
-                        #{student.lastName}  
-                    </p:column> 
+                        <p:column headerText="Apellido" style="width:25%">  
+                            #{student.lastName}  
+                        </p:column> 
 
-                </p:dataTable>  
+                    </p:dataTable>  
                 </div>
                 <div class="form-group">
                     <p:commandButton type="submit" value="Agregar curso" action="#{courseMB.addCourse}" update="@form" ajax="false"/>

@@ -17,6 +17,7 @@ import javax.persistence.NamedQuery;
     @NamedQuery(name = "Course.getCurso", query = "SELECT c FROM Course c WHERE c.id =:idCourse"),
     @NamedQuery(name = "Course.getCourseForParticipant", query = "SELECT c FROM Participant u, Course c WHERE u.id = :id AND c member of u.courses"),
     @NamedQuery(name = "Course.getNotCourseForParticipant", query = "SELECT c FROM Participant u, Course c WHERE u.id = :id AND  c not member of u.courses"),
+    @NamedQuery(name = "Course.getCourseForUniversity", query = "SELECT c FROM Course c WHERE c.university.id= :id"),
 
 })
 public class Course implements Serializable {
@@ -47,6 +48,15 @@ public class Course implements Serializable {
     public void setAttendanceRequired(Integer attendanceRequired) {
         this.attendanceRequired = attendanceRequired;
     }
+
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
+    }
+    
     
     
     public Long getId() {

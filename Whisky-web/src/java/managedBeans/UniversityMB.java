@@ -43,4 +43,14 @@ public class UniversityMB {
         universityJpa = new UniversityJpaController(utx, emf);
         universityList = universityJpa.findUniversityEntities();
     }
+
+    public Collection<University> getUniversityList() {
+        return universityList;
+    }
+
+    public void setUniversityList(Collection<University> universityList) {
+        this.universityList = universityList;
+    }
+    
+    
 }
