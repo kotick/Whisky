@@ -64,8 +64,28 @@
 
                     </div>
                 </div>
+                <p:dataTable id="universities" var="university" value="#{universityMB.universityList}" rowKey ="#{university.id}"   
+                             selection="#{universityMB.universitiesToAdd}">  
 
+                        <f:facet name="header">  
+                            Seleccione las universidades a las que pertenece este profesor:
+                        </f:facet>  
 
+                        <p:column selectionMode="multiple" style="width:2%" />  
+
+                        <p:column sortBy="id" headerText="Id" style="width:2%">  
+                            #{university.id}  
+                        </p:column>  
+
+                        <p:column headerText="Nombre" style="width:25%">  
+                            #{university.name}  
+                        </p:column> 
+
+                    </p:dataTable>  
+
+                <p:commandButton value="Actualizar cursos" update="students" actionListener="#{teacherMB.coursesByUniversity}" ></p:commandButton>
+
+                
                     <p:dataTable id="students" var="course" value="#{courseMB.allCourses}" rowKey ="#{course.id}"   
                                  selection="#{teacherMB.courseToAdd}">  
 
