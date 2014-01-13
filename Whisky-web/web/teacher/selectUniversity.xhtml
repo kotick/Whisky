@@ -12,26 +12,20 @@
     </h:head>
     <ui:define name="content">
         <div class="cajaCentro">
-            <h1>Bienvenido Alumno</h1>
+            <h1>Seleccione una universidad:</h1>
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
             <h:form >
                 <div class="form-group">
-                    <p:outputLabel for="username" 
-                                   value="Escriba su nombre de usuario:"/>
-                    <p:inputText styleClass="form-control attendanceFields" id="username" autocomplete="off" 
-                                 size="30" value="#{attendanceMB.email}" />
-                </div>
-                <div class="form-group">
 
-                    <p:outputLabel for="password" 
-                                   value="Escriba su contraseña:"/>
-                    <p:inputText type="password" styleClass="form-control  attendanceFields" id="password" autocomplete="off" 
-                                 size="20" value="#{attendanceMB.password}"/>
+                    <p:selectOneListbox value="#{universityMB.idUniversity}" id="uni">
+                        <f:selectItem itemLabel="Select One" itemValue="" />  
+                        <f:selectItems value="#{universityMB.universityList}" var="university" itemLabel="#{university.name}" itemValue="#{university.id}"/>
+                    </p:selectOneListbox>
                 </div>
                 <center>
                     <div class="form-group">
                    
-                    <p:commandButton type="submit" value="Ingresar" action="#{attendanceMB.checkEmailPassword()}" />
+                    <p:commandButton type="submit" value="Ingresar" action="#{universityMB.setSessionUniversity()}" />
                      </div>
                 </center>
 

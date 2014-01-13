@@ -10,7 +10,7 @@
 
     <ui:define name="content">
         <div class="container">
-            <h1>Visualizando la clase del "fecha" para el ramo "ramo"</h1>
+            <h1>Visualizando la clase del <h:outputText value="#{lectureMB.dateLecture}"/> para el ramo <h:outputText value="#{lectureMB.nameCourse}"/></h1>
             <p:dataTable id="tabla" value="#{lectureMB.participantList}" var="participant">
 
                 <p:column headerText="Nombre">
