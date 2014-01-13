@@ -11,6 +11,7 @@ import javax.persistence.Query;
 
 @Stateless
 public class CourseManagementSB implements CourseManagementSBLocal {
+
     @PersistenceContext(unitName = "Whisky-ejbPU")
     private EntityManager em;
 
@@ -20,18 +21,18 @@ public class CourseManagementSB implements CourseManagementSBLocal {
 
     public CourseManagementSB() {
     }
-    
+
     @Override
-    
-    public Collection<CourseDTO> selectCoursesByTeacher(String username) {
+    public Collection<CourseDTO> selectCoursesByTeacher(String username, Long id) {
         Collection<Course> resultQuery;
         Collection<CourseDTO> result = new LinkedList<CourseDTO>();
         CourseDTO userDTOTemp;
         Query q = em.createNamedQuery("Course.getCursos", Course.class);
         q.setParameter("usernameMail", username);
-        
+        q.setParameter("idUniversity", id);
+
         resultQuery = (Collection<Course>) q.getResultList();
-        for(Course iter: resultQuery){
+        for (Course iter : resultQuery) {
             userDTOTemp = new CourseDTO();
             userDTOTemp.setName(iter.getName());
             userDTOTemp.setId(iter.getId());
@@ -46,5 +47,4 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         q.setParameter("idCourse", idCourse);
         return (Course) q.getSingleResult();
     }
-    
 }

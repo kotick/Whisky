@@ -1,4 +1,3 @@
-
 package managedBeans;
 
 import javax.inject.Named;
@@ -10,9 +9,9 @@ import javax.inject.Inject;
 @Named(value = "loginConversationMB")
 @ConversationScoped
 public class LoginConversationMB implements Serializable {
+
     @Inject
     Conversation conversation;
-    
     private Long id;
     private String username;
 
@@ -23,22 +22,23 @@ public class LoginConversationMB implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
-    
-    
+
     public LoginConversationMB() {
     }
-    
-    public void beginConversation(){
-        if (conversation.isTransient()){
+
+    public void beginConversation() {
+        if (conversation.isTransient()) {
             conversation.begin();
         }
     }
-    public void endConversation(){
-        if(!conversation.isTransient()){
+
+    public void endConversation() {
+        if (!conversation.isTransient()) {
             conversation.end();
         }
     }
-    public Conversation getConversation(){
+
+    public Conversation getConversation() {
         return conversation;
     }
 
@@ -49,5 +49,4 @@ public class LoginConversationMB implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
 }

@@ -18,20 +18,17 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Role.getRol", query = "SELECT u FROM Role u WHERE u.name = :rol"),
-
-})
+    @NamedQuery(name = "Role.getRol", query = "SELECT u FROM Role u WHERE u.name = :rol"),})
 public class Role implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    
     private String name;
 
     public String getName() {
         return name;
     }
-
 
     @Override
     public int hashCode() {
@@ -57,5 +54,4 @@ public class Role implements Serializable {
     public String toString() {
         return "entity.Role[ id=" + name + " ]";
     }
-    
 }

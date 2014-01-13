@@ -156,12 +156,11 @@ public class RoleJpaController implements Serializable {
             em.close();
         }
     }
-    
-        public Role getRol(String rol) {
+
+    public Role getRol(String rol) {
         EntityManager em = getEntityManager();
         Query q = em.createNamedQuery("Role.getRol", Role.class);
         q.setParameter("rol", rol);
         return (Role) q.getSingleResult();
     }
-    
 }

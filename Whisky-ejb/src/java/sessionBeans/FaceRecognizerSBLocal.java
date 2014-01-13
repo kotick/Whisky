@@ -18,8 +18,4 @@ public interface FaceRecognizerSBLocal {
     public void train();
 
     public boolean predict(String ruta_foto, long id);
-
-    
-
-
 }

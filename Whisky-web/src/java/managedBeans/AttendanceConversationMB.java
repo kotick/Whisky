@@ -4,7 +4,6 @@
  */
 package managedBeans;
 
-
 import javax.inject.Named;
 import javax.enterprise.context.ConversationScoped;
 import java.io.Serializable;
@@ -14,6 +13,7 @@ import javax.inject.Inject;
 @Named(value = "attendanceConversationMB")
 @ConversationScoped
 public class AttendanceConversationMB implements Serializable {
+
     @Inject
     Conversation conversation;
     private Long idLecture;
@@ -21,14 +21,15 @@ public class AttendanceConversationMB implements Serializable {
 
     public AttendanceConversationMB() {
     }
-    
-    public void beginConversation(){
-        if (conversation.isTransient()){
+
+    public void beginConversation() {
+        if (conversation.isTransient()) {
             conversation.begin();
         }
     }
-    public void endConversation(){
-        if(!conversation.isTransient()){
+
+    public void endConversation() {
+        if (!conversation.isTransient()) {
             conversation.end();
         }
     }
@@ -40,9 +41,8 @@ public class AttendanceConversationMB implements Serializable {
     public void setIdCourse(Long idCourse) {
         this.idCourse = idCourse;
     }
-    
-    
-    public Conversation getConversation(){
+
+    public Conversation getConversation() {
         return conversation;
     }
 
@@ -53,5 +53,4 @@ public class AttendanceConversationMB implements Serializable {
     public void setIdLecture(Long idLecture) {
         this.idLecture = idLecture;
     }
-
 }

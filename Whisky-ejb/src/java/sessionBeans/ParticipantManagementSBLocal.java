@@ -16,11 +16,9 @@ import javax.ejb.Local;
 @Local
 public interface ParticipantManagementSBLocal {
 
-    public Collection<ParticipantDTO> selectParticipantByLecture(Long id); 
+    public Collection<ParticipantDTO> selectParticipantByLecture(Long id);
+
     public boolean checkEmailPassword(String email, String password);
 
     Participant getParticipant(Long idParticipant);
-
-
-    
 }

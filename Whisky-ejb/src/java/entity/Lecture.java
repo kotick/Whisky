@@ -21,9 +21,9 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
     @NamedQuery(name = "Lecture.getLecture", query = "SELECT u FROM Lecture u WHERE u.course.id = :idcourse"),
     @NamedQuery(name = "Lecture.getLecturebyId", query = "SELECT u FROM Lecture u WHERE u.id = :idLecture")
-    
 })
 public class Lecture implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +31,9 @@ public class Lecture implements Serializable {
     private String date;
     private String startingTime;
     private String finishingTime;
-    
     @ManyToOne
     private Course course;
-    
+
     public String getFecha() {
         return date;
     }
@@ -80,9 +79,8 @@ public class Lecture implements Serializable {
     }
 
     public void setCourse(Course course) {
-        this.course=course;
+        this.course = course;
     }
-
 
     @Override
     public int hashCode() {
@@ -108,5 +106,4 @@ public class Lecture implements Serializable {
     public String toString() {
         return "entity.Clase[ id=" + id + " ]";
     }
-    
 }

@@ -9,6 +9,7 @@ import javax.inject.Inject;
 @Named(value = "lectureConversationMB")
 @ConversationScoped
 public class LectureConversationMB implements Serializable {
+
     @Inject
     Conversation conversation;
     private Long idCourse;
@@ -19,18 +20,20 @@ public class LectureConversationMB implements Serializable {
 
     public LectureConversationMB() {
     }
-    
-    public void beginConversation(){
-        if (conversation.isTransient()){
+
+    public void beginConversation() {
+        if (conversation.isTransient()) {
             conversation.begin();
         }
     }
-    public void endConversation(){
-        if(!conversation.isTransient()){
+
+    public void endConversation() {
+        if (!conversation.isTransient()) {
             conversation.end();
         }
     }
-    public Conversation getConversation(){
+
+    public Conversation getConversation() {
         return conversation;
     }
 
@@ -50,7 +53,6 @@ public class LectureConversationMB implements Serializable {
         this.dateLecture = dateLecture;
     }
 
-    
     public Long getIdCourse() {
         return idCourse;
     }
@@ -66,6 +68,4 @@ public class LectureConversationMB implements Serializable {
     public void setIdLecture(Long idLecture) {
         this.idLecture = idLecture;
     }
-    
-
 }

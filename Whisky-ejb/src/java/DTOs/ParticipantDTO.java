@@ -7,6 +7,7 @@ import javax.ejb.LocalBean;
 @LocalBean
 public class ParticipantDTO {
     /* TODO agregar correo y rut para mostrarlos en la lista */
+
     private String firstName;
     private String lastName;
     private String photo;
@@ -20,7 +21,6 @@ public class ParticipantDTO {
     public void setPresent(boolean present) {
         this.present = present;
     }
-    
     private Long id;
 
     public String getEmail() {
@@ -31,9 +31,6 @@ public class ParticipantDTO {
         this.email = email;
     }
     private String rut;
-    
-    
-   
 
     public Long getId() {
         return id;
@@ -74,6 +71,4 @@ public class ParticipantDTO {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-
 }

@@ -4,29 +4,26 @@
  */
 package managedBeans;
 
-import javax.inject.Named;
-import javax.enterprise.context.ConversationScoped;
 import java.io.Serializable;
 import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
- * @author kotick
+ * @author Yani
  */
-@Named(value = "photoConversationMB")
+@Named(value = "universityConversationMB")
 @ConversationScoped
-public class PhotoConversationMB implements Serializable {
+class UniversityConversationMB implements Serializable {
 
     @Inject
     Conversation conversation;
-    private Long idLecture;
-    private Long idParticipant;
+    private Long id;
+    private String username;
 
-    /**
-     * Creates a new instance of PhotoConversationMB
-     */
-    public PhotoConversationMB() {
+    public UniversityConversationMB() {
     }
 
     public void beginConversation() {
@@ -45,19 +42,19 @@ public class PhotoConversationMB implements Serializable {
         return conversation;
     }
 
-    public Long getIdLecture() {
-        return idLecture;
+    public String getUsername() {
+        return username;
     }
 
-    public void setIdLecture(Long idLecture) {
-        this.idLecture = idLecture;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Long getIdParticipant() {
-        return idParticipant;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdParticipant(Long idParticipant) {
-        this.idParticipant = idParticipant;
+    public void setId(Long id) {
+        this.id = id;
     }
 }

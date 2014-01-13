@@ -54,11 +54,11 @@ public class CourseMB {
     private Collection<LectureDTO> lectureList;
     private Collection<CourseDTO> courseList;
     private List<CourseDTO> filteredCourses;
+    private ParticipantDataModel allStudents;
     private String name;
     private String nameCourse;
     private Long idUniversity;
     private ParticipantDTO[] participantsToAdd;
-
 
     public CourseMB() {
     }
@@ -72,11 +72,15 @@ public class CourseMB {
         }
         courseJpa = new CourseJpaController(utx, emf);
         courseList = courseJpa.findCourseEntities();
-        }
-    
 
-    
-    
+
+    }
+
+    public void studentsByUniversity() {
+        participantJpa = new ParticipantJpaController(utx, emf);
+        allStudents = new ParticipantDataModel((LinkedList<ParticipantDTO>) participantJpa.getAllByRolAndUniversity(idUniversity, "Student"));
+
+    }
 
     public void list(Long id, String date) {
         this.lectureConversation.beginConversation();
@@ -86,23 +90,25 @@ public class CourseMB {
         session.redirect("/faces/teacher/list.xhtml?cid=".concat(this.lectureConversation.getConversation().getId().toString()));
     }
 
-    public void letsGoToLectureMaintainer(Long id){
+    public void letsGoToLectureMaintainer(Long id) {
         this.lectureConversation.beginConversation();
         this.lectureConversation.setIdCourse(id);
         session.redirect("/faces/admin/lectureMaintainer.xhtml?cid=".concat(this.lectureConversation.getConversation().getId().toString()));
-    
+
     }
+
     public CourseDataModel courseForParticipant(Long id) {
         return new CourseDataModel((LinkedList<CourseDTO>) courseJpa.getCourseForParticipant(id));
 
     }
+
     public CourseDataModel notCourseForParticipant(Long id) {
         return new CourseDataModel((LinkedList<CourseDTO>) courseJpa.getNotCourseForParticipant(id));
     }
 
     private Course createCourse() {
         Course newCourse = null;
-        University university=null;
+        University university = null;
         FacesContext context = FacesContext.getCurrentInstance();
 
         if (name.equalsIgnoreCase("")) {
@@ -128,8 +134,8 @@ public class CourseMB {
         return newCourse;
 
     }
-    
-    private University findUniversity(Long id){
+
+    private University findUniversity(Long id) {
         universityJpa = new UniversityJpaController(utx, emf);
         return universityJpa.findUniversity(id);
     }
@@ -142,8 +148,8 @@ public class CourseMB {
             if (newCourse != null) {
                 courseJpa.create(newCourse);
                 Flash flash = context.getExternalContext().getFlash();
-            flash.setKeepMessages(true);
-            flash.setRedirect(true);
+                flash.setKeepMessages(true);
+                flash.setRedirect(true);
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Curso agregado con éxito", ""));
                 session.redirect("/faces/admin/courseMaintainer.xhtml");
 
@@ -185,6 +191,14 @@ public class CourseMB {
         return courseList;
     }
 
+    public ParticipantDataModel getAllStudents() {
+        return allStudents;
+    }
+
+    public void setAllStudents(ParticipantDataModel allStudents) {
+        this.allStudents = allStudents;
+    }
+
     public void setCourseList(Collection<CourseDTO> courseList) {
         this.courseList = courseList;
     }
@@ -209,10 +223,6 @@ public class CourseMB {
         this.idUniversity = idUniversity;
     }
 
-    
-    
-
-
     public ParticipantDTO[] getParticipantsToAdd() {
         return participantsToAdd;
     }
@@ -236,6 +246,4 @@ public class CourseMB {
     public void setNameCourse(String nameCourse) {
         this.nameCourse = nameCourse;
     }
-
-
 }

@@ -39,10 +39,10 @@ public class TeacherMB {
     @EJB
     private UtilitiesSBLocal utilitiesSB;
     @Inject
-    LoginConversationMB loginConversation;
-    @Inject
     CourseConversationMB courseConversation;
-      @Inject
+    @Inject
+    UniversityConversationMB universityConversation;
+    @Inject
     EditConversationMB editConversation;
     @Inject
     SessionMB session;
@@ -50,7 +50,6 @@ public class TeacherMB {
     @Resource
     UserTransaction utx;
     private ParticipantJpaController participantJpa;
-    
     private UniversityJpaController universityJpa;
     private CourseJpaController courseJpa;
     private RoleJpaController roleJpa;
@@ -74,9 +73,10 @@ public class TeacherMB {
     @PostConstruct
     void init() {
         courseList = new LinkedList<CourseDTO>();
-        if (loginConversation.getUsername() != null) {
-            username = loginConversation.getUsername();
-            courseList = cursoManagementSB.selectCoursesByTeacher(username);
+        if (universityConversation.getUsername() != null) {
+            username = universityConversation.getUsername();
+            idUniversity = universityConversation.getId();
+            courseList = cursoManagementSB.selectCoursesByTeacher(username, idUniversity);
         }
         participantJpa = new ParticipantJpaController(utx, emf);
 
@@ -103,10 +103,10 @@ public class TeacherMB {
         } else if (!utilitiesSB.validateEmail(email)) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El email ingresado es inválido", "Error al agregar"));
 
-        } else if(!utilitiesSB.checkDoubleEmail(email)){
+        } else if (!utilitiesSB.checkDoubleEmail(email)) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El email ya ocupado", "Error al agregar"));
 
-        }else{
+        } else {
             newParticipant = new Participant();
             courseJpa = new CourseJpaController(utx, emf);
             roleJpa = new RoleJpaController(utx, emf);
@@ -140,7 +140,8 @@ public class TeacherMB {
         }
         return newParticipant;
     }
-        public void editTeacher(Long id) {
+
+    public void editTeacher(Long id) {
         this.editConversation.beginConversation();
         this.editConversation.setIdParticipant(id);
         //TODO Cambiar página de direccionamiento
@@ -156,8 +157,8 @@ public class TeacherMB {
             if (newParticipant != null) {
                 participantJpa.create(newParticipant);
                 Flash flash = context.getExternalContext().getFlash();
-            flash.setKeepMessages(true);
-            flash.setRedirect(true);
+                flash.setKeepMessages(true);
+                flash.setRedirect(true);
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Profesor agregado con éxito", ""));
                 session.redirect("/faces/admin/teacherMaintainer.xhtml");
             }
@@ -181,11 +182,12 @@ public class TeacherMB {
         }
 
     }
-    private University findUniversity(Long id){
+
+    private University findUniversity(Long id) {
         universityJpa = new UniversityJpaController(utx, emf);
         return universityJpa.findUniversity(id);
     }
-    
+
     public Collection<CourseDTO> getCourseList() {
         return courseList;
     }
@@ -257,8 +259,4 @@ public class TeacherMB {
     public void setIdUniversity(Long idUniversity) {
         this.idUniversity = idUniversity;
     }
-    
-    
 }
-
-

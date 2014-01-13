@@ -134,15 +134,15 @@ public class UtilitiesSB implements UtilitiesSBLocal {
 
     @Override
     public boolean checkDoubleEmail(String email) {
-        try{
-        Participant resultQuery;
-        Query q = em.createNamedQuery("Participant.getParticipantByEmail", Participant.class);
-        q.setParameter("username", email);
-        resultQuery = (Participant) q.getSingleResult();
-        return false;
-        }catch (Exception e) {
+        try {
+            Participant resultQuery;
+            Query q = em.createNamedQuery("Participant.getParticipantByEmail", Participant.class);
+            q.setParameter("username", email);
+            resultQuery = (Participant) q.getSingleResult();
+            return false;
+        } catch (Exception e) {
             return true;
         }
-        
+
     }
 }

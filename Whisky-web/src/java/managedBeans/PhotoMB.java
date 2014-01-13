@@ -41,6 +41,7 @@ import sessionBeans.exceptions.RollbackFailureException;
 @Named(value = "photoMB")
 @RequestScoped
 public class PhotoMB {
+
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("Whisky-ejbPU");
     @Resource
     UserTransaction utx;
@@ -50,41 +51,46 @@ public class PhotoMB {
     private LectureManagementSBLocal lectureManagementSB;
     @EJB
     private ParticipantManagementSBLocal participantManagementSB;
-    @Inject PhotoConversationMB photoConversationMB;
-    @Inject SessionMB session;
+    @Inject
+    PhotoConversationMB photoConversationMB;
+    @Inject
+    SessionMB session;
     @EJB
     private PhotoManagementSBLocal photoManagementSB;
     private AttendanceJpaController attendanceJpa;
     private Lecture actualLecture;
-    private Participant actualParticipant;  
+    private Participant actualParticipant;
     private Long idLecture;
     private Long idParticipant;
+
     public PhotoMB() {
     }
+
     @PostConstruct
-    void init(){
-       idLecture = photoConversationMB.getIdLecture();
-       idParticipant = photoConversationMB.getIdParticipant();
+    void init() {
+        idLecture = photoConversationMB.getIdLecture();
+        idParticipant = photoConversationMB.getIdParticipant();
         //this.id = 1;
         //System.out.println(id+" id recibido de la lista");
-        
+
     }
-     public void oncapture(CaptureEvent captureEvent) {  
+
+    public void oncapture(CaptureEvent captureEvent) {
         FacesContext context = FacesContext.getCurrentInstance();
         System.out.println("entro a oncapture");
-         byte[] foto = captureEvent.getData();
-        
-        
-        photoConfirmation confirmacion = photoManagementSB.save_predict(foto, idParticipant);
-         
-        if (confirmacion.isValidado()){
-            
-           actualParticipant=participantManagementSB.getParticipant(idParticipant);
+        byte[] foto = captureEvent.getData();
 
-           // attendanceManagementSB.addAttendance(actualParticipant, actualLecture);
-            attendanceJpa = new AttendanceJpaController(utx,emf);
-            
-            Attendance newAttendance= attendanceJpa.getAttendance(idLecture, actualParticipant.getId());
+
+        photoConfirmation confirmacion = photoManagementSB.save_predict(foto, idParticipant);
+
+        if (confirmacion.isValidado()) {
+
+            actualParticipant = participantManagementSB.getParticipant(idParticipant);
+
+            // attendanceManagementSB.addAttendance(actualParticipant, actualLecture);
+            attendanceJpa = new AttendanceJpaController(utx, emf);
+
+            Attendance newAttendance = attendanceJpa.getAttendance(idLecture, actualParticipant.getId());
             newAttendance.setPhoto(confirmacion.getDireccionFoto());
             newAttendance.setPresent(true);
             try {
@@ -96,35 +102,34 @@ public class PhotoMB {
             } catch (Exception ex) {
                 Logger.getLogger(PhotoMB.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             System.out.println("te reconocí");
             FacesContext facesContext = FacesContext.getCurrentInstance();
             Flash flash = facesContext.getExternalContext().getFlash();
             flash.setKeepMessages(true);
             flash.setRedirect(true);
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Estás presente","Registro con exito"));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Estás presente", "Registro con exito"));
             session.redirect("/faces/teacher/attendance.xhtml");
-            
+
             //Crear la clase con la foto, y notificar que está logeado
-            
-        
-        }
-        else{
+
+
+        } else {
             System.out.println("No te reconocí");
             FacesContext facesContext = FacesContext.getCurrentInstance();
             Flash flash = facesContext.getExternalContext().getFlash();
             flash.setKeepMessages(true);
             flash.setRedirect(true);
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario no reconocido facialmente","Inténtalo de nuevo"));
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario no reconocido facialmente", "Inténtalo de nuevo"));
             session.redirect("/faces/teacher/attendance.xhtml");
-           
+
         }
-       
-        
-        
-       
-        
-        
-        
-        }
+
+
+
+
+
+
+
+    }
 }

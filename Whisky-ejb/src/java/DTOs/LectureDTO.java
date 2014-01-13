@@ -6,6 +6,7 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class LectureDTO {
+
     private String date;
     private String time;
     private Long id;
@@ -33,7 +34,4 @@ public class LectureDTO {
     public void setTime(String time) {
         this.time = time;
     }
-    
-    
-    
 }

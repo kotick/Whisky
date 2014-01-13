@@ -70,9 +70,9 @@
 
                         <p:selectOneListbox  value="#{studentMB.idUniversity}" id="uni">
                             <f:selectItems value="#{universityMB.universityList}" var="university" itemLabel="#{university.name}" itemValue="#{university.id}"/>
-                            
+
                         </p:selectOneListbox>
-                        
+
                         <p:commandButton value="Actualizar cursos" update="students" actionListener="#{studentMB.coursesByUniversity}" ></p:commandButton>
 
                     </div>

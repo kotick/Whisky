@@ -156,7 +156,7 @@ public class CourseJpaController implements Serializable {
         }
     }
 
-  public List<CourseDTO> findCourseEntities() {
+    public List<CourseDTO> findCourseEntities() {
         return findCourseEntities(true, -1, -1);
     }
 
@@ -223,8 +223,8 @@ public class CourseJpaController implements Serializable {
         }
         return result;
     }
-    
-    public Collection<CourseDTO> getCourseForUniversity(Long id){
+
+    public Collection<CourseDTO> getCourseForUniversity(Long id) {
         EntityManager em = getEntityManager();
         Collection<Course> resultQuery;
         Collection<CourseDTO> result = new LinkedList<CourseDTO>();
@@ -244,7 +244,7 @@ public class CourseJpaController implements Serializable {
             result.add(courseDTOTemp);
         }
         return result;
-        
+
     }
 
     public Collection<CourseDTO> getNotCourseForParticipant(Long id) {
@@ -269,8 +269,6 @@ public class CourseJpaController implements Serializable {
         return result;
     }
 
-
-
     public int getCourseCount() {
         EntityManager em = getEntityManager();
         try {
@@ -283,5 +281,4 @@ public class CourseJpaController implements Serializable {
             em.close();
         }
     }
-    
 }

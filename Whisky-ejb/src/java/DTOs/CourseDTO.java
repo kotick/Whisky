@@ -6,6 +6,7 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class CourseDTO {
+
     private String name;
     private Long id;
 
@@ -16,7 +17,6 @@ public class CourseDTO {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public Long getId() {
         return id;

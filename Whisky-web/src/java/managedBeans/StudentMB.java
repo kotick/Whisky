@@ -34,7 +34,7 @@ import sessionBeans.exceptions.RollbackFailureException;
 @Named(value = "studentMB")
 @RequestScoped
 public class StudentMB {
-    
+
     @Inject
     EditConversationMB editConversation;
     @Inject
@@ -51,46 +51,45 @@ public class StudentMB {
     private Collection<ParticipantDTO> studentList;
     private List<ParticipantDTO> filteredStudents;
     private CourseDTO[] courseToAdd;
-    private ParticipantDataModel allStudents;
     //Datos participant
     private Long idUniversity;
     private String firstName;
     private String lastName;
     private String email;
     private String rut;
-        private CourseDataModel allCoursesByUniversity;
-    
+    private CourseDataModel allCoursesByUniversity;
+
     public StudentMB() {
     }
-    
+
     @PostConstruct
     void init() {
-        
+
         participantJpa = new ParticipantJpaController(utx, emf);
         studentList = participantJpa.getAllByRol("Student");
-        allStudents = new ParticipantDataModel((LinkedList<ParticipantDTO>) studentList);
+
     }
-    
-    public void coursesByUniversity(){
+
+    public void coursesByUniversity() {
         courseJpa = new CourseJpaController(utx, emf);
         allCoursesByUniversity = new CourseDataModel((LinkedList<CourseDTO>) courseJpa.getCourseForUniversity(idUniversity));
     }
-    
+
     public ParticipantDataModel studentInClass(Long id) {
         return new ParticipantDataModel((LinkedList<ParticipantDTO>) participantJpa.getParticipantInClass(id, "Student"));
-        
+
     }
-    
+
     public ParticipantDataModel studentOutClass(Long id) {
         return new ParticipantDataModel((LinkedList<ParticipantDTO>) participantJpa.getParticipantOutClass(id, "Student"));
     }
-    
+
     private Participant createStudent() {
         Participant newParticipant = null;
         FacesContext context = FacesContext.getCurrentInstance();
         if (firstName.equals("") && lastName.equals("") && email.equals("") && rut.equals("")) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Campos obligatorios no pueden ser vacíos", "Error al agregar"));
-            
+
         } else if (!utilitiesSB.validateRut(rut)) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El rut ingresado es inválido", "Error al agregar"));
             /* TODO F:agregar mensaje más descriptivo, verificar dígito verificador, el formato 123123123-2" etc... */
@@ -99,7 +98,7 @@ public class StudentMB {
             /* TODO F:agregar mensaje más descriptivo, verificar formato con @ y agregar el caso de que sea un correo duplicado en el validador */
         } else if (!utilitiesSB.checkDoubleEmail(email)) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El email ya ocupado", "Error al agregar"));
-            
+
         } else {
             newParticipant = new Participant();
             courseJpa = new CourseJpaController(utx, emf);
@@ -109,7 +108,7 @@ public class StudentMB {
             Role rol;
             String password;
             Collection<Course> coursesTemp = new LinkedList<Course>();
-            
+
             newParticipant.setFirstName(firstName);
             newParticipant.setLastName(lastName);
             newParticipant.setEmail(email);
@@ -126,30 +125,30 @@ public class StudentMB {
             } catch (Exception ex) {
                 Logger.getLogger(TeacherMB.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             for (CourseDTO iter : courseToAdd) {
                 idTemp = iter.getId();
                 temp = courseJpa.findCourse(idTemp);
                 coursesTemp.add(temp);
             }
             newParticipant.setCourses(coursesTemp);
-            
+
         }
         return newParticipant;
     }
-    
+
     public void editStudent(Long id) {
         this.editConversation.beginConversation();
         this.editConversation.setIdParticipant(id);
         //TODO Cambiar página de direccionamiento
         session.redirect("/faces/admin/editStudent.xhtml?cid=".concat(this.editConversation.getConversation().getId().toString()));
-        
+
     }
-    
+
     public void addStudent() {
         FacesContext context = FacesContext.getCurrentInstance();
         Participant newParticipant = createStudent();
-        
+
         try {
             if (newParticipant != null) {
                 participantJpa.create(newParticipant);
@@ -159,16 +158,16 @@ public class StudentMB {
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Alumno agregado con éxito", ""));
                 /* TODO F:redirigir al listado de alumnos */
                 session.redirect("/faces/admin/studentMaintainer.xhtml");
-                
+
             }
         } catch (RollbackFailureException ex) {
             Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     public void eraseStudent(Long id) {
         try {
             participantJpa.destroy(id);
@@ -179,38 +178,38 @@ public class StudentMB {
         } catch (Exception ex) {
             Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     private University findUniversity(Long id) {
         universityJpa = new UniversityJpaController(utx, emf);
         return universityJpa.findUniversity(id);
     }
-    
+
     public String getFirstName() {
         return firstName;
     }
-    
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    
+
     public String getLastName() {
         return lastName;
     }
-    
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
+
     public String getEmail() {
         return email;
     }
-    
+
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     public String getRut() {
         return rut;
     }
@@ -222,48 +221,39 @@ public class StudentMB {
     public void setAllCoursesByUniversity(CourseDataModel allCoursesByUniversity) {
         this.allCoursesByUniversity = allCoursesByUniversity;
     }
-    
-    
+
     public void setRut(String rut) {
         this.rut = rut;
     }
-    
+
     public Collection<ParticipantDTO> getStudentList() {
         return studentList;
     }
-    
+
     public void setStudentList(Collection<ParticipantDTO> studentList) {
         this.studentList = studentList;
     }
-    
+
     public List<ParticipantDTO> getFilteredStudents() {
         return filteredStudents;
     }
-    
+
     public void setFilteredStudents(List<ParticipantDTO> filteredStudents) {
         this.filteredStudents = filteredStudents;
     }
-    
+
     public CourseDTO[] getCourseToAdd() {
         return courseToAdd;
     }
-    
+
     public void setCourseToAdd(CourseDTO[] courseToAdd) {
         this.courseToAdd = courseToAdd;
     }
-    
-    public ParticipantDataModel getAllStudents() {
-        return allStudents;
-    }
-    
-    public void setAllStudents(ParticipantDataModel allStudents) {
-        this.allStudents = allStudents;
-    }
-    
+
     public Long getIdUniversity() {
         return idUniversity;
     }
-    
+
     public void setIdUniversity(Long idUniversity) {
         this.idUniversity = idUniversity;
     }

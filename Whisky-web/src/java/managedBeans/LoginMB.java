@@ -11,35 +11,35 @@ import sessionBeans.FaceRecognizerSBLocal;
 @Named(value = "loginMB")
 @RequestScoped
 public class LoginMB {
+
     @EJB
     private FaceRecognizerSBLocal faceRecognizerSB;
-    @Inject SessionMB session;
-    
+    @Inject
+    SessionMB session;
     private String email;
     private String password;
-    private static boolean  entrenado = false;
-    
+    private static boolean entrenado = false;
+
     public LoginMB() {
     }
-    
+
     @PostConstruct
-    void init(){
+    void init() {
         /*
-        if (!entrenado){
-            faceRecognizerSB.train();
-            entrenado=true;
-        }*/
-    
+         if (!entrenado){
+         faceRecognizerSB.train();
+         entrenado=true;
+         }*/
     }
-    public void login(){
+
+    public void login() {
         session.login(email, password);
     }
-    
-    
-    public void logout() throws IOException{
+
+    public void logout() throws IOException {
         session.logout();
     }
-    
+
     public String getEmail() {
         return email;
     }
@@ -48,7 +48,6 @@ public class LoginMB {
         this.email = email;
     }
 
-
     public String getPassword() {
         return password;
     }
@@ -56,13 +55,10 @@ public class LoginMB {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
-      
-    private String getRandomImageName() {  
-        int i = (int) (Math.random() * 10000000);  
-          
-        return String.valueOf(i);  
-    }  
-  
+
+    private String getRandomImageName() {
+        int i = (int) (Math.random() * 10000000);
+
+        return String.valueOf(i);
+    }
 }

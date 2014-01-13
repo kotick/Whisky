@@ -14,11 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 @Named(value = "sessionMB")
 @SessionScoped
 public class SessionMB implements Serializable {
-    @Inject LoginConversationMB loginConversation;
+
+    @Inject
+    LoginConversationMB loginConversation;
+
     public SessionMB() {
     }
-    
-    public void login(String email, String password){
+
+    public void login(String email, String password) {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
@@ -29,87 +32,82 @@ public class SessionMB implements Serializable {
                     request.getRemoteUser();
                     this.loginConversation.beginConversation();
                     this.loginConversation.setUsername(email);
-                   
-                    
-                    
-                    if(request.isUserInRole("Teacher")){
-                        redirect("/faces/teacher/course.xhtml?cid=".concat(this.loginConversation.getConversation().getId().toString()));
-                  
-                    };
-                    
-                    if(request.isUserInRole("Admin")){
-                        
-                        redirect("/faces/admin/welcomeAdmin.xhtml");
-                  
+
+
+
+                    if (request.isUserInRole("Teacher")) {
+                        redirect("/faces/teacher/selectUniversity.xhtml?cid=".concat(this.loginConversation.getConversation().getId().toString()));
+
                     };
 
-                    if(request.isUserInRole("Student")){
+                    if (request.isUserInRole("Admin")) {
+
+                        redirect("/faces/admin/welcomeAdmin.xhtml");
+
+                    };
+
+                    if (request.isUserInRole("Student")) {
                         //redirect("/faces/teacher/course.xhtml?cid=".concat(this.loginConversation.getConversation().getId().toString()));
-                  
                     };
 
 
                 } catch (ServletException e) {
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrecta", "Login inválido"));
                 }
-            }
-            else {
+            } else {
                 System.out.println("Error, Usuario ya conectado");
             }
-        }
-        catch (Exception e) {
-            System.out.println("error(loginMB-login): "+e.getMessage());
+        } catch (Exception e) {
+            System.out.println("error(loginMB-login): " + e.getMessage());
         }
     }
-    
+
     public String logout() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        if (request.getUserPrincipal()!= null) {
+        if (request.getUserPrincipal() != null) {
             try {
                 request.logout();
-                
+
                 redirectLogin(request);
             } catch (ServletException e) {
                 System.out.println("Ha ocurrido un error, no se ha podido desloguear" + e.getMessage());
                 return "";
             }
-        
+
         }
         System.out.println("mal el logout");
         return "";
     }
-    public boolean isLogin(){
+
+    public boolean isLogin() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
-        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();      
+        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
         if (request.getRemoteUser() == null) {
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }
-    
-    public void redirect(String page){
+
+    public void redirect(String page) {
         ExternalContext extcon = FacesContext.getCurrentInstance().getExternalContext();
-        try{
+        try {
             extcon.redirect(extcon.getRequestContextPath() + page);
-        }
-        catch(IOException ex){
-            System.out.println("No se ha podido redirigir a la página ".concat(page));            
+        } catch (IOException ex) {
+            System.out.println("No se ha podido redirigir a la página ".concat(page));
         }
     }
-    
-    private void redirectLogin(HttpServletRequest request){
+
+    private void redirectLogin(HttpServletRequest request) {
         ExternalContext extcon = FacesContext.getCurrentInstance().getExternalContext();
         String page = "";
-        try{
+        try {
             page = page.concat("/faces/login.xhtml");
             extcon.redirect(extcon.getRequestContextPath() + page);
-        }
-        catch(IOException ex){
-            System.out.println("No se ha podido redirigir a la página ".concat(page));            
+        } catch (IOException ex) {
+            System.out.println("No se ha podido redirigir a la página ".concat(page));
         }
     }
 }

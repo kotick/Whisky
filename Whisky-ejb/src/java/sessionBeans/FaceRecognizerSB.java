@@ -12,7 +12,6 @@ import static com.googlecode.javacv.cpp.opencv_contrib.*;
 import java.io.File;
 import java.io.FilenameFilter;
 
-
 /**
  *
  * @author Kay
@@ -21,22 +20,21 @@ import java.io.FilenameFilter;
 public class FaceRecognizerSB implements FaceRecognizerSBLocal {
 
     //private static FaceRecognizer faceRecognizer= createEigenFaceRecognizer(0, 20000);
-    private static FaceRecognizer faceRecognizer= createEigenFaceRecognizer();
-  // private static FaceRecognizer faceRecognizer= createFisherFaceRecognizer();
+    private static FaceRecognizer faceRecognizer = createEigenFaceRecognizer();
+    // private static FaceRecognizer faceRecognizer= createFisherFaceRecognizer();
     //private static FaceRecognizer faceRecognizer = createFisherFaceRecognizer();
     // FaceRecognizer faceRecognizer = createLBPHFaceRecognizer()
-    public FaceRecognizerSB(){
-            
-        
+
+    public FaceRecognizerSB() {
     }
-   
-     @Override
-    public void train(){
-         //this.faceRecognizer = createEigenFaceRecognizer();
-    
-        System.out.println("Comienza el entrenamiento del predictor");        
+
+    @Override
+    public void train() {
+        //this.faceRecognizer = createEigenFaceRecognizer();
+
+        System.out.println("Comienza el entrenamiento del predictor");
         String trainingDir = "./photos/training2/";
-       // IplImage testImage = cvLoadImage("/Users/kotick/NetBeansProjects/Whisky/prueba.jpg");
+        // IplImage testImage = cvLoadImage("/Users/kotick/NetBeansProjects/Whisky/prueba.jpg");
         File root = new File(trainingDir);
         FilenameFilter pngFilter = new FilenameFilter() {
             public boolean accept(File dir, String name) {
@@ -62,59 +60,53 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
             counter++;
         }
 
-       // IplImage greyTestImage = IplImage.create(testImage.width(), testImage.height(), IPL_DEPTH_8U, 1);
-        
+        // IplImage greyTestImage = IplImage.create(testImage.width(), testImage.height(), IPL_DEPTH_8U, 1);
+
 
         faceRecognizer.train(images, labels);
-    
-    }
-    
-     @Override
-    public void test(String ruta_foto, int [] id, double [] distancia){
-    
-       System.out.println("Comienza el reconocimiento de imagen");
-       
-       IplImage testImage = cvLoadImage(ruta_foto);
-   
-       IplImage greyTestImage = IplImage.create(testImage.width(), testImage.height(), IPL_DEPTH_8U, 1);
-    
-        cvCvtColor(testImage, greyTestImage, CV_BGR2GRAY);
-        
-        
-       
-        
-        faceRecognizer.predict(greyTestImage, id, distancia);
-        
+
     }
 
-     @Override
-    public boolean predict(String ruta_foto, long id){
-            
+    @Override
+    public void test(String ruta_foto, int[] id, double[] distancia) {
+
+        System.out.println("Comienza el reconocimiento de imagen");
+
+        IplImage testImage = cvLoadImage(ruta_foto);
+
+        IplImage greyTestImage = IplImage.create(testImage.width(), testImage.height(), IPL_DEPTH_8U, 1);
+
+        cvCvtColor(testImage, greyTestImage, CV_BGR2GRAY);
+
+
+
+
+        faceRecognizer.predict(greyTestImage, id, distancia);
+
+    }
+
+    @Override
+    public boolean predict(String ruta_foto, long id) {
+
         //this.train();
-        int [] id_test = {-2};
-        double []distancia = {0.0};
-        double distancia_minima= 18000;
-        
+        int[] id_test = {-2};
+        double[] distancia = {0.0};
+        double distancia_minima = 18000;
+
         this.test(ruta_foto, id_test, distancia);
         System.out.println("Label");
         System.out.println(id_test[0]);
         System.out.println("Confidence");
         System.out.println(distancia[0]);
-        if ((id_test[0] < distancia_minima) && (id == id_test[0])){
+        if ((id_test[0] < distancia_minima) && (id == id_test[0])) {
             return true;
-        }
-        else{
-        
+        } else {
+
             return false;
         }
         //double[] acercamiento = {};
-       
-       
-    
+
+
+
     }
-    
-  
-    
-    
- 
 }

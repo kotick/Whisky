@@ -198,5 +198,4 @@ public class UniversityJpaController implements Serializable {
             em.close();
         }
     }
-    
 }
