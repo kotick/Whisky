@@ -13,11 +13,18 @@
     <ui:define name="content">
 
         <div class="container">
+            <h:form>
+            <p:breadCrumb>  
+                <p:menuitem value="Inicio" url="welcomeAdmin.xhtml" />
+                <p:menuitem value="Mantenedor de Alumnos" url="#" /> 
+            </p:breadCrumb>  
+            </h:form>
+            
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
             <h1>Mantenedor De Alumnos</h1>
             <div class="pull-right">
                 <h:form>
-                    <p:commandButton type="submit" value="Agregar Alumno" action="#{sessionMB.redirect('/faces/admin/addStudent.xhtml')}" update="@form"/>
+                    <p:commandButton styleClass="btn-primary" type="submit" value="Agregar Alumno" action="#{sessionMB.redirect('/faces/admin/addStudent.xhtml')}" update="@form"/>
                 </h:form>
             </div>    
             <h:form>

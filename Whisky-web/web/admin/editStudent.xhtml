@@ -12,6 +12,11 @@
     </h:head>
     <ui:define name="content">
         <div class="container">
+            <p:breadCrumb>  
+                <p:menuitem value="Inicio" url="welcomeAdmin.xhtml" />
+                <p:menuitem value="Mantenedor de Alumnos" url="studentMaintainer.xhtml" /> 
+                <p:menuitem value="Editar Alumno" url="#" /> 
+            </p:breadCrumb>  
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
             <h1>Editar Alumno</h1>
             <h:form>

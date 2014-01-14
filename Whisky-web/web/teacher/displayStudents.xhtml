@@ -10,9 +10,8 @@
 
     <ui:define name="content">
         <div class="container">
-            <h1>Visualizando la clase del <h:outputText value="#{lectureMB.dateLecture}"/> para el ramo <h:outputText value="#{lectureMB.nameCourse}"/></h1>
+            <h1>Visualizando alumnos para el ramo <h:outputText value="#{lectureMB.nameCourse}"/></h1>
             <p:dataTable id="tabla" value="#{lectureMB.participantList}" var="participant">
-
                 <p:column headerText="Nombre">
                     <div class="text-center">
                         <h:outputText value="#{participant.firstName}"/>
@@ -20,35 +19,13 @@
                 </p:column>
                 <p:column headerText="Apellido">
                     <div class="text-center">
-
                         <h:outputText value="#{participant.lastName}"/>
                     </div>
-
                 </p:column>
-                <p:column headerText="Estado">
-                    <div class="text-center">
-
-                        <h:graphicImage  rendered="#{participant.present}" value="http://icons.iconarchive.com/icons/gakuseisean/ivista-2/256/Alarm-Tick-icon.png" width="50" height="50"/>
-
-                        <h:graphicImage  rendered="#{!participant.present}" value="http://icons.iconarchive.com/icons/gakuseisean/ivista-2/256/Alarm-Error-icon.png" width="50" height="50"/>
-                    </div>
-
-                </p:column>
-
                 <p:column>
                     <div class="text-center">
-
-                 <!--<p:graphicImage id="foto"  url="#{participant.photo}" width="133" height="100"></p:graphicImage> -->
-                        <img src="#{participant.photo}" width="133" height="100" />
-                    </div>
-
-                </p:column>
-
-                <p:column>
-                    <div class="text-center">
-
                         <h:form>
-                            <p:commandButton type="submit" value="Estadísticas"  action="#{lectureMB.letsGoToStudentStatistics(participant.id, participant.firstName, participant.lastName)}" />
+                            <p:commandButton type="submit" value="Estadísticas" disabled="true" action="#{lectureMB}" title="En construcción"/>
                         </h:form>
                     </div>
                 </p:column>             
