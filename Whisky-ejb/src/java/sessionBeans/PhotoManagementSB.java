@@ -26,41 +26,36 @@ import javax.imageio.stream.FileImageOutputStream;
  */
 @Stateless
 public class PhotoManagementSB implements PhotoManagementSBLocal {
+
     @EJB
     private FaceRecognizerSBLocal faceRecognizerSB;
-    
-    
-    
+
     @Override
-    
-      public photoConfirmation save_predict(byte[] foto, Long id){    
-        
-       DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-       Date today = Calendar.getInstance().getTime();        
-       String date_name = df.format(today);
-       
-        String newFileName = "../docroot/photos/test/"+ date_name + ".png"; 
-        FileImageOutputStream imageOutput;  
-        try {  
-            imageOutput = new FileImageOutputStream(new File(newFileName));  
+    public photoConfirmation save_predict(byte[] foto, Long id) {
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        Date today = Calendar.getInstance().getTime();
+        String date_name = df.format(today);
+
+        String newFileName = "../docroot/photos/test/" + date_name + ".png";
+        FileImageOutputStream imageOutput;
+        try {
+            imageOutput = new FileImageOutputStream(new File(newFileName));
             imageOutput.write(foto, 0, foto.length);
             imageOutput.close();
-        }  
-        catch(Exception e) {  
-            throw new FacesException("Error en escribir la fotografia");  
+        } catch (Exception e) {
+            throw new FacesException("Error en escribir la fotografia");
         }
-       
-   
-    photoConfirmation confirmacion= new photoConfirmation();
-    confirmacion.setValidado(faceRecognizerSB.predict(newFileName, id));
-    if(confirmacion.isValidado()){
-        confirmacion.setDireccionFoto("/photos/test/" + date_name +".png");
-    } 
-    else{
-    File file = new File(newFileName);
-    file.delete();}
-    return confirmacion;
+
+
+        photoConfirmation confirmacion = new photoConfirmation();
+        confirmacion.setValidado(faceRecognizerSB.predict(newFileName, id));
+        if (confirmacion.isValidado()) {
+            confirmacion.setDireccionFoto("/photos/test/" + date_name + ".png");
+        } else {
+            File file = new File(newFileName);
+            file.delete();
+        }
+        return confirmacion;
     }
-    
-   
 }

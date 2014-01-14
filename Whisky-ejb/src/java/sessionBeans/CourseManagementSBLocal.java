@@ -17,7 +17,7 @@ import javax.ejb.Local;
 @Local
 public interface CourseManagementSBLocal {
 
-    public Collection<CourseDTO> selectCoursesByTeacher(String username);
+    public Collection<CourseDTO> selectCoursesByTeacher(String username, Long id);
 
     Course getCourse(Long idCourse);
 }

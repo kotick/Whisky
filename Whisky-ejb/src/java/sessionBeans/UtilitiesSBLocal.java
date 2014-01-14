@@ -25,8 +25,5 @@ public interface UtilitiesSBLocal {
 
     boolean validateEmail(String email);
 
-    boolean checkDoubleEmail(String email);
 
-  
-    
 }

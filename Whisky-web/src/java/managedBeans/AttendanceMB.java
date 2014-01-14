@@ -83,7 +83,7 @@ public class AttendanceMB {
             for (ParticipantDTO iter : participants) {
                 //System.out.println(iter.getEmail());
                 if (iter.getEmail().equalsIgnoreCase(email)) {
-                    
+
                     contain = true;
                     break;
                 }

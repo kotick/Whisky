@@ -21,7 +21,6 @@ public class ParticipantDTO {
     public void setPresent(boolean present) {
         this.present = present;
     }
-    
     private Long id;
 
     public String getEmail() {
@@ -32,9 +31,6 @@ public class ParticipantDTO {
         this.email = email;
     }
     private String rut;
-    
-    
-   
 
     public Long getId() {
         return id;
@@ -75,6 +71,4 @@ public class ParticipantDTO {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-
 }

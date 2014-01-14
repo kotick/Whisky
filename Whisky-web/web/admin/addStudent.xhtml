@@ -77,16 +77,17 @@
 
                         <p:selectOneListbox  value="#{studentMB.idUniversity}" id="uni">
                             <f:selectItems value="#{universityMB.universityList}" var="university" itemLabel="#{university.name}" itemValue="#{university.id}"/>
-                            
+
                         </p:selectOneListbox>
-                        
+
                         <p:commandButton value="Actualizar cursos" update="students" actionListener="#{studentMB.coursesByUniversity}" ></p:commandButton>
 
                     </div>
                 </div>
 
                 <p:dataTable id="students" var="course" value="#{studentMB.allCoursesByUniversity}" rowKey ="#{course.id}"   
-                             selection="#{studentMB.courseToAdd}" widgetVar="asdf">  
+                             selection="#{studentMB.courseToAdd}" 
+                             emptyMessage="Seleccione universidad y haga click en Actualizar cursos">  
 
                     <f:facet name="header">  
                         Seleccione los Cursos a los que pertenece:

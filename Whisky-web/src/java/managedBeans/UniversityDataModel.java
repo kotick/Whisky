@@ -4,32 +4,32 @@
  */
 package managedBeans;
 
-/**
- *
- * @author Yani
- */
-import DTOs.ParticipantDTO;
+import entity.University;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import javax.faces.model.ListDataModel;
 import org.primefaces.model.SelectableDataModel;
 
-public class ParticipantDataModel extends ListDataModel<ParticipantDTO> implements SelectableDataModel<ParticipantDTO> {
-
-    public ParticipantDataModel() {
+/**
+ *
+ * @author Yani
+ */
+class UniversityDataModel extends ListDataModel<University> implements SelectableDataModel<University>{
+    public UniversityDataModel() {
     }
 
-    public ParticipantDataModel(LinkedList<ParticipantDTO> data) {
+    public UniversityDataModel(List<University> data) {
         super(data);
     }
 
     @Override
-    public ParticipantDTO getRowData(String rowKey) {
+    public University getRowData(String rowKey) {
         //In a real app, a more efficient way like a query by rowKey should be implemented to deal with huge data  
 
-        List<ParticipantDTO> participants = (List<ParticipantDTO>) getWrappedData();
+        List<University> participants = (List<University>) getWrappedData();
 
-        for (ParticipantDTO participant : participants) {
+        for (University participant : participants) {
             if (participant.getId().equals(rowKey)) {
                 return participant;
             }
@@ -39,7 +39,8 @@ public class ParticipantDataModel extends ListDataModel<ParticipantDTO> implemen
     }
 
     @Override
-    public Object getRowKey(ParticipantDTO participant) {
+    public Object getRowKey(University participant) {
         return participant.getId();
     }
+    
 }

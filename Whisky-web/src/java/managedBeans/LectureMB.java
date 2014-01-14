@@ -131,7 +131,7 @@ public class LectureMB {
                 }
                 try {
                     attendanceJpa.create(newAttendance);
-                    
+
                 } catch (RollbackFailureException ex) {
                     Logger.getLogger(LectureMB.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (Exception ex) {

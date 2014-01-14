@@ -54,8 +54,6 @@ public class AttendanceJpaController implements Serializable {
             }
         }
     }
-    
-    
 
     public void edit(Attendance attendance) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
@@ -158,14 +156,14 @@ public class AttendanceJpaController implements Serializable {
             em.close();
         }
     }
-        public Attendance getAttendance(Long idLecture,Long idParticipant) {
+
+    public Attendance getAttendance(Long idLecture, Long idParticipant) {
         EntityManager em = getEntityManager();
 
-        
+
         Query q = em.createNamedQuery("Attendance.getAttendance", Attendance.class);
         q.setParameter("idLecture", idLecture);
-        q.setParameter("idParticipant",idParticipant);
+        q.setParameter("idParticipant", idParticipant);
         return (Attendance) q.getSingleResult();
     }
-    
 }

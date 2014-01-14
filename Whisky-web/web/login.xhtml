@@ -13,17 +13,17 @@
             <h:form class="prueba">
                 <div class="form-group">
 
-                <p:outputLabel for="username" 
-                               value="Ingrese su nombre de usuario:"/>
-                <p:inputText styleClass="form-control" id="username" autocomplete="off" 
-                             size="20" value="#{loginMB.email}" />
+                    <p:outputLabel for="username" 
+                                   value="Ingrese su nombre de usuario:"/>
+                    <p:inputText styleClass="form-control" id="username" autocomplete="off" 
+                                 size="20" value="#{loginMB.email}" />
                 </div>
                 <div class="form-group">
 
-                <p:outputLabel for="password" 
-                               value="Ingrese su contraseña:"/>
-                <p:inputText type="password"  styleClass="form-control" id="password" autocomplete="off" 
-                               size="20" value="#{loginMB.password}"/>
+                    <p:outputLabel for="password" 
+                                   value="Ingrese su contraseña:"/>
+                    <p:inputText type="password"  styleClass="form-control" id="password" autocomplete="off" 
+                                 size="20" value="#{loginMB.password}"/>
                 </div>
                 <center><p:commandButton styleClass="btn btn-primary" type="submit" value="Ingresar" action="#{loginMB.login}"/>
                 </center>
@@ -31,6 +31,6 @@
         </div>
     </ui:define>
 
- 
+
 
 </ui:composition>

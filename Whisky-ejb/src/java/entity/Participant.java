@@ -11,24 +11,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
-
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Participant.getAllParticipant", query = "SELECT u FROM Participant u"),
     @NamedQuery(name = "Participant.getParticipantByEmail", query = "SELECT u FROM Participant u WHERE u.email = :username"),
-   //Revisar las query, cuales se usan y cuales no.
+    //Revisar las query, cuales se usan y cuales no.
     @NamedQuery(name = "Participant.getAllUser", query = "SELECT u FROM Participant u"),
     @NamedQuery(name = "Participant.getPassword", query = "SELECT u FROM Participant u WHERE u.email = :username"),
     @NamedQuery(name = "Participant.getId", query = "SELECT u FROM Participant u WHERE u.email = :username"),
     @NamedQuery(name = "Participant.getUser", query = "SELECT u FROM Participant u WHERE u.id = :idParticipant"),
-    @NamedQuery(name = "Participant.getAllByType", query = "SELECT u FROM Participant u WHERE u.rol.name = :rol"),
+    @NamedQuery(name = "Participant.getAllByTypeAndUniversity", query = "SELECT p FROM Participant p, University u WHERE p.rol.name = :rol and u.id=:idUniversity and u member of p.universities"),
+    @NamedQuery(name = "Participant.getStudentWithoutUniversity", query = "SELECT p FROM Participant p WHERE p.rol.name = :rol and p.universities is EMPTY"),
+    @NamedQuery(name = "Participant.getAllByType", query = "SELECT p FROM Participant p WHERE p.rol.name = :rol"),
     @NamedQuery(name = "Participant.getParticipantById", query = "SELECT u FROM Participant u WHERE u.id = :id"),
-@NamedQuery(name = "Participant.getParticipantInClass", query = "SELECT u FROM Participant u, Course c WHERE c.id = :id AND u member of c.participant AND u.rol.name = :rol"),
-@NamedQuery(name = "Participant.getParticipantOutClass", query = "SELECT u FROM Participant u, Course c WHERE c.id = :id AND  u not member of c.participant AND u.rol.name = :rol"),
-
-
-})
+    @NamedQuery(name = "Participant.getParticipantInClass", query = "SELECT u FROM Participant u, Course c WHERE c.id = :id AND u member of c.participant AND u.rol.name = :rol and c.university member of u.universities"),
+    @NamedQuery(name = "Participant.getParticipantOutClass", query = "SELECT u FROM Participant u, Course c WHERE c.id = :id AND  u not member of c.participant AND u.rol.name = :rol and c.university member of u.universities"),})
 public class Participant implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,13 +38,10 @@ public class Participant implements Serializable {
     private String rut;
     private String photo;
     private String password;
-    
     @ManyToOne
     private Role rol;
-    
     @ManyToMany
     private Collection<University> universities;
-    
     @ManyToMany
     private Collection<Course> courses;
 
@@ -64,7 +60,7 @@ public class Participant implements Serializable {
     public void setCourses(Collection<Course> courses) {
         this.courses = courses;
     }
-    
+
     public String getPassword() {
         return password;
     }
@@ -73,7 +69,6 @@ public class Participant implements Serializable {
         this.password = password;
     }
 
-    
     public Role getRol() {
         return rol;
     }
@@ -81,7 +76,6 @@ public class Participant implements Serializable {
     public void setRol(Role rol) {
         this.rol = rol;
     }
-
 
     public Long getId() {
         return id;
@@ -131,8 +125,6 @@ public class Participant implements Serializable {
         this.photo = photo;
     }
 
-
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -157,5 +149,4 @@ public class Participant implements Serializable {
     public String toString() {
         return "entity.Usuario[ id=" + id + " ]";
     }
-    
 }

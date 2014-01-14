@@ -156,5 +156,4 @@ public class LectureJpaController implements Serializable {
             em.close();
         }
     }
-    
 }

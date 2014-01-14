@@ -15,7 +15,7 @@
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
 
-            <h1>Agregar Alumno</h1>
+            <h1>Agregar Profesor</h1>
             <h:form>
                 <div class="clearfix">
 
@@ -64,29 +64,53 @@
 
                     </div>
                 </div>
+                <p:dataTable id="universities" var="university" value="#{universityMB.allUniversityList}" rowKey ="#{university.id}"   
+                             selection="#{teacherMB.universitiesToAdd}">  
+
+                    <f:facet name="header">  
+                        Seleccione las universidades a las que pertenece este profesor:
+                    </f:facet>  
+
+                    <p:column selectionMode="multiple" style="width:2%" />  
+
+                    <p:column sortBy="id" headerText="Id" style="width:2%">  
+                        #{university.id}  
+                    </p:column>  
+
+                    <p:column headerText="Nombre" style="width:25%">  
+                        #{university.name}  
+                    </p:column> 
+
+                </p:dataTable>  
+
+                <p:commandButton value="Actualizar cursos" update="students" actionListener="#{teacherMB.coursesByUniversity}" ></p:commandButton>
 
 
-                    <p:dataTable id="students" var="course" value="#{courseMB.allCourses}" rowKey ="#{course.id}"   
-                                 selection="#{teacherMB.courseToAdd}">  
+                <p:dataTable id="students" var="course" value="#{teacherMB.allCoursesByUniversity}" rowKey ="#{course.id}"   
+                             selection="#{teacherMB.courseToAdd}"
+                             emptyMessage="Seleccione universidades y haga click en Actualizar cursos">  
 
-                        <f:facet name="header">  
-                            Seleccionar cursos 
-                        </f:facet>  
+                    <f:facet name="header">  
+                        Seleccionar cursos 
+                    </f:facet>  
 
-                        <p:column selectionMode="multiple" style="width:2%" />  
+                    <p:column selectionMode="multiple" style="width:2%" />  
 
-                        <p:column sortBy="id" headerText="Id" style="width:2%">  
-                            #{course.id}  
-                        </p:column>  
+                    <p:column sortBy="id" headerText="Id" style="width:2%">  
+                        #{course.id}  
+                    </p:column>  
 
-                        <p:column headerText="Nombre" style="width:25%">  
-                            #{course.name}  
-                        </p:column> 
+                    <p:column headerText="Nombre" style="width:25%">  
+                        #{course.name}  
+                    </p:column> 
+                    <p:column headerText="Institución" style="width:25%">  
+                        #{course.universityName}  
+                    </p:column> 
 
-                    </p:dataTable>  
-                    <div class="form-group">
-                        <p:commandButton type="submit" value="Agregar profesor" update="@form" action="#{teacherMB.addTeacher}"/>
-                    </div>
+                </p:dataTable>  
+                <div class="form-group">
+                    <p:commandButton type="submit" value="Agregar profesor" update="@form" action="#{teacherMB.addTeacher}"/>
+                </div>
             </h:form>
 
         </div>

@@ -14,6 +14,7 @@ import javax.persistence.criteria.Root;
 import entity.Participant;
 import entity.University;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -153,15 +154,15 @@ public class UniversityJpaController implements Serializable {
         }
     }
 
-    public List<University> findUniversityEntities() {
+    public Collection<University> findUniversityEntities() {
         return findUniversityEntities(true, -1, -1);
     }
 
-    public List<University> findUniversityEntities(int maxResults, int firstResult) {
+    public Collection<University> findUniversityEntities(int maxResults, int firstResult) {
         return findUniversityEntities(false, maxResults, firstResult);
     }
 
-    private List<University> findUniversityEntities(boolean all, int maxResults, int firstResult) {
+    private Collection<University> findUniversityEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
@@ -198,5 +199,4 @@ public class UniversityJpaController implements Serializable {
             em.close();
         }
     }
-    
 }

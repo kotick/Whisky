@@ -19,7 +19,6 @@ import javax.faces.event.ActionEvent;
 import sessionBeans.FaceRecognizerSBLocal;
 import sessionBeans.ParticipantManagementSBLocal;
 
-
 /**
  *
  * @author kotick
@@ -27,6 +26,7 @@ import sessionBeans.ParticipantManagementSBLocal;
 @Named(value = "homeMB")
 @RequestScoped
 public class Utilities {
+
     @EJB
     private FaceRecognizerSBLocal faceRecognizerSB;
     private ParticipantManagementSBLocal participantManagementSB;
@@ -34,13 +34,12 @@ public class Utilities {
 
     public Utilities() {
     }
-    
+
     @PostConstruct
-    void init(){
+    void init() {
         //participantsList= participantManagementSB.selectAllUser();
-        
     }
-    
+
     public void redirectToPage(String toUrl) {
         try {
             FacesContext ctx = FacesContext.getCurrentInstance();
@@ -50,12 +49,12 @@ public class Utilities {
             String url = extContext.encodeActionURL(ctx.getApplication().getViewHandler().getActionURL(ctx, toUrl));
             System.out.println(url);
             extContext.redirect(url);
-            
+
         } catch (IOException e) {
             throw new FacesException(e);
         }
     }
-    
+
     public LinkedList<ParticipantDTO> getParticipantsList() {
         return participantsList;
     }
@@ -63,5 +62,4 @@ public class Utilities {
     public void setParticipantsList(LinkedList<ParticipantDTO> participantsList) {
         this.participantsList = participantsList;
     }
-    
 }

@@ -25,7 +25,7 @@
                                          size="20" value="#{editMB.date}" mask="99-99-9999" title="dd-mm-yyyy" />
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <h:outputLabel for="startingtime" 
                                        value="Ingrese la hora de inicio de la clase"
@@ -35,7 +35,7 @@
                                          size="20" value="#{editMB.startingDate}" mask="99:99"/>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <h:outputLabel for="finishtime" 
                                        value="Ingrese la hora de fin de la clase"
@@ -45,29 +45,29 @@
                                          size="20" value="#{editMB.finishingDate}" mask="99:99"  />
                         </div>
                     </div>
-                    </div>
+                </div>
                 <p:dataTable id="students" var="student" value="#{editMB.allStudent}" rowKey ="#{student.id}"   
-                                 selection="#{editMB.participantsToAdd}" >  
+                             selection="#{editMB.participantsToAdd}" >  
 
-                        <f:facet name="header">  
-                            Seleccione alumnos que han asistido a esta cátedra:
-                        </f:facet>  
+                    <f:facet name="header">  
+                        Seleccione alumnos que han asistido a esta cátedra:
+                    </f:facet>  
 
-                        <p:column selectionMode="multiple" style="width:2%" />  
+                    <p:column selectionMode="multiple" style="width:2%" />  
 
-                        <p:column headerText="Nombre" style="width:25%">  
-                            #{student.firstName}  
-                        </p:column>  
+                    <p:column headerText="Nombre" style="width:25%">  
+                        #{student.firstName}  
+                    </p:column>  
 
-                        <p:column headerText="Apellido" style="width:25%">  
-                            #{student.lastName}  
-                        </p:column> 
+                    <p:column headerText="Apellido" style="width:25%">  
+                        #{student.lastName}  
+                    </p:column> 
 
-                    </p:dataTable>  
-                    <div class="form-group">
-                        <p:commandButton type="submit" value="Editar clase" action="#{editMB.editLecture}" />
-                    </div>
-                
+                </p:dataTable>  
+                <div class="form-group">
+                    <p:commandButton type="submit" value="Editar clase" action="#{editMB.editLecture}" />
+                </div>
+
 
             </h:form>
         </div>

@@ -18,10 +18,9 @@ import javax.persistence.ManyToMany;
  */
 @Entity
 public class University implements Serializable {
-       
+
     @ManyToMany(mappedBy = "universities")
     private List<Participant> participants;
-    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -53,9 +52,6 @@ public class University implements Serializable {
     public void setRut(String rut) {
         this.rut = rut;
     }
-    
-    
-    
 
     public Long getId() {
         return id;
@@ -73,7 +69,6 @@ public class University implements Serializable {
         this.participants = participants;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -98,5 +93,4 @@ public class University implements Serializable {
     public String toString() {
         return "entity.University[ id=" + id + " ]";
     }
-    
 }

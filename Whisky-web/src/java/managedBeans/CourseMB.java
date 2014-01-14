@@ -56,11 +56,11 @@ public class CourseMB {
     private Collection<LectureDTO> lectureList;
     private Collection<CourseDTO> courseList;
     private List<CourseDTO> filteredCourses;
+    private ParticipantDataModel allStudents;
     private String name;
     private String nameCourse;
     private Long idUniversity;
     private ParticipantDTO[] participantsToAdd;
-
 
     public CourseMB() {
     }
@@ -74,11 +74,15 @@ public class CourseMB {
         }
         courseJpa = new CourseJpaController(utx, emf);
         courseList = courseJpa.findCourseEntities();
-        }
-    
 
-    
-    
+
+    }
+
+    public void studentsByUniversity() {
+        participantJpa = new ParticipantJpaController(utx, emf);
+        allStudents = new ParticipantDataModel((LinkedList<ParticipantDTO>) participantJpa.getAllByRolAndUniversity(idUniversity, "Student"));
+
+    }
 
     public void list(Long id, String date) {
         this.lectureConversation.beginConversation();
@@ -102,6 +106,7 @@ public class CourseMB {
         session.redirect("/faces/teacher/courseStatistics.xhtml?cid=".concat(this.courseStatisticsConversation.getConversation().getId().toString()));
     }
 
+
     public CourseDataModel courseForParticipant(Long id) {
         return new CourseDataModel((LinkedList<CourseDTO>) courseJpa.getCourseForParticipant(id));
 
@@ -113,7 +118,7 @@ public class CourseMB {
 
     private Course createCourse() {
         Course newCourse = null;
-        University university=null;
+        University university = null;
         FacesContext context = FacesContext.getCurrentInstance();
 
         if (name.equalsIgnoreCase("")) {
@@ -125,9 +130,14 @@ public class CourseMB {
             Long idTemp;
             Participant temp;
             Collection<Participant> participantTemp = new LinkedList<Participant>();
-            university = findUniversity(idUniversity);
+            if (idUniversity != null) {
+                university = findUniversity(idUniversity);
+
+                newCourse.setUniversity(university);
+            }
+            newCourse.setAttendanceRequired(75);
             newCourse.setName(name);
-            newCourse.setUniversity(university);
+
 
             for (ParticipantDTO iter : participantsToAdd) {
                 idTemp = iter.getId();
@@ -139,8 +149,8 @@ public class CourseMB {
         return newCourse;
 
     }
-    
-    private University findUniversity(Long id){
+
+    private University findUniversity(Long id) {
         universityJpa = new UniversityJpaController(utx, emf);
         return universityJpa.findUniversity(id);
     }
@@ -196,6 +206,14 @@ public class CourseMB {
         return courseList;
     }
 
+    public ParticipantDataModel getAllStudents() {
+        return allStudents;
+    }
+
+    public void setAllStudents(ParticipantDataModel allStudents) {
+        this.allStudents = allStudents;
+    }
+
     public void setCourseList(Collection<CourseDTO> courseList) {
         this.courseList = courseList;
     }
@@ -222,10 +240,6 @@ public class CourseMB {
     public void setIdUniversity(Long idUniversity) {
         this.idUniversity = idUniversity;
     }
-
-    
-    
-
 
     public ParticipantDTO[] getParticipantsToAdd() {
         return participantsToAdd;

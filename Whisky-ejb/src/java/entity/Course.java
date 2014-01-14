@@ -13,14 +13,13 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Course.getCursos", query = "SELECT c FROM Course c, Participant p WHERE p.email = :usernameMail and c member of p.courses"),
+    @NamedQuery(name = "Course.getCursos", query = "SELECT c FROM Course c, Participant p WHERE p.email = :usernameMail and c member of p.courses and c.university.id = :idUniversity"),
     @NamedQuery(name = "Course.getCurso", query = "SELECT c FROM Course c WHERE c.id =:idCourse"),
-    @NamedQuery(name = "Course.getCourseForParticipant", query = "SELECT c FROM Participant u, Course c WHERE u.id = :id AND c member of u.courses"),
-    @NamedQuery(name = "Course.getNotCourseForParticipant", query = "SELECT c FROM Participant u, Course c WHERE u.id = :id AND  c not member of u.courses"),
-    @NamedQuery(name = "Course.getCourseForUniversity", query = "SELECT c FROM Course c WHERE c.university.id= :id"),
-
-})
+    @NamedQuery(name = "Course.getCourseForParticipant", query = "SELECT c FROM Participant u, Course c WHERE u.id = :id AND c member of u.courses and c.university member of u.universities"),
+    @NamedQuery(name = "Course.getNotCourseForParticipant", query = "SELECT c FROM Participant u, Course c WHERE u.id = :id AND  c not member of u.courses and c.university member of u.universities"),
+    @NamedQuery(name = "Course.getCourseForUniversity", query = "SELECT c FROM Course c WHERE c.university.id= :id"),})
 public class Course implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +28,6 @@ public class Course implements Serializable {
     private Integer attendanceRequired;
     @ManyToOne
     private University university;
-    
     @ManyToMany(mappedBy = "courses")
     private Collection<Participant> participant;
 
@@ -56,9 +54,7 @@ public class Course implements Serializable {
     public void setUniversity(University university) {
         this.university = university;
     }
-    
-    
-    
+
     public Long getId() {
         return id;
     }
@@ -99,5 +95,4 @@ public class Course implements Serializable {
     public String toString() {
         return "entity.Curso[ id=" + id + " ]";
     }
-    
 }

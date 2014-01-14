@@ -9,8 +9,7 @@ package classes;
  * @author Kay
  */
 public class photoConfirmation {
-    
-    
+
     String direccionFoto;
     boolean validado;
 

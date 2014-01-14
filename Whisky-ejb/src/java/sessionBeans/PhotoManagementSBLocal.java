@@ -16,9 +16,5 @@ import javax.ejb.Local;
 @Local
 public interface PhotoManagementSBLocal {
 
-
     public photoConfirmation save_predict(byte[] foto, Long idParticipant);
-
-    
-    
 }

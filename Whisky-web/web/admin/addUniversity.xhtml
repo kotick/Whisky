@@ -13,66 +13,90 @@
     <ui:define name="content">
         <div class="container">
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-            <h1>Editar Curso</h1>
+
+            <h1>Agregar Universidad</h1>
             <h:form>
                 <div class="clearfix">
                     <div class="form-group">
-                        <p:outputLabel for="name" 
-                                       value="Ingrese el nombre del curso:"
-                                       styleClass="col-sm-6 control-label text-right"/>
 
+                        <p:outputLabel for="name" 
+                                       value="Ingrese el nombre de la universidad:"
+                                       styleClass="col-sm-6 control-label text-right"/>
                         <div class="col-sm-3">
                             <p:inputText styleClass="form-control" id="name" autocomplete="off" 
-                                         size="20" value="#{editMB.name}"/>
+
+                                         size="20" value="#{universityMB.name}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <p:outputLabel for="rut" 
+                                       value="Ingrese el rut de la universidad:"
+                                       styleClass="col-sm-6 control-label text-right"/>
+                        <div class="col-sm-3">
+                            <p:inputMask styleClass="form-control" id="rut" autocomplete="off" 
+
+                                         size="20" value="#{universityMB.rut}"
+                                         mask="99.999.999-*"/>
+                        </div>
+                    </div>
+                                        <div class="form-group">
+
+                        <p:outputLabel for="name" 
+                                       value="Ingrese la dirección de la universidad:"
+                                       styleClass="col-sm-6 control-label text-right"/>
+                        <div class="col-sm-3">
+                            <p:inputText styleClass="form-control" id="address" autocomplete="off" 
+
+                                         size="20" value="#{universityMB.address}"/>
                         </div>
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <p:dataTable id="studentsToRemove" var="studentsToRemove" value="#{studentMB.studentInClass(editMB.id)}" rowKey ="#{studentsToRemove.id}"   
-                                 selection="#{editMB.participantsToRemove}">  
+                    <p:dataTable id="teachers" var="teacher" value="#{studentMB.allTeachers}" rowKey ="#{teacher.id}"   
+                                 selection="#{universityMB.teachersToAdd}">  
 
                         <f:facet name="header">  
-                            Seleccionar alumnos a quitar 
+                            Seleccione Profesores de la Universidad 
                         </f:facet>  
 
                         <p:column selectionMode="multiple" style="width:2%" />  
 
                         <p:column headerText="Nombre" style="width:25%">  
-                            #{studentsToRemove.firstName}  
+                            #{teacher.firstName}  
                         </p:column>  
 
                         <p:column headerText="Apellido" style="width:25%">  
-                            #{studentsToRemove.lastName}  
+                            #{teacher.lastName}  
                         </p:column> 
 
                     </p:dataTable>  
                 </div>
                 <div class="form-group">
-                    <p:dataTable id="studentsToAdd" var="studentsToAdd" value="#{studentMB.studentOutClass(editMB.id)}" rowKey ="#{studentsToAdd.id}"   
-                                 selection="#{editMB.participantsToAdd}">  
+                    <p:dataTable id="students" var="student" value="#{studentMB.allStudents}" rowKey ="#{student.id}"   
+                                 selection="#{universityMB.studentsToAdd}">  
 
                         <f:facet name="header">  
-                            Seleccionar alumnos a agregar
+                            Seleccione Alumnos Matriculados en la Universidad 
                         </f:facet>  
 
                         <p:column selectionMode="multiple" style="width:2%" />  
 
                         <p:column headerText="Nombre" style="width:25%">  
-                            #{studentsToAdd.firstName}  
+                            #{student.firstName}  
                         </p:column>  
 
                         <p:column headerText="Apellido" style="width:25%">  
-                            #{studentsToAdd.lastName}  
+                            #{student.lastName}  
                         </p:column> 
 
                     </p:dataTable>  
                 </div>
                 <div class="form-group">
-                    <p:commandButton type="submit" value="Editar curso" action="#{editMB.editCourse}" update="@form"/>
+                    <p:commandButton type="submit" value="Agregar universidad" action="#{universityMB.addUniversity}" update="@form" ajax="false"/>
                 </div>
-
             </h:form>
-
         </div>
     </ui:define>
 

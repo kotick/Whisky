@@ -22,11 +22,11 @@ import javax.persistence.Query;
  */
 @Stateless
 public class LectureManagementSB implements LectureManagementSBLocal {
+
     @PersistenceContext(unitName = "Whisky-ejbPU")
     private EntityManager em;
-    @Inject AttendanceManagementSBLocal amSB;
-            
-    
+    @Inject
+    AttendanceManagementSBLocal amSB;
 
     public void persist(Object object) {
         em.persist(object);
@@ -34,7 +34,7 @@ public class LectureManagementSB implements LectureManagementSBLocal {
 
     public LectureManagementSB() {
     }
-    
+
     @Override
     public Collection<LectureDTO> selectLectureByCourses(Long id) {
         Collection<Lecture> resultQuery;
@@ -42,9 +42,9 @@ public class LectureManagementSB implements LectureManagementSBLocal {
         LectureDTO lectureDTOTemp;
         Query q = em.createNamedQuery("Lecture.getLecture", Lecture.class);
         q.setParameter("idcourse", id);
-        
+
         resultQuery = (Collection<Lecture>) q.getResultList();
-        for(Lecture iter: resultQuery){
+        for (Lecture iter : resultQuery) {
             lectureDTOTemp = new LectureDTO();
             lectureDTOTemp.setDate(iter.getDate());
             lectureDTOTemp.setId(iter.getId());
@@ -52,10 +52,10 @@ public class LectureManagementSB implements LectureManagementSBLocal {
             result.add(lectureDTOTemp);
         }
         return result;
-    }    
+    }
 
     @Override
-    public Long createLecture(String date, String timeIni, String timeFin,Course Course) {
+    public Long createLecture(String date, String timeIni, String timeFin, Course Course) {
         Lecture newLecture = new Lecture();
         newLecture.setDate(date);
         newLecture.setStartingTime(timeIni);
@@ -63,7 +63,7 @@ public class LectureManagementSB implements LectureManagementSBLocal {
         newLecture.setCourse(Course);
         em.persist(newLecture);
         em.flush();
-        
+
         return newLecture.getId();
     }
 
@@ -80,15 +80,13 @@ public class LectureManagementSB implements LectureManagementSBLocal {
         q.setParameter("idcourse", idCourse);
         return (Lecture) q.getSingleResult();
     }
-    
+
     @Override
-    public void fillLecture(Long idLecture){
-        Lecture lecture= getLecturebyId(idLecture);
-        Collection<Participant> resultQuery=lecture.getCourse().getParticipant();
-        for(Participant iter: resultQuery){
-            amSB.addAttendance(iter,lecture); 
+    public void fillLecture(Long idLecture) {
+        Lecture lecture = getLecturebyId(idLecture);
+        Collection<Participant> resultQuery = lecture.getCourse().getParticipant();
+        for (Participant iter : resultQuery) {
+            amSB.addAttendance(iter, lecture);
         }
     }
-  
-
 }

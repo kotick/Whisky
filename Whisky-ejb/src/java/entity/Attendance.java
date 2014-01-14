@@ -20,11 +20,14 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Attendance.getParticipantByLecture", query = "SELECT u FROM Attendance u WHERE u.lecture.id = :idlecture AND u.participant.rol.name = :rol"),
+
     @NamedQuery(name = "Attendance.getAttendance", query = "SELECT u FROM Attendance u WHERE u.lecture.id = :idLecture AND u.participant.id = :idParticipant"),
     @NamedQuery(name = "Attendance.getAttendanceByIdLecture", query = "SELECT u FROM Attendance u WHERE u.lecture.id = :idLecture")
 
 })
+
 public class Attendance implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,8 +87,6 @@ public class Attendance implements Serializable {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
-    
-    
 
     @Override
     public int hashCode() {
@@ -111,5 +112,4 @@ public class Attendance implements Serializable {
     public String toString() {
         return "entity.Asistencia[ id=" + id + " ]";
     }
-    
 }

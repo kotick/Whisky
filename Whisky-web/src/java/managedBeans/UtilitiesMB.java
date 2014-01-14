@@ -7,21 +7,20 @@ import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-
 @Named(value = "utilitiesMB")
 @RequestScoped
 public class UtilitiesMB {
 
     public UtilitiesMB() {
     }
-    public void goToPage(String webpage){
+
+    public void goToPage(String webpage) {
         ExternalContext extcon = FacesContext.getCurrentInstance().getExternalContext();
-        
-        try{
+
+        try {
             extcon.redirect(extcon.getRequestContextPath() + webpage);
-        }
-        catch(IOException ex){
-            System.out.println("No se ha podido redirigir a la página ".concat(webpage));            
+        } catch (IOException ex) {
+            System.out.println("No se ha podido redirigir a la página ".concat(webpage));
         }
     }
 }

@@ -34,7 +34,6 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
     public ParticipantManagementSB() {
     }
 
-
     @Override
     public boolean checkEmailPassword(String email, String password) {
 
@@ -65,13 +64,13 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
         Collection<Attendance> resultQuery;
         Collection<ParticipantDTO> result = new LinkedList<ParticipantDTO>();
         ParticipantDTO participantDTOTemp;
-        
+
         Query q = em.createNamedQuery("Attendance.getParticipantByLecture", Attendance.class);
         q.setParameter("idlecture", id);
         q.setParameter("rol", rol);
 
         resultQuery = (Collection<Attendance>) q.getResultList();
-        
+
         for (Attendance iter : resultQuery) {
             participantDTOTemp = new ParticipantDTO();
             participantDTOTemp.setId(iter.getParticipant().getId());
@@ -79,13 +78,11 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
             participantDTOTemp.setLastName(iter.getParticipant().getLastName());
             participantDTOTemp.setPresent(iter.isPresent());
             participantDTOTemp.setPhoto(iter.getPhoto());
-            
+
             result.add(participantDTOTemp);
         }
         return result;
     }
-    
-
 
     public void persist(Object object) {
         em.persist(object);
@@ -97,6 +94,4 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
         q.setParameter("idParticipant", idParticipant);
         return (Participant) q.getSingleResult();
     }
-
-    
 }

@@ -21,26 +21,25 @@ import org.mockito.Mockito.*;
  * @author felipe
  */
 public class LectureManagementSBTest {
-    
+
     public LectureManagementSBTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
-
 
     /**
      * Test of createLecture method, of class LectureManagementSB.
@@ -53,7 +52,7 @@ public class LectureManagementSBTest {
         String timeFin = "";
         Course Course = null;
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        LectureManagementSBLocal instance = (LectureManagementSBLocal)container.getContext().lookup("java:global/classes/LectureManagementSB");
+        LectureManagementSBLocal instance = (LectureManagementSBLocal) container.getContext().lookup("java:global/classes/LectureManagementSB");
         Long expResult = null;
         Long result = instance.createLecture(date, timeIni, timeFin, Course);
         assertEquals(expResult, result);
@@ -61,7 +60,4 @@ public class LectureManagementSBTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
-
-
 }
