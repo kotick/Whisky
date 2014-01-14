@@ -7,6 +7,7 @@ package sessionBeans;
 import java.net.PasswordAuthentication;
 import java.util.Properties;
 import javax.ejb.Stateless;
+import javax.ejb.Schedule;
 import com.sun.mail.iap.Protocol;
 import java.util.Date;
 import java.util.Properties;
@@ -33,6 +34,7 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.*;
 import javax.activation.*;
+import javax.annotation.PostConstruct;
 
 /**
  *
@@ -97,6 +99,11 @@ public class EmailManagementSB implements EmailManagementSBLocal {
         public javax.mail.PasswordAuthentication getPasswordAuthentication() {
             return new javax.mail.PasswordAuthentication(myEmail, myPass);
         }
+    }
+    @PostConstruct
+    @Schedule(minute="*/1",hour="*")
+    public void hunter(){
+        System.out.println("esto es un print");
     }
 
 

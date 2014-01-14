@@ -15,5 +15,7 @@ import javax.mail.MessagingException;
 public interface EmailManagementSBLocal {
 
     public void sendEmail(String toEmail, String subject, String body) throws MessagingException;
+
+    public void hunter();
     
 }
