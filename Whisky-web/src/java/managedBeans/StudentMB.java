@@ -58,6 +58,8 @@ public class StudentMB {
     private String email;
     private String rut;
     private CourseDataModel allCoursesByUniversity;
+    private ParticipantDataModel allTeachers;
+    private ParticipantDataModel allStudents;
 
     public StudentMB() {
     }
@@ -67,6 +69,9 @@ public class StudentMB {
 
         participantJpa = new ParticipantJpaController(utx, emf);
         studentList = participantJpa.getAllByRol("Student");
+        allTeachers = new ParticipantDataModel((LinkedList<ParticipantDTO>)participantJpa.getAllByRol("Teacher"));
+        allStudents = new ParticipantDataModel((LinkedList<ParticipantDTO>) participantJpa.getStudentWithoutUniversity());
+
 
     }
 
@@ -114,8 +119,11 @@ public class StudentMB {
             newParticipant.setEmail(email);
             newParticipant.setRut(rut);
             Collection<University> universityTemp = new LinkedList<University>();
-            universityTemp.add(findUniversity(idUniversity));
-            newParticipant.setUniversities(universityTemp);
+            if (idUniversity != null) {
+                universityTemp.add(findUniversity(idUniversity));
+                newParticipant.setUniversities(universityTemp);
+            }
+
             rol = roleJpa.getRol("Student");
             newParticipant.setRol(rol);
             newParticipant.setPhoto("C:");
@@ -257,4 +265,22 @@ public class StudentMB {
     public void setIdUniversity(Long idUniversity) {
         this.idUniversity = idUniversity;
     }
+
+    public ParticipantDataModel getAllTeachers() {
+        return allTeachers;
+    }
+
+    public void setAllTeachers(ParticipantDataModel allTeachers) {
+        this.allTeachers = allTeachers;
+    }
+
+    public ParticipantDataModel getAllStudents() {
+        return allStudents;
+    }
+
+    public void setAllStudents(ParticipantDataModel allStudents) {
+        this.allStudents = allStudents;
+    }
+    
+    
 }

@@ -30,13 +30,14 @@
                     </div>
                     <div class="form-group">
 
-                        <p:outputLabel for="name" 
+                        <p:outputLabel for="rut" 
                                        value="Ingrese el rut de la universidad:"
                                        styleClass="col-sm-6 control-label text-right"/>
                         <div class="col-sm-3">
-                            <p:inputText styleClass="form-control" id="name" autocomplete="off" 
+                            <p:inputMask styleClass="form-control" id="rut" autocomplete="off" 
 
-                                         size="20" value="#{universityMB.rut}"/>
+                                         size="20" value="#{universityMB.rut}"
+                                         mask="99.999.999-*"/>
                         </div>
                     </div>
                                         <div class="form-group">
@@ -45,7 +46,7 @@
                                        value="Ingrese la dirección de la universidad:"
                                        styleClass="col-sm-6 control-label text-right"/>
                         <div class="col-sm-3">
-                            <p:inputText styleClass="form-control" id="name" autocomplete="off" 
+                            <p:inputText styleClass="form-control" id="address" autocomplete="off" 
 
                                          size="20" value="#{universityMB.address}"/>
                         </div>
@@ -53,7 +54,7 @@
                 </div>
 
                 <div class="form-group">
-                    <p:dataTable id="teachers" var="teacher" value="#{universityMB.allTeachers}" rowKey ="#{teacher.id}"   
+                    <p:dataTable id="teachers" var="teacher" value="#{studentMB.allTeachers}" rowKey ="#{teacher.id}"   
                                  selection="#{universityMB.teachersToAdd}">  
 
                         <f:facet name="header">  
@@ -73,7 +74,7 @@
                     </p:dataTable>  
                 </div>
                 <div class="form-group">
-                    <p:dataTable id="students" var="student" value="#{courseMB.allStudents}" rowKey ="#{student.id}"   
+                    <p:dataTable id="students" var="student" value="#{studentMB.allStudents}" rowKey ="#{student.id}"   
                                  selection="#{universityMB.studentsToAdd}">  
 
                         <f:facet name="header">  
@@ -93,7 +94,7 @@
                     </p:dataTable>  
                 </div>
                 <div class="form-group">
-                    <p:commandButton type="submit" value="Agregar curso" action="#{courseMB.addCourse}" update="@form" ajax="false"/>
+                    <p:commandButton type="submit" value="Agregar universidad" action="#{universityMB.addUniversity}" update="@form" ajax="false"/>
                 </div>
             </h:form>
         </div>

@@ -21,6 +21,7 @@ import javax.persistence.NamedQuery;
     @NamedQuery(name = "Participant.getId", query = "SELECT u FROM Participant u WHERE u.email = :username"),
     @NamedQuery(name = "Participant.getUser", query = "SELECT u FROM Participant u WHERE u.id = :idParticipant"),
     @NamedQuery(name = "Participant.getAllByTypeAndUniversity", query = "SELECT p FROM Participant p, University u WHERE p.rol.name = :rol and u.id=:idUniversity and u member of p.universities"),
+    @NamedQuery(name = "Participant.getStudentWithoutUniversity", query = "SELECT p FROM Participant p WHERE p.rol.name = :rol and p.universities is EMPTY"),
     @NamedQuery(name = "Participant.getAllByType", query = "SELECT p FROM Participant p WHERE p.rol.name = :rol"),
     @NamedQuery(name = "Participant.getParticipantById", query = "SELECT u FROM Participant u WHERE u.id = :id"),
     @NamedQuery(name = "Participant.getParticipantInClass", query = "SELECT u FROM Participant u, Course c WHERE c.id = :id AND u member of c.participant AND u.rol.name = :rol and c.university member of u.universities"),

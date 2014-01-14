@@ -120,9 +120,14 @@ public class CourseMB {
             Long idTemp;
             Participant temp;
             Collection<Participant> participantTemp = new LinkedList<Participant>();
-            university = findUniversity(idUniversity);
+            if (idUniversity != null) {
+                university = findUniversity(idUniversity);
+
+                newCourse.setUniversity(university);
+            }
+            newCourse.setAttendanceRequired(75);
             newCourse.setName(name);
-            newCourse.setUniversity(university);
+
 
             for (ParticipantDTO iter : participantsToAdd) {
                 idTemp = iter.getId();
