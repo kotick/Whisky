@@ -13,6 +13,13 @@
     <ui:define name="content">
 
         <div class="container">
+            <h:form>
+            <p:breadCrumb>  
+                <p:menuitem value="Inicio" url="welcomeAdmin.xhtml" />
+                <p:menuitem value="Mantenedor de Alumnos" url="#" /> 
+            </p:breadCrumb>  
+            </h:form>
+            
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
             <h1>Mantenedor De Alumnos</h1>
             <div class="pull-right">
