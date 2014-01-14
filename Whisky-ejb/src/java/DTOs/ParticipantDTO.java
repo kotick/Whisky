@@ -1,5 +1,7 @@
 package DTOs;
 
+import entity.Course;
+import java.util.Collection;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -13,6 +15,17 @@ public class ParticipantDTO {
     private String photo;
     private String email;
     private boolean present;
+    private Collection<Course> courses;
+
+    public Collection<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Collection<Course> courses) {
+        this.courses = courses;
+    }
+    
+    
 
     public boolean isPresent() {
         return present;
