@@ -9,6 +9,16 @@ public class CourseDTO {
 
     private String name;
     private Long id;
+    private String universityName;
+
+    public String getUniversityName() {
+        return universityName;
+    }
+
+    public void setUniversityName(String universityName) {
+        this.universityName = universityName;
+    }
+    
 
     public String getName() {
         return name;

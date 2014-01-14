@@ -79,7 +79,8 @@
                 </div>
 
                 <p:dataTable id="students" var="course" value="#{studentMB.allCoursesByUniversity}" rowKey ="#{course.id}"   
-                             selection="#{studentMB.courseToAdd}" widgetVar="asdf">  
+                             selection="#{studentMB.courseToAdd}" 
+                             emptyMessage="Seleccione universidad y haga click en Actualizar cursos">  
 
                     <f:facet name="header">  
                         Seleccione los Cursos a los que pertenece:

@@ -279,7 +279,7 @@ public class ParticipantJpaController implements Serializable {
         Collection<ParticipantDTO> result = new LinkedList<ParticipantDTO>();
         ParticipantDTO participantDTOTemp;
 
-        Query q = em.createNamedQuery("Participant.getAllByTypeAndUniversity", Participant.class);
+        Query q = em.createNamedQuery("Participant.getAllByType", Participant.class);
         q.setParameter("rol", rol);
 
         resultQuery = (Collection<Participant>) q.getResultList();

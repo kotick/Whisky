@@ -240,6 +240,7 @@ public class CourseJpaController implements Serializable {
             courseDTOTemp.setName(iter.getName());
 
             courseDTOTemp.setId(iter.getId());
+            courseDTOTemp.setUniversityName(iter.getUniversity().getName());
 
             result.add(courseDTOTemp);
         }

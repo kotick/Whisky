@@ -42,16 +42,24 @@ public class UniversityMB {
     private Long idUniversity;
     private UniversityJpaController universityJpa;
     private Collection<University> universityList;
+    private UniversityDataModel allUniversityList;
 
     public UniversityMB() {
+        LinkedList<University> universitiesTemp = new LinkedList<University>();
+        universityJpa = new UniversityJpaController(utx, emf);
+        universityList = universityJpa.findUniversityEntities();
+        universitiesTemp.addAll(universityList);
+        allUniversityList = new UniversityDataModel( (LinkedList<University>) universitiesTemp);
     }
 
     @PostConstruct
     void init() {
+        if (loginConversation.getUsername() != null) {
+            
+            username = loginConversation.getUsername();
+        }
 
-        username = loginConversation.getUsername();
-        universityJpa = new UniversityJpaController(utx, emf);
-        universityList = universityJpa.findUniversityEntities();
+        
     }
 
     public void setSessionUniversity() {
@@ -59,6 +67,19 @@ public class UniversityMB {
         this.universityConversation.setId(idUniversity);
         this.universityConversation.setUsername(username);
         session.redirect("/faces/teacher/course.xhtml?cid=".concat(this.universityConversation.getConversation().getId().toString()));
+
+    }
+
+    public void eraseUniversity(Long id) {
+        try {
+            universityJpa.destroy(id);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RollbackFailureException ex) {
+            Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(CourseMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -76,5 +97,13 @@ public class UniversityMB {
 
     public void setIdUniversity(Long idUniversity) {
         this.idUniversity = idUniversity;
+    }
+
+    public UniversityDataModel getAllUniversityList() {
+        return allUniversityList;
+    }
+
+    public void setAllUniversityList(UniversityDataModel allUniversityList) {
+        this.allUniversityList = allUniversityList;
     }
 }

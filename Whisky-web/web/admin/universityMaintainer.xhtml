@@ -14,30 +14,29 @@
 
         <div class="container">
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-            <h1>Mantenedor De Cursos</h1>
+            <h1>Mantenedor De Universidades</h1>
             <div class="pull-right">
                 <h:form>
                     <p:commandButton type="submit" value="Agregar Curso" 
-                                     action="#{sessionMB.redirect('/faces/admin/addCourse.xhtml')}" update="@form"/>
+                                     action="#{sessionMB.redirect('/faces/admin/addUniversity.xhtml')}" update="@form"/>
                 </h:form>
             </div>    
             <h:form>
-                <p:dataTable id="tabla" value="#{courseMB.courseList}"
+                <p:dataTable id="tabla" value="#{universityMB.universityList}"
                              widgetVar="tabla"
-                             var="course"
-                             emptyMessage="No se han encontrado cursos"
+                             var="university"
+                             emptyMessage="No se han encontrado universidades"
                              paginator="true"
                              rows="5">
                     <f:facet name="header">  
-                        Todos los Cursos 
+                        Todos los Universidades 
                     </f:facet>  
-                    <p:column id="nameColumn" filterBy="#{course.name}" headerText="Nombre" filterMatchMode="startsWith">
-                        <h:outputText value="#{course.name}"/>
+                    <p:column id="nameColumn" filterBy="#{university.name}" headerText="Nombre" filterMatchMode="startsWith">
+                        <h:outputText value="#{university.name}"/>
                     </p:column>
                     <p:column>
-                        <p:commandButton type="submit" value="Ver Sesiones de Clases" action="#{courseMB.letsGoToLectureMaintainer(course.id)}" update="@form" />
-                        <p:commandButton type="submit" value="Editar" action="#{courseMB.editCourse(course.id)}" update="@form" />
-                        <p:commandButton type="submit" value="Eliminar" action="#{courseMB.eraseCourse(course.id)}" update="@form" ajax="false"/>
+                        <p:commandButton type="submit" value="Editar" action="#{universityMB.editUniversity(university.id)}" update="@form" />
+                        <p:commandButton type="submit" value="Eliminar" action="#{universityMB.eraseUniversity(university.id)}" update="@form" ajax="false"/>
                     </p:column> 
                 </p:dataTable>
             </h:form>

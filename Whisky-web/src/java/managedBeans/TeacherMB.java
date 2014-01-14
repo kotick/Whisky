@@ -57,6 +57,8 @@ public class TeacherMB {
     private CourseManagementSBLocal cursoManagementSB;
     private Collection<CourseDTO> courseList;
     private CourseDTO[] courseToAdd;
+    private University[] universitiesToAdd;
+    private CourseDataModel allCoursesByUniversity;
     private String username;
     private Collection<ParticipantDTO> teacherList;
     private List<ParticipantDTO> filteredTeachers;
@@ -123,6 +125,13 @@ public class TeacherMB {
             rol = roleJpa.getRol("Teacher");
             newParticipant.setRol(rol);
             newParticipant.setPhoto("C:");
+
+            Collection<University> universityTemp = new LinkedList<University>();
+            for (University iter : universitiesToAdd) {
+                universityTemp.add(iter);
+            }
+            newParticipant.setUniversities(universityTemp);
+
             try {
                 password = utilitiesSB.stringToMD5("1234");
                 newParticipant.setPassword(password);
@@ -183,9 +192,15 @@ public class TeacherMB {
 
     }
 
-    private University findUniversity(Long id) {
-        universityJpa = new UniversityJpaController(utx, emf);
-        return universityJpa.findUniversity(id);
+    public void coursesByUniversity() {
+        LinkedList<CourseDTO> courses = new LinkedList<CourseDTO>();
+        courseJpa = new CourseJpaController(utx, emf);
+        for (University iter : universitiesToAdd) {
+            courses.addAll(courseJpa.getCourseForUniversity(iter.getId()));
+        }
+
+
+        allCoursesByUniversity = new CourseDataModel(courses);
     }
 
     public Collection<CourseDTO> getCourseList() {
@@ -206,6 +221,22 @@ public class TeacherMB {
 
     public Collection<ParticipantDTO> getTeacherList() {
         return teacherList;
+    }
+
+    public CourseDataModel getAllCoursesByUniversity() {
+        return allCoursesByUniversity;
+    }
+
+    public void setAllCoursesByUniversity(CourseDataModel allCoursesByUniversity) {
+        this.allCoursesByUniversity = allCoursesByUniversity;
+    }
+
+    public University[] getUniversitiesToAdd() {
+        return universitiesToAdd;
+    }
+
+    public void setUniversitiesToAdd(University[] universitiesToAdd) {
+        this.universitiesToAdd = universitiesToAdd;
     }
 
     public void setTeacherList(Collection<ParticipantDTO> teacherList) {

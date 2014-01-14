@@ -15,7 +15,7 @@
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
 
-            <h1>Agregar Alumno</h1>
+            <h1>Agregar Profesor</h1>
             <h:form>
                 <div class="clearfix">
 
@@ -64,8 +64,8 @@
 
                     </div>
                 </div>
-                <p:dataTable id="universities" var="university" value="#{universityMB.universityList}" rowKey ="#{university.id}"   
-                             selection="#{universityMB.universitiesToAdd}">  
+                <p:dataTable id="universities" var="university" value="#{universityMB.allUniversityList}" rowKey ="#{university.id}"   
+                             selection="#{teacherMB.universitiesToAdd}">  
 
                     <f:facet name="header">  
                         Seleccione las universidades a las que pertenece este profesor:
@@ -87,7 +87,8 @@
 
 
                 <p:dataTable id="students" var="course" value="#{teacherMB.allCoursesByUniversity}" rowKey ="#{course.id}"   
-                             selection="#{teacherMB.courseToAdd}">  
+                             selection="#{teacherMB.courseToAdd}"
+                             emptyMessage="Seleccione universidades y haga click en Actualizar cursos">  
 
                     <f:facet name="header">  
                         Seleccionar cursos 
@@ -101,6 +102,9 @@
 
                     <p:column headerText="Nombre" style="width:25%">  
                         #{course.name}  
+                    </p:column> 
+                    <p:column headerText="Institución" style="width:25%">  
+                        #{course.universityName}  
                     </p:column> 
 
                 </p:dataTable>  

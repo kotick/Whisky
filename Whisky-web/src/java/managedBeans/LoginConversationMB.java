@@ -13,7 +13,7 @@ public class LoginConversationMB implements Serializable {
     @Inject
     Conversation conversation;
     private Long id;
-    private String username;
+    private String username=null;
 
     public String getUsername() {
         return username;
