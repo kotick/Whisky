@@ -137,3 +137,9 @@ img{
     height: 30px !important;
     padding-top: 5px;
 }
+
+/*parche pobre para que los labels no se salgan del container */
+.form-horizontal .control-label{
+    margin-left:25px !important;
+    margin-right: 10px !important;
+}
