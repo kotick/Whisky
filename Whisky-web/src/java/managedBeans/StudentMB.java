@@ -100,7 +100,7 @@ public class StudentMB {
             /* TODO F:agregar mensaje más descriptivo, verificar dígito verificador, el formato 123123123-2" etc... */
         } else if (!utilitiesSB.validateEmail(email)) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El email ingresado es inválido", "Error al agregar"));
-            /* TODO F:agregar mensaje más descriptivo, verificar formato con @ y agregar el caso de que sea un correo duplicado en el validador */
+            /* TODO F:agregar mensaje más descriptivo, verificar formato con @ y agregar el caso de que sea un correo duplicado en el validador */       
         } else if (!utilitiesSB.checkDoubleEmail(email)) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El email ya ocupado", "Error al agregar"));
 
