@@ -14,20 +14,22 @@
         <div class="container">
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
             <h1>Editar Curso</h1>
-            <h:form>
-                <div class="clearfix">
-                    <div class="form-group">
+            <h:form styleClass="form-horizontal">
+                <div class="clearfix row">
+                    <div class="control-group">
                         <p:outputLabel for="name" 
                                        value="Ingrese el nombre del curso:"
-                                       styleClass="col-sm-6 control-label text-right"/>
+                                       styleClass="control-label"/>
 
-                        <div class="col-sm-3">
-                            <p:inputText styleClass="form-control" id="name" autocomplete="off" 
+                        <div class="controls">
+                            <p:inputText styleClass="attendanceFields" id="name" autocomplete="off" 
                                          size="20" value="#{editMB.name}"/>
+                            <span class="help-block text-error">Campo Obligatorio</span>
+
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="control-group">
                     <p:dataTable id="studentsToRemove" var="studentsToRemove" value="#{studentMB.studentInClass(editMB.id)}" rowKey ="#{studentsToRemove.id}"   
                                  selection="#{editMB.participantsToRemove}">  
 
@@ -47,7 +49,7 @@
 
                     </p:dataTable>  
                 </div>
-                <div class="form-group">
+                <div class="control-group">
                     <p:dataTable id="studentsToAdd" var="studentsToAdd" value="#{studentMB.studentOutClass(editMB.id)}" rowKey ="#{studentsToAdd.id}"   
                                  selection="#{editMB.participantsToAdd}">  
 
@@ -67,7 +69,7 @@
 
                     </p:dataTable>  
                 </div>
-                <div class="form-group">
+                <div class="control-group">
                     <p:commandButton type="submit" value="Editar curso" action="#{editMB.editCourse}" update="@form"/>
                 </div>
 

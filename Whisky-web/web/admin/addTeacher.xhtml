@@ -16,50 +16,58 @@
 
 
             <h1>Agregar Profesor</h1>
-            <h:form>
-                <div class="clearfix">
+            <h:form styleClass="form-horizontal">                
+                <div class="clearfix row">
 
-                    <div class="form-group">
+                    <div class="control-group">
                         <h:outputLabel for="name" 
                                        value="Ingrese el nombre:"
-                                       styleClass="col-sm-6 control-label text-right"/>
-                        <div class="col-sm-3">
+                                       styleClass="control-label"/>
+                        <div class="controls">
 
-                            <p:inputText styleClass="form-control" id="name" autocomplete="off" 
+                            <p:inputText styleClass="attendanceFields" id="name" autocomplete="off" 
                                          size="20" value="#{teacherMB.firstName}" />
+                            <span class="help-block text-error">Campo Obligatorio</span>
+
                         </div>
 
                     </div>
-                    <div class="form-group">
+                    <div class="control-group">
                         <h:outputLabel for="name" 
                                        value="Ingrese el apellido:"
-                                       styleClass="col-sm-6 control-label text-right"/>
-                        <div class="col-sm-3">
+                                       styleClass="control-label"/>
+                        <div class="controls">
 
-                            <p:inputText styleClass="form-control" id="apellido" autocomplete="off" 
+                            <p:inputText styleClass="attendanceFields" id="apellido" autocomplete="off" 
                                          size="20" value="#{teacherMB.lastName}" />
+                            <span class="help-block text-error">Campo Obligatorio</span>
+
                         </div>
 
                     </div>
-                    <div class="form-group">
+                    <div class="control-group">
                         <h:outputLabel for="name" 
                                        value="Ingrese el rut:"
-                                       styleClass="col-sm-6 control-label text-right"/>
-                        <div class="col-sm-3">
+                                       styleClass="control-label"/>
+                        <div class="controls">
 
-                            <p:inputMask styleClass="form-control" id="rut" autocomplete="off" 
+                            <p:inputMask styleClass="attendanceFields" id="rut" autocomplete="off" 
                                          size="20" value="#{teacherMB.rut}" mask="9?9.999.999-*" />
+                            <span class="help-block text-error">Campo Obligatorio</span>
+
                         </div>
 
                     </div>
-                    <div class="form-group">
+                    <div class="control-group">
                         <h:outputLabel for="name" 
                                        value="Ingrese el email:"
-                                       styleClass="col-sm-6 control-label text-right"/>
-                        <div class="col-sm-3">
+                                       styleClass="control-label"/>
+                        <div class="controls">
 
-                            <p:inputText styleClass="form-control" id="email" autocomplete="off" 
+                            <p:inputText styleClass="attendanceFields" id="email" autocomplete="off" 
                                          size="20" value="#{teacherMB.email}" />
+                            <span class="help-block text-error">Campo Obligatorio</span>
+
                         </div>
 
                     </div>
@@ -108,7 +116,7 @@
                     </p:column> 
 
                 </p:dataTable>  
-                <div class="form-group">
+                <div class="control-group">
                     <p:commandButton type="submit" value="Agregar profesor" update="@form" action="#{teacherMB.addTeacher}"/>
                 </div>
             </h:form>

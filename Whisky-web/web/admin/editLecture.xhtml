@@ -14,35 +14,41 @@
         <div class="container">
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
             <h1>Editar Sesión de Clases</h1>
-            <h:form>
-                <div class="clearfix">
-                    <div class="form-group">
+            <h:form styleClass="form-horizontal">
+                <div class="clearfix row">
+                    <div class="control-group">
                         <h:outputLabel for="date" 
                                        value="Ingrese la Fecha de la Clase"
-                                       styleClass="col-sm-6 control-label text-right"/>
-                        <div class="col-sm-3">
-                            <p:inputMask styleClass="form-control" id="date" autocomplete="off" 
+                                       styleClass="control-label"/>
+                        <div class="controls">
+                            <p:inputMask styleClass="attendanceFields" id="date" autocomplete="off" 
                                          size="20" value="#{editMB.date}" mask="99-99-9999" title="dd-mm-yyyy" />
+                            <span class="help-block text-error">Campo Obligatorio</span>
+
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="control-group">
                         <h:outputLabel for="startingtime" 
                                        value="Ingrese la hora de inicio de la clase"
-                                       styleClass="col-sm-6 control-label text-right"/>
-                        <div class="col-sm-3">
-                            <p:inputMask styleClass="form-control" id="startingtime" autocomplete="off" 
+                                       styleClass="control-label"/>
+                        <div class="controls">
+                            <p:inputMask styleClass="attendanceFields" id="startingtime" autocomplete="off" 
                                          size="20" value="#{editMB.startingDate}" mask="99:99"/>
+                            <span class="help-block text-error">Campo Obligatorio</span>
+
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="control-group">
                         <h:outputLabel for="finishtime" 
                                        value="Ingrese la hora de fin de la clase"
-                                       styleClass="col-sm-6 control-label text-right"/>
-                        <div class="col-sm-3">
-                            <p:inputMask styleClass="form-control" id="finishtime" autocomplete="off" 
+                                       styleClass="control-label"/>
+                        <div class="controls">
+                            <p:inputMask styleClass="attendanceFields" id="finishtime" autocomplete="off" 
                                          size="20" value="#{editMB.finishingDate}" mask="99:99"  />
+                            <span class="help-block text-error">Campo Obligatorio</span>
+
                         </div>
                     </div>
                 </div>
@@ -64,7 +70,7 @@
                     </p:column> 
 
                 </p:dataTable>  
-                <div class="form-group">
+                <div class="control-group">
                     <p:commandButton type="submit" value="Editar clase" action="#{editMB.editLecture}" />
                 </div>
 

@@ -12,59 +12,72 @@
     </h:head>
     <ui:define name="content">
         <div class="container">
-            <p:breadCrumb>  
-                <p:menuitem value="Inicio" url="welcomeAdmin.xhtml" />
-                <p:menuitem value="Mantenedor de Alumnos" url="studentMaintainer.xhtml" /> 
-                <p:menuitem value="Editar Alumno" url="#" /> 
-            </p:breadCrumb>  
+            <h:form>
+                <p:breadCrumb>  
+                    <p:menuitem value="Inicio" url="welcomeAdmin.xhtml" />
+                    <p:menuitem value="Mantenedor de Alumnos" url="studentMaintainer.xhtml" /> 
+                    <p:menuitem value="Editar Alumno" url="#" /> 
+                </p:breadCrumb>  
+            </h:form>
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
             <h1>Editar Alumno</h1>
-            <h:form>
-                <div class="clearfix">
-                    <div class="form-group">
+            <h:form styleClass="form-horizontal">
+
+
+                <div class="clearfix row">
+                    <div class="control-group">
                         <p:outputLabel for="name" 
                                        value="Ingrese el nombre:"
-                                       styleClass="col-sm-6 control-label text-right"/>
-                        <div class="col-sm-3">
-                            <p:inputText styleClass="form-control" id="name" autocomplete="off" 
+                                       styleClass="control-label"/>
+                        <div class="controls">
+                            <p:inputText styleClass="attendanceFields" id="name" autocomplete="off" 
                                          size="20" value="#{editMB.firstName}"/>
+                            <span class="help-block text-error">Campo Obligatorio</span>
                         </div>
                     </div>
-                    <div class="form-group">
+
+
+                    <div class="control-group">
                         <p:outputLabel for="name" 
                                        value="Ingrese el apellido:"
-                                       styleClass="col-sm-6 control-label text-right"/>
-                        <div class="col-sm-3">
+                                       styleClass="control-label"/>
+                        <div class="controls">
 
-                            <p:inputText styleClass="form-control" id="apellido" autocomplete="off" 
+                            <p:inputText styleClass="attendanceFields" id="apellido" autocomplete="off" 
                                          size="20" value="#{editMB.lastName}" />
+                            <span class="help-block text-error">Campo Obligatorio</span>
+
                         </div>
 
                     </div>
-                    <div class="form-group">
+                    <div class="control-group">
                         <p:outputLabel for="name" 
                                        value="Ingrese el rut:"
-                                       styleClass="col-sm-6 control-label text-right"/>
-                        <div class="col-sm-3">
+                                       styleClass="control-label"/>
+                        <div class="controls">
 
-                            <p:inputText styleClass="form-control" id="rut" autocomplete="off" 
+                            <p:inputText styleClass="attendanceFields" id="rut" autocomplete="off" 
                                          size="20" value="#{editMB.rut}" />
+                            <span class="help-block text-error">Campo Obligatorio</span>
+
                         </div>
 
                     </div>
-                    <div class="form-group">
+                    <div class="control-group">
                         <p:outputLabel for="name" 
                                        value="Ingrese el email:"
-                                       styleClass="col-sm-6 control-label text-right"
+                                       styleClass="control-label"
                                        />
-                        <div class="col-sm-3">
+                        <div class="controls">
 
-                            <p:inputText styleClass="form-control" id="email" autocomplete="off" 
+                            <p:inputText styleClass="attendanceFields" id="email" autocomplete="off" 
                                          size="20" value="#{editMB.email}" />
+                            <span class="help-block text-error">Campo Obligatorio</span>
+
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="control-group">
                     <p:dataTable id="courseToRemove" var="courseToRemove" value="#{courseMB.courseForParticipant(editMB.id)}" rowKey ="#{courseToRemove.id}"   
                                  selection="#{editMB.courseToRemove}">  
 
@@ -84,7 +97,7 @@
 
                     </p:dataTable>  
                 </div>
-                <div class="form-group"> 
+                <div class="control-group"> 
                     <p:dataTable id="courseToAdd" var="courseToAdd" value="#{courseMB.notCourseForParticipant(editMB.id)}" rowKey ="#{courseToAdd.id}"   
                                  selection="#{editMB.courseToAdd}">  
 
@@ -104,7 +117,7 @@
 
                     </p:dataTable>
                 </div>
-                <div class="form-group">
+                <div class="control-group">
                     <p:commandButton type="submit" value="Editar alumno" action="#{editMB.editParticipant()}" update="@form" ajax="false"/>
                 </div>
             </h:form>
