@@ -138,6 +138,12 @@ img{
     padding-top: 5px;
 }
 
+/* parche pobre para el attendance después del fix de bootstrap */
+.selectBoxes{
+    width: 286px !important;
+    padding-top: 5px;
+}
+
 /*parche pobre para que los labels no se salgan del container */
 .form-horizontal .control-label{
     margin-left:25px !important;

@@ -44,10 +44,11 @@
                                        styleClass="control-label"/>
                         <div class="controls">
 
-                            <p:selectOneListbox value="#{courseMB.idUniversity}" id="uni">
+                            <p:selectOneListbox  styleClass="selectBoxes" value="#{courseMB.idUniversity}" id="uni">
                                 <f:selectItems value="#{universityMB.universityList}" var="university" itemLabel="#{university.name}" itemValue="#{university.id}"/>
                             </p:selectOneListbox>
-
+                            <br />
+                            <span class="help-block">Debe presionar el botón Actualizar Alumnos para visualizar los alumnos de la universidad seleccionada. La universidad correspondiente al curso no se podrá editar con posterioridad, si desea cambiar la universidad debe eliminar el curso y crearlo de nuevo.</span>
                             <p:commandButton value="Actualizar alumnos" update="students" actionListener="#{courseMB.studentsByUniversity}" ></p:commandButton>
 
                         </div>
@@ -75,7 +76,7 @@
                     </p:dataTable>  
                 </div>
                 <div class="control-group">
-                    <p:commandButton type="submit" value="Agregar curso" action="#{courseMB.addCourse}" update="@form" ajax="false"/>
+                    <p:commandButton styleClass="btn-primary" type="submit" value="Agregar curso" action="#{courseMB.addCourse}" update="@form" ajax="false"/>
                 </div>
             </h:form>
         </div>

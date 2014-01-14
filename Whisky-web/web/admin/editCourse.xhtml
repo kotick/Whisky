@@ -36,6 +36,8 @@
                         </div>
                     </div>
                 </div>
+                <span class="help-block">No es posible cambiar la universidad una vez que está creado el curso, para cambiar la universidad, debe borrar y crear el curso de nuevo.</span>
+                <br/>
                 <div class="control-group">
                     <p:dataTable id="studentsToRemove" var="studentsToRemove" value="#{studentMB.studentInClass(editMB.id)}" rowKey ="#{studentsToRemove.id}"   
                                  selection="#{editMB.participantsToRemove}">  
