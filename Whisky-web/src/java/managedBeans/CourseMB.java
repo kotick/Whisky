@@ -121,7 +121,7 @@ public class CourseMB {
         University university = null;
         FacesContext context = FacesContext.getCurrentInstance();
 
-        if (name.equalsIgnoreCase("")) {
+        if (name.equalsIgnoreCase("") && idUniversity!=null) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Campos obligatorios no pueden ser vacíos", "Error al agregar"));
 
         } else {
