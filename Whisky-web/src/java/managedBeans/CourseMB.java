@@ -213,9 +213,7 @@ public class CourseMB {
     }
 
 
-    public CourseDataModel getAllCourses() {
-        return allCourses;
-    }
+   
     public Long getIdUniversity() {
         return idUniversity;
 

@@ -248,4 +248,22 @@ public class LectureMB {
     public void setIdCourse(Long idCourse) {
         this.idCourse = idCourse;
     }
+
+    public String getDateLecture() {
+        return dateLecture;
+    }
+
+    public void setDateLecture(String dateLecture) {
+        this.dateLecture = dateLecture;
+    }
+
+    public String getNameCourse() {
+        return nameCourse;
+    }
+
+    public void setNameCourse(String nameCourse) {
+        this.nameCourse = nameCourse;
+    }
+    
+    
 }

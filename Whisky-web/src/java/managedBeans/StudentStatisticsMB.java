@@ -70,11 +70,13 @@ public class StudentStatisticsMB {
             nombreCurso = iter.getName();
             Long idCurso = iter.getId();
             double asistencia =studentStatisticsSB.getPercetageAssistance(idAlumno, idCurso);
-            System.out.println("La asistencia es");
+            System.out.println("La asistencia y el curso es");
+            System.out.println(iter.getName());
             System.out.println(asistencia);
             ChartSeries curso = new ChartSeries();
             curso.setLabel(nombreCurso);
-            curso.set(nombreCurso, asistencia);
+            curso.set(" ", asistencia);
+            
             graficoEstudiante.addSeries(curso);            
         }
         

@@ -53,9 +53,11 @@ public class studentStatisticsSB implements studentStatisticsSBLocal {
             }
         }
         
-        
+        if (totalClases>0){
         return (asistencias/totalClases)*100;
-    
+        }
+        
+        else{return 100;}
     }
 
     public void persist(Object object) {
