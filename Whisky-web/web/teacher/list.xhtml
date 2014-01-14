@@ -48,7 +48,7 @@
                     <div class="text-center">
 
                         <h:form>
-                            <p:commandButton type="submit" value="Estadísticas" disabled="true" action="#{lectureMB}" title="En construcción"/>
+                            <p:commandButton type="submit" value="Estadísticas"  action="#{lectureMB.letsGoToStudentStatistics(participant.id, participant.firstName, participant.lastName)}" />
                         </h:form>
                     </div>
                 </p:column>             

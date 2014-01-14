@@ -21,6 +21,7 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
     @NamedQuery(name = "Attendance.getParticipantByLecture", query = "SELECT u FROM Attendance u WHERE u.lecture.id = :idlecture AND u.participant.rol.name = :rol"),
     @NamedQuery(name = "Attendance.getAttendance", query = "SELECT u FROM Attendance u WHERE u.lecture.id = :idLecture AND u.participant.id = :idParticipant"),
+    @NamedQuery(name = "Attendance.getAttendanceByIdLecture", query = "SELECT u FROM Attendance u WHERE u.lecture.id = :idLecture")
 
 })
 public class Attendance implements Serializable {

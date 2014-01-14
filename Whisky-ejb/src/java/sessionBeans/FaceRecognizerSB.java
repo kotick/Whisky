@@ -93,7 +93,7 @@ public class FaceRecognizerSB implements FaceRecognizerSBLocal {
         //this.train();
         int [] id_test = {-2};
         double []distancia = {0.0};
-        double distancia_minima= 18000;
+        double distancia_minima= 19000;
         
         this.test(ruta_foto, id_test, distancia);
         System.out.println("Label");

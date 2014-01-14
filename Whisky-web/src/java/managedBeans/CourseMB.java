@@ -36,6 +36,8 @@ public class CourseMB {
     @Resource
     UserTransaction utx;
     @Inject
+    CourseStatisticsConversation courseStatisticsConversation;
+    @Inject
     CourseConversationMB courseConversation;
     @Inject
     EditConversationMB editConversation;
@@ -79,16 +81,25 @@ public class CourseMB {
         session.redirect("/faces/teacher/list.xhtml?cid=".concat(this.lectureConversation.getConversation().getId().toString()));
     }
 
-    public void letsGoToLectureMaintainer(Long id){
+    public void letsGoToLectureMaintainer(Long id) {
         this.lectureConversation.beginConversation();
         this.lectureConversation.setIdCourse(id);
         session.redirect("/faces/admin/lectureMaintainer.xhtml?cid=".concat(this.lectureConversation.getConversation().getId().toString()));
-    
+
     }
+
+    public void letsGoTocourseStatistics(Long id) {
+        System.out.println(id);
+        this.courseStatisticsConversation.beginConversation();
+        this.courseStatisticsConversation.setIdCourse(id);
+        session.redirect("/faces/teacher/courseStatistics.xhtml?cid=".concat(this.courseStatisticsConversation.getConversation().getId().toString()));
+    }
+
     public CourseDataModel courseForParticipant(Long id) {
         return new CourseDataModel((LinkedList<CourseDTO>) courseJpa.getCourseForParticipant(id));
 
     }
+
     public CourseDataModel notCourseForParticipant(Long id) {
         return new CourseDataModel((LinkedList<CourseDTO>) courseJpa.getNotCourseForParticipant(id));
     }
@@ -128,8 +139,8 @@ public class CourseMB {
             if (newCourse != null) {
                 courseJpa.create(newCourse);
                 Flash flash = context.getExternalContext().getFlash();
-            flash.setKeepMessages(true);
-            flash.setRedirect(true);
+                flash.setKeepMessages(true);
+                flash.setRedirect(true);
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Curso agregado con éxito", ""));
                 session.redirect("/faces/admin/courseMaintainer.xhtml");
 
@@ -187,7 +198,6 @@ public class CourseMB {
         this.filteredCourses = filteredCourses;
     }
 
-    
     public CourseDataModel getAllCourses() {
         return allCourses;
     }
@@ -219,6 +229,4 @@ public class CourseMB {
     public void setNameCourse(String nameCourse) {
         this.nameCourse = nameCourse;
     }
-
-
 }

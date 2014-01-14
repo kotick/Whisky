@@ -74,6 +74,7 @@ public class ParticipantManagementSB implements ParticipantManagementSBLocal {
         
         for (Attendance iter : resultQuery) {
             participantDTOTemp = new ParticipantDTO();
+            participantDTOTemp.setId(iter.getParticipant().getId());
             participantDTOTemp.setFirstName(iter.getParticipant().getFirstName());
             participantDTOTemp.setLastName(iter.getParticipant().getLastName());
             participantDTOTemp.setPresent(iter.isPresent());

@@ -57,6 +57,8 @@ public class LectureMB {
     LectureConversationMB lectureConversation;
     @Inject
     EditConversationMB editConversation;
+    @Inject
+    StudentStatisticsConversation  studentStatisticsConversation;
     private ParticipantJpaController participantJpa;
     private AttendanceJpaController attendanceJpa;
     private LectureJpaController lectureJpa;
@@ -165,6 +167,15 @@ public class LectureMB {
         //TODO Cambiar página de direccionamiento
         session.redirect("/faces/admin/editLecture.xhtml?cid=".concat(this.editConversation.getConversation().getId().toString()));
 
+    }
+    
+     public void letsGoToStudentStatistics(Long id, String nombreAlumno, String apellidoAlumno) {
+        
+        this.studentStatisticsConversation.beginConversation();
+        this.studentStatisticsConversation.setId(id);
+        this.studentStatisticsConversation.setNombreAlumno(nombreAlumno);
+        this.studentStatisticsConversation.setApellidoAlumno(apellidoAlumno);
+        session.redirect("/faces/teacher/studentStatistics.xhtml?cid=".concat(this.studentStatisticsConversation.getConversation().getId().toString()));
     }
 
     //Getter and setter
